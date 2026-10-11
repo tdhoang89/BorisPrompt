@@ -1,0 +1,975 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Pickleball tính điểm</title>
+<meta name="description" content="Hoạt hình 30 giây giải thích cách tính điểm pickleball (đánh đôi) cho người mới.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Ccircle cx=%2716%27 cy=%2716%27 r=%2714%27 fill=%27%23e8ff3a%27/%3E%3Ccircle cx=%2711%27 cy=%2712%27 r=%272.2%27 fill=%27%238a9c10%27/%3E%3Ccircle cx=%2720%27 cy=%2711%27 r=%272.2%27 fill=%27%238a9c10%27/%3E%3Ccircle cx=%2716%27 cy=%2720%27 r=%272.2%27 fill=%27%238a9c10%27/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0a1322;
+  --panel:#101c31;
+  --panel2:#16253f;
+  --line:rgba(255,255,255,.09);
+  --text:#eef3fb;
+  --muted:#9db0ca;
+  --A:#ff8a3d;  --A-deep:#c9581a;  --A-soft:rgba(255,138,61,.16);
+  --B:#4f8cff;  --B-deep:#2457c9;  --B-soft:rgba(79,140,255,.16);
+  --ball:#e8ff3a;
+  --bad:#ff5d6c;
+  --radius:20px;
+}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%}
+body{
+  background:radial-gradient(1200px 700px at 50% -10%,#18304f 0%,var(--bg) 60%) fixed,var(--bg);
+  color:var(--text);
+  font-family:"Be Vietnam Pro",system-ui,"Segoe UI",Roboto,Arial,sans-serif;
+  -webkit-font-smoothing:antialiased;
+  display:flex;justify-content:center;
+}
+.wrap{width:100%;max-width:980px;padding:20px 16px 28px}
+.pagehead{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin:0 4px 12px;flex-wrap:wrap}
+.pagehead h1{font-size:clamp(18px,2.6vw,24px);margin:0;font-weight:800;letter-spacing:-.01em}
+.pagehead h1 span{color:var(--ball)}
+.pagehead p{margin:0;color:var(--muted);font-size:14px}
+
+/* ---------- player shell ---------- */
+.player{
+  position:relative;background:linear-gradient(180deg,var(--panel2),var(--panel));
+  border:1px solid var(--line);border-radius:var(--radius);
+  box-shadow:0 30px 80px -30px rgba(0,0,0,.7),inset 0 1px 0 rgba(255,255,255,.05);
+  overflow:hidden;user-select:none;-webkit-user-select:none;
+}
+.screen{position:relative}
+
+/* ---------- scoreboard ---------- */
+.board{display:flex;flex-direction:column;align-items:center;padding:14px 12px 10px;gap:6px;transition:opacity .4s}
+.board.off{opacity:0}
+.tiles{display:flex;align-items:stretch;gap:clamp(6px,1.4vw,12px)}
+.sep{align-self:center;font-size:clamp(22px,4vw,34px);font-weight:700;color:var(--muted);margin-top:-18px}
+.tile{
+  --c:#55657e;--soft:rgba(255,255,255,.06);
+  min-width:clamp(78px,15vw,128px);border-radius:14px;padding:6px 10px 7px;text-align:center;
+  background:var(--soft);border:2px solid color-mix(in srgb,var(--c) 70%,transparent);
+  transition:background .35s,border-color .35s,box-shadow .3s,transform .3s;
+}
+.tile.tA{--c:var(--A);--soft:var(--A-soft)}
+.tile.tB{--c:var(--B);--soft:var(--B-soft)}
+.tile.t3{--c:#cfd8e6;--soft:rgba(255,255,255,.06)}
+.board.rolling .tile{opacity:.55}
+.tile{position:relative}
+.badge{position:absolute;top:-10px;right:-12px;padding:.18em .55em;border-radius:999px;font-weight:800;font-size:clamp(13px,1.9vw,17px);
+  color:#fff;white-space:nowrap;box-shadow:0 4px 14px rgba(0,0,0,.4);pointer-events:none;opacity:0;z-index:2}
+.badge.A{background:var(--A)}.badge.B{background:var(--B)}
+.badge.zero{background:#2a3954;color:#e3ebf7;border:1px solid rgba(255,255,255,.25)}
+.tile.focus{box-shadow:0 0 0 4px color-mix(in srgb,var(--c) 45%,transparent),0 0 26px color-mix(in srgb,var(--c) 60%,transparent);transform:translateY(-2px)}
+.num{font-size:clamp(34px,6.4vw,56px);font-weight:800;line-height:1.05;font-variant-numeric:tabular-nums;color:#fff;display:inline-block;will-change:transform}
+.lab{font-size:clamp(11px,1.5vw,13px);font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--c);line-height:1.25}
+.lab small{display:block;font-weight:600;letter-spacing:0;text-transform:none;color:var(--muted);font-size:clamp(10.5px,1.4vw,12px)}
+.say{font-size:clamp(12.5px,1.7vw,14.5px);color:var(--muted);min-height:1.4em}
+.say b{color:var(--text);font-weight:600}
+
+/* ---------- court stage ---------- */
+.stage{position:relative;aspect-ratio:1040/480;container-type:inline-size}
+.stage svg{position:absolute;inset:0;width:100%;height:100%;display:block}
+.ov{position:absolute;inset:0;pointer-events:none}
+.ov > *{position:absolute}
+.tag{
+  transform:translate(-50%,-100%);white-space:nowrap;
+  background:var(--ball);color:#1d2400;font-weight:800;border-radius:999px;
+  padding:.28em .7em;font-size:clamp(10.5px,1.9cqw,17px);box-shadow:0 4px 14px rgba(0,0,0,.35);
+  transition:opacity .25s;
+}
+.tag::after{content:"";position:absolute;left:50%;bottom:-5px;margin-left:-5px;border:5px solid transparent;border-bottom:0;border-top-color:var(--ball)}
+.pop{
+  transform:translate(-50%,-50%);white-space:nowrap;font-weight:800;border-radius:12px;
+  padding:.25em .65em;font-size:clamp(12px,2.6cqw,24px);box-shadow:0 6px 20px rgba(0,0,0,.35);
+}
+.pop.bad{background:#fff;color:#c21f33}
+.pop.good.A{background:var(--A);color:#fff}
+.pop.good.B{background:var(--B);color:#fff}
+.pop.zero{background:#26344d;color:#dbe4f2;border:1px solid rgba(255,255,255,.2)}
+.boxlab{
+  transform:translate(-50%,-50%);font-weight:800;font-size:clamp(10px,1.8cqw,16px);
+  color:#1d2400;background:rgba(232,255,58,.92);padding:.2em .6em;border-radius:8px;white-space:nowrap
+}
+.banner{
+  left:0;right:0;top:50%;transform:translateY(-50%);text-align:center;
+  font-weight:800;font-size:clamp(22px,6.4cqw,58px);letter-spacing:.04em;color:#fff;
+  padding:.18em 0;background:linear-gradient(90deg,transparent,rgba(10,19,34,.82) 18%,rgba(10,19,34,.82) 82%,transparent);
+  text-shadow:0 3px 16px rgba(0,0,0,.5)
+}
+.banner .arrow{display:inline-block;color:var(--ball);margin:0 .25em}
+.banner small{display:block;font-size:.34em;font-weight:600;letter-spacing:0;color:var(--muted);margin-top:.1em}
+.title{
+  position:absolute;z-index:3;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;
+  background:radial-gradient(ellipse at center,#16294a,#0d1830 75%);padding:0 6%;pointer-events:none
+}
+.title .kicker,.start .kicker{font-size:clamp(11px,1.7vw,15px);font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--ball)}
+.title h2,.start .h{display:block;margin:.15em 0 .12em;font-size:clamp(30px,6.4vw,62px);font-weight:800;line-height:1.05;letter-spacing:-.02em}
+.title p,.start .sub{margin:0;color:var(--muted);font-size:clamp(13px,1.9vw,18px)}
+.start .ring{margin-top:clamp(14px,3vw,28px)}
+.win{
+  left:50%;top:50%;transform:translate(-50%,-50%);text-align:center;background:rgba(10,19,34,.85);
+  border:2px solid var(--A);border-radius:18px;padding:.5em 1.1em;font-weight:800;font-size:clamp(16px,4.2cqw,38px);
+  white-space:nowrap;box-shadow:0 10px 40px rgba(0,0,0,.45)
+}
+.win small{display:block;font-size:.45em;color:var(--muted);font-weight:600}
+.ff{
+  left:50%;top:50%;transform:translate(-50%,-50%);font-weight:800;font-size:clamp(16px,4cqw,34px);
+  background:rgba(10,19,34,.8);padding:.35em .9em;border-radius:14px;white-space:nowrap;color:#fff
+}
+.ff span{color:var(--ball)}
+
+/* ---------- caption ---------- */
+.caption{
+  min-height:4.4em;display:flex;align-items:center;justify-content:center;text-align:center;
+  padding:12px clamp(14px,4vw,40px) 14px;font-size:clamp(16px,2.35vw,22px);line-height:1.38;font-weight:500;
+  border-top:1px solid var(--line);background:rgba(0,0,0,.14)
+}
+.caption .cap{max-width:46ch;text-wrap:balance}
+.caption .cap.in{animation:capIn .38s cubic-bezier(.2,.8,.2,1)}
+@keyframes capIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.caption b{font-weight:800;color:var(--ball)}
+.nw{white-space:nowrap}
+.caption .A{color:var(--A);font-weight:800}
+.caption .B{color:var(--B);font-weight:800}
+
+/* ---------- controls ---------- */
+.controls{
+  display:grid;grid-template-columns:auto auto 1fr auto auto auto;align-items:center;gap:10px;
+  padding:10px 14px 12px;border-top:1px solid var(--line);background:rgba(0,0,0,.22)
+}
+.btn{
+  appearance:none;border:0;background:rgba(255,255,255,.07);color:var(--text);border-radius:12px;
+  height:40px;min-width:40px;padding:0 10px;display:inline-flex;align-items:center;justify-content:center;gap:6px;
+  font:600 14px/1 inherit;font-family:inherit;cursor:pointer;transition:background .15s,transform .1s
+}
+.btn:hover{background:rgba(255,255,255,.14)}
+.btn:active{transform:scale(.96)}
+.btn:focus-visible,.seek:focus-visible{outline:3px solid var(--ball);outline-offset:2px}
+.btn svg{width:20px;height:20px;fill:currentColor}
+.btn.primary{background:var(--ball);color:#1d2400}
+.btn.primary:hover{background:#f2ff7a}
+.time{font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums;white-space:nowrap}
+.seekwrap{position:relative;display:flex;flex-direction:column;gap:3px;min-width:0}
+.seekbox{position:relative;height:24px;display:flex;align-items:center}
+.seek{
+  -webkit-appearance:none;appearance:none;width:100%;height:24px;background:transparent;margin:0;cursor:pointer;position:relative;z-index:2
+}
+.seek::-webkit-slider-runnable-track{height:6px;border-radius:6px;background:transparent}
+.seek::-moz-range-track{height:6px;border-radius:6px;background:transparent}
+.seek::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:16px;border-radius:50%;background:var(--ball);margin-top:-5px;box-shadow:0 0 0 4px rgba(232,255,58,.2)}
+.seek::-moz-range-thumb{width:16px;height:16px;border:0;border-radius:50%;background:var(--ball);box-shadow:0 0 0 4px rgba(232,255,58,.2)}
+.track{position:absolute;left:0;right:0;top:50%;height:6px;margin-top:-3px;border-radius:6px;background:rgba(255,255,255,.12);overflow:hidden;z-index:1}
+.track i{position:absolute;left:0;top:0;bottom:0;width:0;background:linear-gradient(90deg,#c6e000,var(--ball))}
+.tick{position:absolute;top:50%;width:2px;height:12px;margin:-6px 0 0 -1px;background:rgba(255,255,255,.4);border-radius:2px;z-index:1}
+.chap{font-size:12.5px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.chap b{color:var(--text);font-weight:600}
+
+/* ---------- start + summary overlays ---------- */
+.start{
+  position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;text-align:center;
+  background:radial-gradient(ellipse at center,#16294a,#0d1830 75%);border:0;color:var(--text);cursor:pointer;font-family:inherit;z-index:5;padding:0
+}
+.start .ring{width:clamp(72px,14vw,104px);height:clamp(72px,14vw,104px);border-radius:50%;background:var(--ball);display:grid;place-items:center;
+  box-shadow:0 0 0 10px rgba(232,255,58,.18),0 14px 40px rgba(0,0,0,.45);transition:transform .2s}
+.start:hover .ring{transform:scale(1.06)}
+.start:focus{outline:none}
+.start:focus-visible .ring{outline:4px solid #fff;outline-offset:6px}
+.start .ring svg{width:42%;height:42%;fill:#1d2400;margin-left:6%}
+.start .lbl{font-weight:700;font-size:clamp(14px,1.9vw,17px);margin-top:12px;color:var(--text)}
+
+.summary{
+  position:absolute;inset:0;z-index:4;display:flex;align-items:center;justify-content:center;padding:16px;
+  background:rgba(8,15,28,.86);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+  opacity:0;visibility:hidden;transition:opacity .45s,visibility .45s;overflow:auto
+}
+.summary.show{opacity:1;visibility:visible}
+.card{width:100%;max-width:640px;margin:auto}
+.card h3{margin:0 0 10px;font-size:clamp(20px,3vw,28px);font-weight:800;text-align:center}
+.card h3 span{color:var(--ball)}
+.card ol{list-style:none;margin:0;padding:0;display:grid;gap:8px;counter-reset:r}
+.card li{counter-increment:r;display:grid;grid-template-columns:32px 1fr;gap:10px;align-items:start;
+  background:rgba(255,255,255,.05);border:1px solid var(--line);border-radius:12px;padding:9px 12px;font-size:clamp(14px,1.9vw,17px);line-height:1.4}
+.card li::before{content:counter(r);width:28px;height:28px;border-radius:50%;background:var(--ball);color:#1d2400;font-weight:800;display:grid;place-items:center;font-size:14px}
+.card li b{color:#fff}
+.card .A{color:var(--A);font-weight:700}.card .B{color:var(--B);font-weight:700}
+.card .acts{display:flex;gap:10px;justify-content:center;margin-top:14px;flex-wrap:wrap}
+.card .acts .btn{height:44px;padding:0 18px;font-size:15px}
+.card .tip{margin:12px 0 0;text-align:center;font-size:13.5px;line-height:1.5;color:#dfe7f3}
+.card .tip b{color:var(--ball)}
+.card .note{margin:12px 0 0;text-align:center;color:var(--muted);font-size:12.5px;line-height:1.5}
+.keys{margin:12px 4px 0;color:var(--muted);font-size:12.5px;text-align:center}
+kbd{font-family:inherit;font-size:11.5px;background:rgba(255,255,255,.08);border:1px solid var(--line);border-bottom-width:2px;border-radius:6px;padding:1px 6px;color:var(--text)}
+
+@media (max-width:640px){
+  .wrap{padding:12px 10px 20px}
+  .controls{grid-template-columns:auto auto 1fr auto auto;grid-template-areas:"seek seek seek seek seek" "play rep time spd snd";row-gap:6px;padding:8px 10px 10px}
+  .seekwrap{grid-area:seek}
+  #bPlay{grid-area:play}#bReplay{grid-area:rep}.time{grid-area:time;justify-self:start}#bSpeed{grid-area:spd}#bSound{grid-area:snd}
+  .caption{min-height:5.4em;padding:10px 12px 12px}
+  .keys{display:none}
+  .card li{padding:8px 10px;grid-template-columns:26px 1fr;gap:8px}
+  .card li::before{width:24px;height:24px;font-size:12.5px}
+}
+/* điện thoại xoay ngang / màn hình thấp: gọn lại để cả khung nằm trong một màn hình */
+@media (max-height:540px) and (orientation:landscape){
+  .pagehead,.keys{display:none}
+  .wrap{padding:6px 10px;max-width:calc((100vh - 168px) * 2.1667);max-width:calc((100svh - 168px) * 2.1667);min-width:min(100%,460px)}
+  .board{padding:5px 8px 3px;gap:0}
+  .tiles{gap:6px}
+  .tile{min-width:64px;padding:2px 8px 3px;border-radius:10px}
+  .num{font-size:24px}
+  .lab{font-size:9.5px}.lab small{display:none}
+  .sep{font-size:18px;margin-top:-8px}
+  .say{display:none}
+  .caption{min-height:2.9em;font-size:14.5px;padding:5px 12px 6px}
+  .controls{grid-template-columns:auto auto 1fr auto auto auto;grid-template-areas:none;padding:5px 10px 6px;gap:8px}
+  .seekwrap,#bPlay,#bReplay,.time,#bSpeed,#bSound{grid-area:auto}
+  .btn{height:34px;min-width:34px}
+  .chap{display:none}
+  .start .ring{width:64px;height:64px;margin-top:10px}
+  .start .lbl{margin-top:6px}
+}
+@media (prefers-reduced-motion:reduce){ .caption .cap.in{animation:none} }
+</style>
+</head>
+<body>
+<main class="wrap">
+  <header class="pagehead">
+    <h1>Pickleball: <span>tính điểm</span> thế nào?</h1>
+    <p>Cho người mới · đánh đôi · khoảng 30 giây</p>
+  </header>
+
+  <section class="player" id="player" aria-label="Hoạt hình giải thích cách tính điểm pickleball">
+    <div class="screen" id="screen">
+      <div class="board off" id="board" aria-hidden="true">
+        <div class="tiles">
+          <div class="tile tA" id="tile1"><div class="num" id="n1">0</div><div class="lab">Đội giao<small id="tn1">Đội Cam</small></div></div>
+          <div class="sep">–</div>
+          <div class="tile tB" id="tile2"><div class="num" id="n2">0</div><div class="lab">Đội nhận<small id="tn2">Đội Xanh</small></div></div>
+          <div class="sep">–</div>
+          <div class="tile t3" id="tile3"><div class="num" id="n3">2</div><div class="lab">Người giao<small id="tn3">số 1 hay số 2</small></div></div>
+        </div>
+        <div class="say" id="say"></div>
+      </div>
+
+      <div class="stage" id="stage">
+        <svg viewBox="0 0 1040 480" id="svg" role="img" aria-label="Sân pickleball nhìn từ trên xuống: Đội Cam bên trái, Đội Xanh bên phải">
+          <defs>
+            <linearGradient id="gCourt" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#2f8a63"/><stop offset="1" stop-color="#26754f"/>
+            </linearGradient>
+            <linearGradient id="gKitchen" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#37a073"/><stop offset="1" stop-color="#2e8a61"/>
+            </linearGradient>
+            <radialGradient id="gBall" cx=".35" cy=".35" r=".7">
+              <stop offset="0" stop-color="#fbffc2"/><stop offset=".55" stop-color="#e8ff3a"/><stop offset="1" stop-color="#b8cc12"/>
+            </radialGradient>
+            <filter id="fShadow" x="-50%" y="-50%" width="200%" height="200%">
+              <feDropShadow dx="0" dy="3" stdDeviation="3" flood-color="#000" flood-opacity=".35"/>
+            </filter>
+            <marker id="mArrow" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+              <path d="M0,0 L10,5 L0,10 z" fill="#e8ff3a"/>
+            </marker>
+            <marker id="mSwap" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="4.5" markerHeight="4.5" orient="auto-start-reverse">
+              <path d="M0,0 L10,5 L0,10 z" fill="#ffffff"/>
+            </marker>
+          </defs>
+          <!-- surround -->
+          <rect x="0" y="0" width="1040" height="480" fill="#132a43"/>
+          <!-- court -->
+          <rect x="80" y="40" width="880" height="400" fill="url(#gCourt)"/>
+          <rect x="380" y="40" width="280" height="400" fill="url(#gKitchen)"/>
+          <!-- highlighted service boxes -->
+          <g id="boxes">
+            <rect id="box-A_L" x="80" y="40" width="300" height="200" fill="#e8ff3a" opacity="0"/>
+            <rect id="box-A_R" x="80" y="240" width="300" height="200" fill="#e8ff3a" opacity="0"/>
+            <rect id="box-B_R" x="660" y="40" width="300" height="200" fill="#e8ff3a" opacity="0"/>
+            <rect id="box-B_L" x="660" y="240" width="300" height="200" fill="#e8ff3a" opacity="0"/>
+          </g>
+          <!-- lines -->
+          <g stroke="#f4f8ff" stroke-width="4" fill="none" stroke-linecap="square">
+            <rect x="80" y="40" width="880" height="400"/>
+            <line x1="380" y1="40" x2="380" y2="440"/>
+            <line x1="660" y1="40" x2="660" y2="440"/>
+            <line x1="80" y1="240" x2="380" y2="240"/>
+            <line x1="660" y1="240" x2="960" y2="240"/>
+          </g>
+          <!-- net -->
+          <rect x="514" y="30" width="12" height="420" fill="#000" opacity=".22" rx="3"/>
+          <line x1="520" y1="28" x2="520" y2="452" stroke="#0d1626" stroke-width="7"/>
+          <line x1="520" y1="28" x2="520" y2="452" stroke="#e9eef7" stroke-width="2.5" stroke-dasharray="3 4"/>
+          <circle cx="520" cy="26" r="7" fill="#d5dceb"/><circle cx="520" cy="454" r="7" fill="#d5dceb"/>
+          <!-- side labels -->
+          <text x="300" y="25" text-anchor="middle" font-size="17" font-weight="800" fill="#ff8a3d" letter-spacing="2" font-family="Be Vietnam Pro, Segoe UI, sans-serif">ĐỘI CAM</text>
+          <text x="740" y="25" text-anchor="middle" font-size="17" font-weight="800" fill="#4f8cff" letter-spacing="2" font-family="Be Vietnam Pro, Segoe UI, sans-serif">ĐỘI XANH</text>
+          <text x="520" y="472" text-anchor="middle" font-size="13" font-weight="700" fill="#8ea3c0" letter-spacing="3" font-family="Be Vietnam Pro, Segoe UI, sans-serif">LƯỚI</text>
+
+          <!-- serve guide -->
+          <path id="guide" d="" fill="none" stroke="#e8ff3a" stroke-width="4" stroke-dasharray="10 9" marker-end="url(#mArrow)" opacity="0"/>
+          <!-- swap arrows -->
+          <g id="swapA" opacity="0" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round">
+            <path d="M 214 178 Q 196 240 214 302" marker-end="url(#mSwap)"/>
+            <path d="M 246 302 Q 264 240 246 178" marker-end="url(#mSwap)"/>
+            <text x="230" y="335" text-anchor="middle" font-size="19" font-weight="800" fill="#fff" stroke="none" font-family="Be Vietnam Pro, Segoe UI, sans-serif">đổi ô</text>
+          </g>
+          <g id="swapB" opacity="0" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round">
+            <path d="M 794 178 Q 776 240 794 302" marker-end="url(#mSwap)"/>
+            <path d="M 826 302 Q 844 240 826 178" marker-end="url(#mSwap)"/>
+            <text x="810" y="335" text-anchor="middle" font-size="19" font-weight="800" fill="#fff" stroke="none" font-family="Be Vietnam Pro, Segoe UI, sans-serif">đổi ô</text>
+          </g>
+
+          <!-- players -->
+          <g id="players"></g>
+          <!-- server ring -->
+          <circle id="ring" r="38" fill="none" stroke="#e8ff3a" stroke-width="4" stroke-dasharray="14 10" opacity="0"/>
+          <!-- ball -->
+          <ellipse id="ballShadow" rx="10" ry="5" fill="#000" opacity="0"/>
+          <g id="ball" opacity="0">
+            <circle r="10" fill="url(#gBall)" stroke="#5b6b00" stroke-width="1.6"/>
+            <circle cx="-3.5" cy="-2" r="1.6" fill="#8a9c10"/><circle cx="3" cy="-3.5" r="1.6" fill="#8a9c10"/>
+            <circle cx="2.5" cy="3" r="1.6" fill="#8a9c10"/><circle cx="-3" cy="4" r="1.4" fill="#8a9c10"/>
+          </g>
+          <!-- confetti -->
+          <g id="confetti"></g>
+        </svg>
+        <div class="ov" id="ov">
+          <div class="boxlab" id="boxlab" style="opacity:0"></div>
+          <div class="tag" id="tag" style="opacity:0"></div>
+          <div class="banner" id="banner" style="opacity:0">ĐỔI GIAO <span class="arrow">⇄</span><small>Quyền giao bóng chuyển sang Đội Xanh</small></div>
+          <div class="ff" id="ff" style="opacity:0">Tua nhanh <span>▶▶</span></div>
+          <div class="win" id="win" style="opacity:0"><span style="color:var(--A)">Đội Cam</span> thắng ván!<small>11 – 8 · đủ 11 điểm, hơn 3 điểm</small></div>
+        </div>
+      </div>
+
+      <div class="caption" id="caption" aria-live="polite"><div class="cap" id="cap"></div></div>
+
+      <div class="summary" id="summary" role="dialog" aria-label="Tóm tắt luật tính điểm">
+        <div class="card">
+          <h3>Nhớ <span>5 điều</span> là đủ</h3>
+          <ol>
+            <li><div>Chỉ <b>đội đang giao bóng</b> mới ghi điểm.</div></li>
+            <li><div>Đọc điểm bằng 3 số: <b>đội giao – đội nhận – người giao (1 hay 2)</b>. Đầu ván đọc <b class="nw">0 – 0 – 2</b>: đội giao trước chỉ có 1 lượt giao (người giao 2).</div></li>
+            <li><div>Đội giao thắng pha: <b>+1 điểm</b>, người giao <b>đổi ô</b> với đồng đội và giữ quyền giao.</div></li>
+            <li><div>Đội giao thua pha: chuyển sang <b>người giao 2</b>; người giao 2 cũng thua thì <b>đổi giao</b>. Sau đổi giao, người ở <b>ô bên phải</b> giao trước.</div></li>
+            <li><div>Thắng ván: đạt <b>11 điểm</b> và <b>hơn ít nhất 2 điểm</b> (<span class="nw">11 – 10</span> thì đánh tiếp).</div></li>
+          </ol>
+          <div class="acts">
+            <button class="btn primary" id="sReplay" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5V1L7 6l5 5V7a5 5 0 1 1-5 5H5a7 7 0 1 0 7-7z"/></svg>Xem lại</button>
+            <button class="btn" id="sSlow" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm0 18a8 8 0 1 1 0-16 8 8 0 0 1 0 16zm.5-13H11v6l5.2 3.2.8-1.3-4.5-2.7z"/></svg>Xem chậm (0,75×)</button>
+          </div>
+          <p class="tip"><b>Mẹo nhớ vị trí:</b> người đứng ô phải lúc đầu ván sẽ ở ô phải mỗi khi điểm đội mình chẵn, ở ô trái khi lẻ.</p>
+          <p class="note">Theo luật USA Pickleball, cách tính điểm truyền thống cho đánh đôi.<br>Đánh đơn chỉ đọc 2 số. Một số giải chơi ván 15 hoặc 21 điểm, hoặc tính điểm mọi pha (rally scoring).</p>
+        </div>
+      </div>
+
+      <div class="title" id="title" aria-hidden="true">
+        <div class="kicker">Pickleball cho người mới</div>
+        <h2>Tính điểm thế nào?</h2>
+        <p>Đánh đôi · cách tính truyền thống</p>
+      </div>
+
+      <button class="start" id="start" type="button" aria-label="Bắt đầu xem hoạt hình">
+        <span class="kicker">Pickleball cho người mới</span>
+        <span class="h">Tính điểm thế nào?</span>
+        <span class="sub">Đánh đôi · cách tính truyền thống · 30 giây</span>
+        <span class="ring"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4v16l13-8z"/></svg></span>
+        <span class="lbl">Bấm để xem</span>
+      </button>
+    </div>
+
+    <div class="controls" id="controls">
+      <button class="btn primary" id="bPlay" type="button" aria-label="Phát"><svg viewBox="0 0 24 24" id="iPlay" aria-hidden="true"><path d="M7 4v16l13-8z"/></svg></button>
+      <button class="btn" id="bReplay" type="button" aria-label="Xem lại từ đầu" title="Xem lại (R)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5V1L7 6l5 5V7a5 5 0 1 1-5 5H5a7 7 0 1 0 7-7z"/></svg></button>
+      <div class="seekwrap">
+        <div class="seekbox" id="seekbox">
+          <div class="track"><i id="fill"></i></div>
+          <input class="seek" id="seek" type="range" min="0" max="30.5" step="0.01" value="0" aria-label="Tua hoạt hình">
+        </div>
+        <div class="chap" id="chap"><b>Mở đầu</b></div>
+      </div>
+      <div class="time" id="time">0:00 / 0:30</div>
+      <button class="btn" id="bSpeed" type="button" aria-label="Tốc độ phát" title="Tốc độ (S)">1×</button>
+      <button class="btn" id="bSound" type="button" aria-label="Tắt âm thanh" title="Âm thanh (M)"><svg viewBox="0 0 24 24" id="iSound" aria-hidden="true"></svg></button>
+    </div>
+  </section>
+  <p class="keys"><kbd>Space</kbd> phát / dừng · <kbd>←</kbd> <kbd>→</kbd> chuyển đoạn · <kbd>R</kbd> xem lại · <kbd>S</kbd> tốc độ · <kbd>M</kbd> âm thanh</p>
+</main>
+
+<script>
+(() => {
+"use strict";
+/* =========================================================
+   TIMELINE  (giây, ở tốc độ 1×) — mọi thứ là hàm của t,
+   nên tua tới / tua lui luôn hiển thị đúng trạng thái.
+   ========================================================= */
+const DUR = 30.5;
+const T_BOARD = 2.0, T_SUMMARY = 29.0;
+
+const CHAPTERS = [
+  {t:0,    name:'Mở đầu'},
+  {t:2.0,  name:'Đọc điểm'},
+  {t:7.6,  name:'Đội giao thắng pha'},
+  {t:12.0, name:'Đội nhận thắng pha'},
+  {t:15.3, name:'Đổi giao'},
+  {t:17.6, name:'Người giao 1'},
+  {t:21.4, name:'Người giao 2'},
+  {t:25.4, name:'Thắng ván'},
+  {t:29.0, name:'Tóm tắt'},
+];
+
+const CAPTIONS = [
+  [0,    2.0,  ''],
+  [2.0,  4.4,  'Điểm đọc bằng <b>3 số</b>, từ trái sang phải trên bảng.'],
+  [4.4,  7.6,  'Đầu ván đọc <b class="nw">0 – 0 – 2</b>: đội giao trước chỉ có <b>người giao&nbsp;2</b>.'],
+  [7.6,  12.0, 'Nếu <span class="A">đội giao</span> thắng pha: <b>+1 điểm</b>, người giao <b>đổi&nbsp;ô</b> và giữ quyền giao.'],
+  [12.0, 15.3, 'Nếu <span class="B">đội nhận</span> thắng pha: <b>không có điểm</b>. Chỉ đội giao mới ghi điểm!'],
+  [15.3, 17.6, 'Người giao <b>2</b> thua: <b>đổi giao</b>. Điểm đội giao luôn đứng trước.'],
+  [17.6, 21.4, 'Sau đổi giao, người ở <b>ô bên phải</b> giao trước: <b>người giao&nbsp;1</b>.'],
+  [21.4, 25.4, 'Nếu người giao 1 thua: <b>đồng đội vào giao</b> (người giao&nbsp;2). Không ai đổi&nbsp;ô.'],
+  [25.4, 29.0, 'Thắng ván: <b>11 điểm</b> và <b>hơn ít nhất 2</b>. <span class="nw">11 – 10</span> chưa thắng, phải đánh tiếp.'],
+  [29.0, 99,   'Xong! Bấm <b>Xem lại</b> nếu muốn xem thêm một lần.'],
+];
+
+/* ---------- court geometry ----------
+   Sân 44×20 ft → 880×400 (x 80–960, y 40–440). Lưới x=520, bếp 380/660.
+   Đội Cam (A) bên trái nhìn sang phải → "ô phải" của A là nửa DƯỚI.
+   Đội Xanh (B) bên phải nhìn sang trái → "ô phải" của B là nửa TRÊN.
+   Giao bóng luôn chéo sân: ô phải ↔ ô phải, ô trái ↔ ô trái.        */
+const SLOT_Y = {A_R:340, A_L:140, B_R:140, B_L:340};
+const DIAG = {A_R:'B_R', A_L:'B_L', B_R:'A_R', B_L:'A_L'};
+const BOX_C = {A_R:{x:230,y:340}, A_L:{x:230,y:140}, B_R:{x:810,y:140}, B_L:{x:810,y:340}};
+
+const M0 = {A_R:'a1', A_L:'a2', B_R:'b1', B_L:'b2'};   // đầu trận
+const M1 = {A_R:'a2', A_L:'a1', B_R:'b1', B_L:'b2'};   // Cam đổi ô sau khi ghi điểm
+const M2 = {A_R:'a2', A_L:'a1', B_R:'b2', B_L:'b1'};   // Xanh đổi ô sau khi ghi điểm
+
+function formation(f){
+  const pos = {}, inv = {};
+  for (const s in f.map) inv[f.map[s]] = s;
+  const srvSlot = inv[f.server], rcvSlot = DIAG[srvSlot];
+  for (const slot in f.map){
+    const pid = f.map[slot], A = slot[0] === 'A';
+    let y = SLOT_Y[slot], x;
+    if (f.mode === 'play'){ x = A ? 330 : 710; y += (y < 240 ? 12 : -12); }
+    else if (slot === srvSlot) x = A ? 50 : 990;          // người giao đứng sau vạch cuối sân
+    else if (slot[0] === srvSlot[0]) x = A ? 108 : 932;   // đồng đội người giao
+    else if (slot === rcvSlot) x = A ? 100 : 940;         // người đỡ giao (chéo sân)
+    else x = A ? 342 : 698;                               // đồng đội người đỡ: lên sát vạch bếp
+    pos[pid] = {x, y};
+  }
+  return pos;
+}
+
+// keyframes đội hình: {t, dur, ...thay đổi}
+const FK_RAW = [
+  {t:0,    dur:0,   serve:'A', map:M0, server:'a1', mode:'ready'},
+  {t:9.25, dur:.8,  mode:'play'},
+  {t:10.3, dur:.55, mode:'ready'},
+  {t:10.9, dur:.8,  map:M1},
+  {t:13.8, dur:.6,  mode:'ready'},
+  {t:15.75,dur:.85, serve:'B', server:'b1', mode:'ready'},
+  {t:19.95,dur:.85, map:M2},
+  {t:23.8, dur:.8,  server:'b2'},
+  {t:25.45,dur:.7,  serve:'A', server:'a1', map:M0},
+];
+const FK = []; { let cur = {}; for (const k of FK_RAW){ cur = {...cur, ...k}; FK.push({...cur, pos:formation(cur)}); } }
+
+const ease = x => x<.5 ? 2*x*x : 1 - Math.pow(-2*x+2,2)/2;
+const lerp = (a,b,u) => a + (b-a)*u;
+const clamp01 = x => Math.max(0, Math.min(1, x));
+
+function pp(pid, t){
+  let i = 0; while (i+1 < FK.length && FK[i+1].t <= t) i++;
+  const k = FK[i];
+  if (i > 0 && t < k.t + k.dur){
+    const u = ease((t - k.t)/k.dur), a = FK[i-1].pos[pid], b = k.pos[pid];
+    let x = lerp(a.x,b.x,u); const dy = b.y - a.y;
+    // khi hai đồng đội đổi ô, một người vòng trước, một người vòng sau để không va nhau
+    if (Math.abs(dy) > 120) x = Math.max(30, Math.min(1010, x + Math.sin(u*Math.PI) * 64 * Math.sign(dy) * (pid[0] === 'a' ? 1 : -1)));
+    return {x, y:lerp(a.y,b.y,u), moving:true};
+  }
+  return k.pos[pid];
+}
+function hand(pid, t){
+  const p = pp(pid, t), A = pid[0] === 'a';
+  return {x:p.x + (A ? 18 : -18), y:p.y + (A ? 16 : -16), z:16};
+}
+
+/* ---------- ball ---------- */
+const BALL = [
+  {k:'hold', t0:2.0,  t1:7.9,  pid:'a1'},
+  // Pha 1: Cam giao, Xanh đánh vào lưới
+  {k:'shot', t0:7.9,  t1:8.6,  from:'a1', to:'b1', h:70, b:.8,  h2:34},
+  {k:'shot', t0:8.6,  t1:9.2,  from:'b1', to:'a1', h:85, b:.82, h2:30},
+  {k:'shot', t0:9.2,  t1:9.75, from:'a1', to:'b2', h:38},
+  {k:'shot', t0:9.75, t1:10.0, from:'b2', to:{x:530,y:330,z:20}, h:6, end:'net'},
+  {k:'drop', t0:10.0, t1:10.3, from:{x:530,y:330,z:20}, to:{x:548,y:334}},
+  {k:'rest', t0:10.3, t1:10.95, at:{x:548,y:334}},
+  {k:'shot', t0:10.95,t1:11.75, from:{x:548,y:334,z:0}, to:'a1', h:70, toss:true},
+  {k:'hold', t0:11.75, t1:12.4, pid:'a1'},
+  // Pha 2: Cam giao, Cam đánh ra ngoài
+  {k:'shot', t0:12.4, t1:13.1, from:'a1', to:'b2', h:70, b:.8,  h2:34},
+  {k:'shot', t0:13.1, t1:13.75,from:'b2', to:'a1', h:85, b:.82, h2:30},
+  {k:'shot', t0:13.75,t1:14.25,from:'a1', to:{x:1004,y:262,z:0}, h:120, end:'out'},
+  {k:'drop', t0:14.25,t1:14.55,from:{x:1004,y:262,z:0}, to:{x:1026,y:268}, h:12},
+  {k:'rest', t0:14.55,t1:15.8, at:{x:1026,y:268}},
+  {k:'shot', t0:15.8, t1:16.6, from:{x:1026,y:268,z:0}, to:'b1', h:60, toss:true},
+  {k:'hold', t0:16.6, t1:17.8, pid:'b1'},
+  // Pha 3: Xanh giao, Cam trả vào lưới
+  {k:'shot', t0:17.8, t1:18.5, from:'b1', to:'a2', h:70, b:.8,  h2:34},
+  {k:'shot', t0:18.5, t1:18.95,from:'a2', to:{x:510,y:250,z:20}, h:22, end:'net'},
+  {k:'drop', t0:18.95,t1:19.25,from:{x:510,y:250,z:20}, to:{x:492,y:248}},
+  {k:'rest', t0:19.25,t1:19.95,at:{x:492,y:248}},
+  {k:'shot', t0:19.95,t1:20.9, from:{x:492,y:248,z:0}, to:'b1', h:70, toss:true},
+  {k:'hold', t0:20.9, t1:21.6, pid:'b1'},
+  // Pha 4: Xanh giao (người giao 1), Xanh đánh ra ngoài
+  {k:'shot', t0:21.6, t1:22.3, from:'b1', to:'a1', h:70, b:.8,  h2:34},
+  {k:'shot', t0:22.3, t1:22.95,from:'a1', to:'b1', h:85, b:.82, h2:30},
+  {k:'shot', t0:22.95,t1:23.45,from:'b1', to:{x:38,y:236,z:0}, h:120, end:'out'},
+  {k:'drop', t0:23.45,t1:23.75,from:{x:38,y:236,z:0}, to:{x:16,y:232}, h:12},
+  {k:'rest', t0:23.75,t1:23.95,at:{x:16,y:232}},
+  {k:'shot', t0:23.95,t1:24.7, from:{x:16,y:232,z:0}, to:'b2', h:90, toss:true},
+  {k:'hold', t0:24.7, t1:25.4, pid:'b2'},
+  // Cuối ván
+  {k:'hold', t0:26.05,t1:26.4, pid:'a1'},
+  {k:'shot', t0:26.4, t1:27.05,from:'a1', to:'b1', h:70, b:.8,  h2:34},
+  {k:'shot', t0:27.05,t1:27.45,from:'b1', to:{x:530,y:150,z:20}, h:14, end:'net'},
+  {k:'drop', t0:27.45,t1:27.75,from:{x:530,y:150,z:20}, to:{x:548,y:152}},
+  {k:'rest', t0:27.75,t1:28.4, at:{x:548,y:152}},
+];
+function endPt(p, t){ return typeof p === 'string' ? hand(p, t) : p; }
+function ballAt(t){
+  for (const s of BALL){
+    if (t < s.t0 || t >= s.t1) continue;
+    const u = (t - s.t0)/(s.t1 - s.t0);
+    if (s.k === 'hold'){ const h = hand(s.pid, t); return {x:h.x, y:h.y, z:h.z + Math.sin(t*6)*2, o:1}; }
+    if (s.k === 'rest'){ return {x:s.at.x, y:s.at.y, z:0, o:1 - clamp01((t - s.t0)/(s.t1 - s.t0) - .4)}; }
+    if (s.k === 'drop'){
+      const a = s.from, b = s.to;
+      return {x:lerp(a.x,b.x,u), y:lerp(a.y,b.y,u), z:lerp(a.z,0,u) + 4*(s.h||4)*u*(1-u), o:1};
+    }
+    const P0 = endPt(s.from, s.t0), P1 = endPt(s.to, s.t1);
+    if (s.b == null){
+      return {x:lerp(P0.x,P1.x,u), y:lerp(P0.y,P1.y,u), z:lerp(P0.z,P1.z,u) + 4*s.h*u*(1-u), o:1};
+    }
+    const x = lerp(P0.x,P1.x,u), y = lerp(P0.y,P1.y,u);
+    if (u < s.b){ const v = u/s.b; return {x, y, z:lerp(P0.z,0,v) + 4*s.h*v*(1-v), o:1}; }
+    const v = (u - s.b)/(1 - s.b); return {x, y, z:lerp(0,P1.z,v) + 4*s.h2*v*(1-v), o:1};
+  }
+  return null;
+}
+
+/* ---------- score ----------
+   srv: đội đang giao · a: điểm Cam · b: điểm Xanh · n: người giao số mấy */
+const SCORE = [
+  {t:0,    s:{srv:'A', a:0,  b:0, n:2, end:false}},
+  {t:10.4, s:{a:1}},                        // Cam giao thắng → +1   (1-0-2)
+  {t:15.85,s:{srv:'B', n:1}},               // người giao 2 thua → đổi giao (0-1-1)
+  {t:19.5, s:{b:1}},                        // Xanh giao thắng → +1  (1-1-1)
+  {t:23.7, s:{n:2}},                        // người giao 1 thua → người giao 2 (1-1-2)
+  {t:25.95,s:{srv:'A', a:10, b:8, n:1}},    // tua nhanh (10-8-1)
+  {t:27.75,s:{a:11, end:true}},             // 11-8, hơn ≥ 2 → thắng ván
+];
+const SCORE_STATES = []; { let cur = {}; for (const e of SCORE){ cur = {...cur, ...e.s}; SCORE_STATES.push({t:e.t, s:{...cur}}); } }
+function disp(s){ return s.srv === 'A' ? [s.a, s.b, s.n] : [s.b, s.a, s.n]; }
+function scoreAt(t){ let s = SCORE_STATES[0].s; for (const e of SCORE_STATES) if (e.t <= t) s = e.s; return s; }
+// thời điểm mỗi ô số thay đổi gần nhất (để làm hiệu ứng nảy số)
+function lastChange(tile, t){
+  let last = -99, prev = null;
+  for (const e of SCORE_STATES){
+    if (e.t > t) break;
+    const d = disp(e.s), key = tile < 2 ? d[tile] + e.s.srv : d[tile];
+    if (prev !== null && key !== prev) last = e.t;
+    prev = key;
+  }
+  return last;
+}
+
+/* ---------- other tracks ---------- */
+const RING = [ [0,null,''], [2.0,'a1','Người giao 2'], [15.85,'b1','Người giao 1'], [23.7,'b2','Người giao 2'], [25.4,null,''], [25.95,'a1','Người giao 1'], [27.75,null,''] ];
+const GUIDE = [ [5.6,7.95,'a1','B_R'], [11.75,12.45,'a1','B_L'], [16.6,17.85,'b1','A_R'], [20.9,21.65,'b1','A_L'], [24.7,25.4,'b2','A_R'], [26.05,26.45,'a1','B_R'] ];
+const BOXLAB = [ [4.6,7.75,'A_R','Ô phải của Đội Cam',415], [17.5,19.4,'B_R','Ô phải của Đội Xanh',72] ];
+const SWAP = [ [10.85,11.85,'A'], [19.9,20.95,'B'] ];
+const FOCUS = [ [2.1,2.85,1], [2.85,3.6,2], [3.6,7.6,3], [10.4,11.6,1], [15.85,17.2,1], [15.85,17.2,2], [19.5,20.6,1], [23.7,25.0,3], [27.75,29,1] ];
+const POPS = [
+  {t:10.05, x:560, y:300, txt:'Vào lưới!', k:'bad'},
+  {t:14.3,  x:960, y:196, txt:'Ra ngoài!', k:'bad', dur:.95},
+  {t:19.0,  x:470, y:205, txt:'Vào lưới!', k:'bad'},
+  {t:23.5,  x:120, y:205, txt:'Ra ngoài!', k:'bad'},
+  {t:23.8,  x:770, y:250, txt:'Đội Xanh thua pha → người giao 2', k:'zero', dur:1.6},
+  {t:27.47, x:600, y:96,  txt:'Vào lưới!', k:'bad', dur:.6},
+];
+// huy hiệu điểm gắn lên ô của bảng điểm: tile 1 = đội giao, tile 2 = đội nhận
+const BADGES = [
+  {t:10.4,  tile:1, txt:'+1', k:'A'},
+  {t:14.4,  tile:2, txt:'+0', k:'zero', dur:1.35},
+  {t:19.5,  tile:1, txt:'+1', k:'B'},
+  {t:27.75, tile:1, txt:'+1', k:'A'},
+];
+
+/* ---------- sounds (không phát khi tua) ---------- */
+const SFX = [];
+for (const s of BALL){
+  if (s.k === 'shot' && !s.toss){
+    SFX.push([s.t0,'hit']);
+    if (s.b != null) SFX.push([lerp(s.t0,s.t1,s.b),'bounce']);
+    if (s.end === 'net') SFX.push([s.t1,'net']);
+    if (s.end === 'out') SFX.push([s.t1,'bounce']);
+  }
+}
+SFX.push([10.4,'ding'],[19.5,'ding'],[15.4,'whoosh'],[25.4,'whoosh'],[27.75,'fanfare'],[14.4,'nope']);
+
+/* =========================================================
+   DOM
+   ========================================================= */
+const $ = id => document.getElementById(id);
+const SVGNS = 'http://www.w3.org/2000/svg';
+const el = (tag, attrs, parent) => { const n = document.createElementNS(SVGNS, tag); for (const k in attrs) n.setAttribute(k, attrs[k]); if (parent) parent.appendChild(n); return n; };
+
+const PLAYERS = {};
+const pg = $('players');
+for (const pid of ['a1','a2','b1','b2']){
+  const A = pid[0] === 'a', c = A ? '#ff8a3d' : '#4f8cff', d = A ? '#c9581a' : '#2457c9';
+  const g = el('g', {opacity:0}, pg);
+  el('ellipse', {cx:0, cy:22, rx:24, ry:8, fill:'#000', opacity:.22}, g);
+  const pad = el('g', {transform: A ? 'translate(18,16) rotate(35)' : 'translate(-18,-16) rotate(215)'}, g);
+  el('rect', {x:-3, y:-2, width:6, height:12, rx:2, fill:'#2b2f3a'}, pad);
+  el('rect', {x:-9, y:-22, width:18, height:22, rx:8, fill:A ? '#ffe2cc' : '#dce8ff', stroke:'#1b2333', 'stroke-width':2}, pad);
+  el('circle', {r:27, fill:c, stroke:'#fff', 'stroke-width':3.5, filter:'url(#fShadow)'}, g);
+  el('circle', {r:15, cx:A ? 4 : -4, fill:d, opacity:.55}, g);
+  el('circle', {r:11, cx:A ? 4 : -4, fill:A ? '#ffd0ad' : '#cfe0ff'}, g);
+  PLAYERS[pid] = g;
+}
+
+// confetti (xác định trước, không random lúc chạy → tua vẫn giống nhau)
+const CONF = []; {
+  let seed = 7; const rnd = () => (seed = (seed*16807) % 2147483647) / 2147483647;
+  const cols = ['#ff8a3d','#ffc08f','#e8ff3a','#ffffff','#ff6a2a'];
+  for (let i = 0; i < 70; i++){
+    const n = el('rect', {width:8, height:12, rx:2, fill:cols[i % cols.length], opacity:0}, $('confetti'));
+    CONF.push({n, x0:60 + rnd()*920, y0:-20 - rnd()*260, vy:170 + rnd()*170, sw:10 + rnd()*22, ph:rnd()*6.28, r:rnd()*360, vr:(rnd()-.5)*540});
+  }
+}
+
+const badgeEls = BADGES.map(b => { const d = document.createElement('div'); d.className = 'badge ' + b.k; d.textContent = b.txt; $('tile' + b.tile).appendChild(d); return d; });
+const popEls = POPS.map(p => { const d = document.createElement('div'); d.className = 'pop ' + p.k; d.textContent = p.txt; d.style.opacity = 0; $('ov').appendChild(d); return d; });
+
+const pct = (x,y,node) => { node.style.left = (x/1040*100) + '%'; node.style.top = (y/480*100) + '%'; };
+// như pct nhưng giữ nhãn nằm trọn trong khung sân (tính bằng pixel thật)
+const pctIn = (x,y,node) => {
+  const W = $('stage').clientWidth, hw = node.offsetWidth/2 + 4;
+  node.style.left = Math.max(hw, Math.min(W - hw, x/1040*W)) + 'px'; node.style.top = (y/480*100) + '%';
+};
+const VN = ['không','một','hai','ba','bốn','năm','sáu','bảy','tám','chín','mười','mười một','mười hai'];
+const TEAM = {A:'Đội Cam', B:'Đội Xanh'};
+
+/* =========================================================
+   RENDER(t)
+   ========================================================= */
+let lastCap = -1, lastChap = -1, cache = {};
+const setTxt = (node, key, v) => { if (cache[key] !== v){ cache[key] = v; node.textContent = v; } };
+const setHTML = (node, key, v) => { if (cache[key] !== v){ cache[key] = v; node.innerHTML = v; } };
+const setCls = (node, key, v) => { if (cache[key] !== v){ cache[key] = v; node.className = v; } };
+const inTrack = (tr, t) => tr.find(r => t >= r[0] && t < r[1]);
+const fade = (t, a, b, f = .25) => Math.min(clamp01((t - a)/f), clamp01((b - t)/f));
+
+function render(t){
+  const PS = $('stage').clientWidth < 560 ? 1.3 : 1;
+  // players
+  for (const pid in PLAYERS){
+    const p = pp(pid, t), idx = ['a1','a2','b1','b2'].indexOf(pid);
+    const app = clamp01((t - (1.0 + idx*.15))/.35);
+    const sc = (.6 + .4*ease(app) + (app < 1 ? Math.sin(app*Math.PI)*.12 : 0)) * PS;
+    let hop = 0;
+    if (pid[0] === 'a' && t > 27.75 && t < 29.2) hop = Math.abs(Math.sin((t - 27.75)*9 + idx)) * 10;
+    PLAYERS[pid].setAttribute('transform', `translate(${p.x.toFixed(1)},${(p.y - hop).toFixed(1)}) scale(${sc.toFixed(3)})`);
+    PLAYERS[pid].setAttribute('opacity', app.toFixed(2));
+  }
+
+  // server ring + tag
+  let ring = RING[0]; for (const r of RING) if (r[0] <= t) ring = r;
+  const ringEl = $('ring'), tag = $('tag');
+  if (ring[1]){
+    const p = pp(ring[1], t), age = t - ring[0], pulse = 1 + Math.max(0, .35 - age)*1.2;
+    ringEl.setAttribute('cx', p.x); ringEl.setAttribute('cy', p.y);
+    ringEl.setAttribute('r', (38*pulse*PS).toFixed(1));
+    ringEl.setAttribute('stroke-dashoffset', (-t*30).toFixed(1));
+    ringEl.setAttribute('opacity', clamp01(age/.25));
+    setTxt(tag, 'tag', ring[2]);
+    pctIn(p.x, p.y - 44*PS, tag);
+    tag.style.opacity = clamp01(age/.25);
+  } else { ringEl.setAttribute('opacity', 0); tag.style.opacity = 0; }
+
+  // serve guide + target box
+  const g = inTrack(GUIDE, t), guide = $('guide');
+  for (const b of ['A_L','A_R','B_R','B_L']) $('box-'+b).setAttribute('opacity', 0);
+  if (g){
+    const h = hand(g[2], t), c = BOX_C[g[3]], o = fade(t, g[0], g[1], .3);
+    const mx = (h.x + c.x)/2, my = (h.y + c.y)/2 - 50;
+    guide.setAttribute('d', `M ${h.x} ${h.y} Q ${mx} ${my} ${c.x} ${c.y}`);
+    guide.setAttribute('stroke-dashoffset', (-t*40).toFixed(1));
+    guide.setAttribute('opacity', (o*.9).toFixed(2));
+    $('box-'+g[3]).setAttribute('opacity', (o*.2).toFixed(3));
+  } else guide.setAttribute('opacity', 0);
+
+  // box label
+  const bl = inTrack(BOXLAB, t), blEl = $('boxlab');
+  if (bl){ const c = BOX_C[bl[2]]; setTxt(blEl, 'bl', bl[3]); pct(c.x, bl[4], blEl); blEl.style.opacity = fade(t, bl[0], bl[1], .3);
+           $('box-'+bl[2]).setAttribute('opacity', Math.max(+$('box-'+bl[2]).getAttribute('opacity'), .16*fade(t, bl[0], bl[1], .3))); }
+  else blEl.style.opacity = 0;
+
+  // swap arrows
+  for (const tm of ['A','B']){
+    const sw = SWAP.find(r => r[2] === tm && t >= r[0] && t < r[1]);
+    $('swap'+tm).setAttribute('opacity', sw ? fade(t, sw[0], sw[1], .2).toFixed(2) : 0);
+  }
+
+  // ball
+  const b = ballAt(t), ball = $('ball'), sh = $('ballShadow');
+  if (b && t >= T_BOARD){
+    const by = b.y - b.z*.9, s = (1 + b.z/260) * PS;
+    ball.setAttribute('transform', `translate(${b.x.toFixed(1)},${by.toFixed(1)}) scale(${s.toFixed(3)})`);
+    ball.setAttribute('opacity', b.o.toFixed(2));
+    sh.setAttribute('cx', b.x.toFixed(1)); sh.setAttribute('cy', (b.y + 4).toFixed(1));
+    const k = Math.max(.35, 1 - b.z/200);
+    sh.setAttribute('rx', (10*k).toFixed(1)); sh.setAttribute('ry', (5*k).toFixed(1));
+    sh.setAttribute('opacity', (.35*k*b.o).toFixed(2));
+  } else { ball.setAttribute('opacity', 0); sh.setAttribute('opacity', 0); }
+
+  // pops
+  POPS.forEach((p, i) => {
+    const d = p.dur || 1.15, age = t - p.t, n = popEls[i];
+    if (age >= 0 && age <= d){
+      const inS = ease(clamp01(age/.18)), out = clamp01((d - age)/.3);
+      n.style.opacity = Math.min(inS, out);
+      pctIn(p.x, p.y - age*16, n);
+      n.style.transform = `translate(-50%,-50%) scale(${(.6 + .4*inS + (age < .3 ? Math.sin(age/.3*Math.PI)*.12 : 0)).toFixed(3)})`;
+    } else n.style.opacity = 0;
+  });
+
+  // score badges
+  BADGES.forEach((bd, i) => {
+    const d = bd.dur || 1.4, age = t - bd.t, n = badgeEls[i];
+    if (age >= 0 && age <= d){
+      const inS = ease(clamp01(age/.18));
+      n.style.opacity = Math.min(inS, clamp01((d - age)/.3));
+      n.style.transform = `translateY(${(-age*8).toFixed(1)}px) scale(${(.6 + .4*inS + (age < .3 ? Math.sin(age/.3*Math.PI)*.15 : 0)).toFixed(3)})`;
+    } else n.style.opacity = 0;
+  });
+
+  // overlays
+  $('title').style.opacity = 1 - clamp01((t - .85)/.45);
+  $('title').style.visibility = t > 1.3 ? 'hidden' : 'visible';
+  const bo = fade(t, 15.4, 16.9, .3); const banner = $('banner');
+  banner.style.opacity = bo; banner.style.transform = `translateY(-50%) translateX(${((1 - ease(clamp01((t-15.4)/.35)))*-40).toFixed(1)}px)`;
+  $('ff').style.opacity = fade(t, 25.4, 26.15, .2);
+  const wo = fade(t, 27.95, 99, .3); const win = $('win');
+  win.style.opacity = wo; win.style.transform = `translate(-50%,-50%) scale(${(.85 + .15*ease(clamp01((t-27.95)/.3))).toFixed(3)})`;
+
+  // confetti
+  const ct = t - 27.85;
+  if (ct > 0 && ct < 2.6){
+    for (const c of CONF){
+      const x = c.x0 + Math.sin(ct*3 + c.ph)*c.sw, y = c.y0 + c.vy*ct;
+      c.n.setAttribute('transform', `translate(${x.toFixed(1)},${y.toFixed(1)}) rotate(${(c.r + c.vr*ct).toFixed(0)})`);
+      c.n.setAttribute('opacity', clamp01((2.6 - ct)/.6).toFixed(2));
+    }
+    cache.conf = true;
+  } else if (cache.conf){ for (const c of CONF) c.n.setAttribute('opacity', 0); cache.conf = false; }
+
+  // scoreboard
+  $('board').classList.toggle('off', t < T_BOARD);
+  const rolling = t >= 25.4 && t < 25.95;
+  let s = scoreAt(t), d = disp(s);
+  if (rolling){ // tua nhanh: Cam giao, số chạy 1→10 và 1→8, chưa hiện số người giao
+    s = {...s, srv:'A'}; const u = clamp01((t - 25.4)/.55);
+    d = [Math.round(lerp(1, 10, u)), Math.round(lerp(1, 8, u)), '–'];
+  }
+  $('board').classList.toggle('rolling', rolling);
+  const other = s.srv === 'A' ? 'B' : 'A';
+  setCls($('tile1'), 'c1', 'tile t' + s.srv + (inTrack(FOCUS.filter(f => f[2] === 1), t) ? ' focus' : ''));
+  setCls($('tile2'), 'c2', 'tile t' + other + (inTrack(FOCUS.filter(f => f[2] === 2), t) ? ' focus' : ''));
+  setCls($('tile3'), 'c3', 'tile t3' + (inTrack(FOCUS.filter(f => f[2] === 3), t) ? ' focus' : ''));
+  setTxt($('tn1'), 'tn1', TEAM[s.srv]); setTxt($('tn2'), 'tn2', TEAM[other]);
+  setTxt($('n1'), 'n1', String(d[0])); setTxt($('n2'), 'n2', String(d[1]));
+  setTxt($('n3'), 'n3', s.end ? '✓' : String(d[2]));
+  setTxt($('tn3'), 'tn3', s.end ? 'hết ván' : 'số 1 hay số 2');
+  [1,2,3].forEach(i => {
+    const age = t - lastChange(i-1, t);
+    const k = age >= 0 && age < .6 ? Math.sin(clamp01(age/.6)*Math.PI) : 0;
+    $('n'+i).style.transform = `scale(${(1 + .32*k).toFixed(3)}) translateY(${(-6*k).toFixed(1)}px)`;
+  });
+  const say = s.end ? `<b>${TEAM.A}</b> thắng ván <b>11 – 8</b>`
+           : rolling ? '…' : `Người giao đọc to: <b>“${VN[d[0]]} – ${VN[d[1]]} – ${VN[d[2]]}”</b>`;
+  setHTML($('say'), 'say', say);
+
+  // caption
+  const ci = CAPTIONS.findIndex(c => t >= c[0] && t < c[1]);
+  if (ci !== lastCap){
+    lastCap = ci; const cap = $('cap');
+    cap.classList.remove('in'); void cap.offsetWidth;
+    cap.innerHTML = ci >= 0 ? CAPTIONS[ci][2] : ''; cap.classList.add('in');
+  }
+
+  // summary
+  const showSum = t >= T_SUMMARY;
+  if (cache.sum !== showSum){ cache.sum = showSum; $('summary').classList.toggle('show', showSum); fitSummary(); }
+
+  // controls
+  const seek = $('seek');
+  if (!scrubbing) seek.value = t.toFixed(2);
+  $('fill').style.width = (t/DUR*100) + '%';
+  setTxt($('time'), 'time', `${fmt(t)} / ${fmt(30)}`);
+  let chi = 0; CHAPTERS.forEach((c, i) => { if (t >= c.t - 1e-6) chi = i; });
+  if (chi !== lastChap){ lastChap = chi; $('chap').innerHTML = `Đoạn ${chi + 1}/${CHAPTERS.length} · <b>${CHAPTERS[chi].name}</b>`; }
+  seek.setAttribute('aria-valuetext', `${fmt(t)}, ${CHAPTERS[chi].name}`);
+}
+// trên màn hình hẹp, bảng tóm tắt cao hơn khung → nới khung ra thay vì bắt người xem cuộn bên trong
+function fitSummary(){
+  const scr = $('screen'); scr.style.minHeight = '';
+  if (cache.sum){ const need = $('summary').querySelector('.card').offsetHeight + 32; if (need > scr.offsetHeight) scr.style.minHeight = need + 'px'; }
+}
+let lastW = innerWidth;
+window.addEventListener('resize', () => { if (innerWidth === lastW) return; lastW = innerWidth; fitSummary(); render(t); });
+const fmt = s => { s = Math.min(30, Math.max(0, Math.floor(s))); return `0:${String(s).padStart(2,'0')}`; };
+
+/* =========================================================
+   AUDIO — tổng hợp bằng WebAudio, không cần file
+   ========================================================= */
+let actx = null, master = null, muted = false;
+try { muted = localStorage.getItem('pb-muted') === '1'; } catch(e){}
+function audio(){
+  if (!actx){
+    try { actx = new (window.AudioContext || window.webkitAudioContext)(); master = actx.createGain(); master.gain.value = .55; master.connect(actx.destination); }
+    catch(e){ actx = null; }
+  }
+  if (actx && actx.state === 'suspended') actx.resume();
+  return actx;
+}
+function noiseBuf(len){
+  const b = actx.createBuffer(1, actx.sampleRate*len, actx.sampleRate), d = b.getChannelData(0);
+  for (let i = 0; i < d.length; i++) d[i] = Math.random()*2 - 1; return b;
+}
+function tone(f, t0, dur, vol, type = 'sine', f2){
+  const o = actx.createOscillator(), g = actx.createGain();
+  o.type = type; o.frequency.setValueAtTime(f, t0); if (f2) o.frequency.exponentialRampToValueAtTime(f2, t0 + dur);
+  g.gain.setValueAtTime(.0001, t0); g.gain.exponentialRampToValueAtTime(vol, t0 + .006); g.gain.exponentialRampToValueAtTime(.0001, t0 + dur);
+  o.connect(g).connect(master); o.start(t0); o.stop(t0 + dur + .02);
+}
+function noise(t0, dur, vol, freq, q = 1, f2){
+  const s = actx.createBufferSource(), bp = actx.createBiquadFilter(), g = actx.createGain();
+  s.buffer = noiseBuf(dur + .05); bp.type = 'bandpass'; bp.frequency.setValueAtTime(freq, t0); bp.Q.value = q;
+  if (f2) bp.frequency.exponentialRampToValueAtTime(f2, t0 + dur);
+  g.gain.setValueAtTime(.0001, t0); g.gain.exponentialRampToValueAtTime(vol, t0 + Math.min(.01, dur/3)); g.gain.exponentialRampToValueAtTime(.0001, t0 + dur);
+  s.connect(bp).connect(g).connect(master); s.start(t0); s.stop(t0 + dur + .05);
+}
+function sfx(name){
+  if (muted || !audio()) return;
+  const t = actx.currentTime + .01;
+  switch (name){
+    case 'hit':    tone(1500, t, .07, .5, 'triangle', 600); noise(t, .04, .35, 2500, 2); break;   // tiếng "pốc" đặc trưng
+    case 'bounce': tone(420, t, .06, .18, 'sine', 220); noise(t, .03, .12, 900, 1.5); break;
+    case 'net':    noise(t, .18, .3, 400, .8, 150); break;
+    case 'ding':   tone(988, t, .35, .25); tone(1319, t + .09, .45, .22); break;
+    case 'nope':   tone(330, t, .22, .14, 'triangle', 260); break;
+    case 'whoosh': noise(t, .5, .22, 300, 1.2, 3200); break;
+    case 'fanfare':[523, 659, 784, 1047].forEach((f, i) => tone(f, t + i*.1, .5, .2, 'triangle')); break;
+  }
+}
+
+/* =========================================================
+   PLAYBACK
+   ========================================================= */
+let t = 0, playing = false, speed = 1, last = 0, scrubbing = false, started = false;
+const SPEEDS = [1, .75, .5];
+const ICON_PLAY = '<path d="M7 4v16l13-8z"/>';
+const ICON_PAUSE = '<path d="M6 4h4v16H6zM14 4h4v16h-4z"/>';
+const ICON_REPLAY = '<path d="M12 5V1L7 6l5 5V7a5 5 0 1 1-5 5H5a7 7 0 1 0 7-7z"/>';
+const ICON_SND = '<path d="M3 9v6h4l5 4V5L7 9H3zm13.5 3A4.5 4.5 0 0 0 14 8v8a4.5 4.5 0 0 0 2.5-4zM14 3.2v2.1a7 7 0 0 1 0 13.4v2.1a9 9 0 0 0 0-17.6z"/>';
+const ICON_MUTE = '<path d="M3 9v6h4l5 4V5L7 9H3zm18.3 6.9-1.4 1.4L17 14.4l-2.9 2.9-1.4-1.4 2.9-2.9-2.9-2.9 1.4-1.4L17 11.6l2.9-2.9 1.4 1.4-2.9 2.9z"/>';
+
+function updateUI(){
+  const atEnd = t >= DUR - 1e-3;
+  $('iPlay').innerHTML = playing ? ICON_PAUSE : (atEnd ? ICON_REPLAY : ICON_PLAY);
+  $('bPlay').setAttribute('aria-label', playing ? 'Tạm dừng' : (atEnd ? 'Xem lại' : 'Phát'));
+  $('bSpeed').textContent = String(speed).replace('.', ',') + '×';
+  $('iSound').innerHTML = muted ? ICON_MUTE : ICON_SND;
+  $('bSound').setAttribute('aria-label', muted ? 'Bật âm thanh' : 'Tắt âm thanh');
+}
+function play(){
+  if (!started){ started = true; $('start').style.display = 'none'; }
+  if (t >= DUR - 1e-3) t = 0;
+  audio(); playing = true; last = performance.now(); updateUI(); requestAnimationFrame(loop);
+}
+function pause(){ playing = false; updateUI(); }
+function toggle(){ playing ? pause() : play(); }
+function seekTo(nt){ t = Math.max(0, Math.min(DUR, nt)); render(t); updateUI(); }
+function replay(){ seekTo(0); play(); }
+
+function loop(now){
+  if (!playing) return;
+  const dt = Math.min(1, (now - last)/1000); last = now;
+  const prev = t; t = Math.min(DUR, t + dt*speed);
+  for (const [et, name] of SFX) if (et > prev && et <= t) sfx(name);
+  render(t);
+  if (t >= DUR){ playing = false; updateUI(); return; }
+  requestAnimationFrame(loop);
+}
+
+// chapter ticks
+CHAPTERS.slice(1).forEach(c => { const k = document.createElement('span'); k.className = 'tick'; k.style.left = (c.t/DUR*100) + '%'; k.title = c.name; $('seekbox').appendChild(k); });
+
+// events
+$('start').addEventListener('click', play);
+$('bPlay').addEventListener('click', toggle);
+$('bReplay').addEventListener('click', replay);
+$('sReplay').addEventListener('click', replay);
+$('sSlow').addEventListener('click', () => { speed = .75; replay(); });
+$('bSpeed').addEventListener('click', () => { speed = SPEEDS[(SPEEDS.indexOf(speed) + 1) % SPEEDS.length]; updateUI(); });
+$('bSound').addEventListener('click', () => { muted = !muted; try { localStorage.setItem('pb-muted', muted ? '1' : '0'); } catch(e){} if (!muted) audio(); updateUI(); });
+
+const seek = $('seek');
+let wasPlaying = false;
+seek.addEventListener('pointerdown', () => { scrubbing = true; wasPlaying = playing; playing = false; });
+seek.addEventListener('input', () => { if (!started){ started = true; $('start').style.display = 'none'; } seekTo(parseFloat(seek.value)); });
+const endScrub = () => { if (!scrubbing) return; scrubbing = false; if (wasPlaying && t < DUR) play(); };
+seek.addEventListener('pointerup', endScrub);
+seek.addEventListener('pointercancel', endScrub);
+seek.addEventListener('change', endScrub);
+
+function jumpChapter(dir){
+  let i = 0; CHAPTERS.forEach((c, k) => { if (t >= c.t - .05) i = k; });
+  if (dir < 0 && t - CHAPTERS[i].t > 1.0) dir = 0; // đang giữa đoạn → về đầu đoạn
+  const j = Math.max(0, Math.min(CHAPTERS.length - 1, i + dir));
+  if (!started){ started = true; $('start').style.display = 'none'; }
+  seekTo(CHAPTERS[j].t + .001);
+}
+document.addEventListener('keydown', e => {
+  if (e.altKey || e.ctrlKey || e.metaKey) return;
+  const tag = (e.target.tagName || '').toLowerCase();
+  // Space luôn là phát/dừng (như trình phát video), kể cả khi đang focus một nút; Enter vẫn bấm nút
+  if (e.code === 'Space' || e.key === 'k'){ e.preventDefault(); if (!e.repeat) toggle(); }
+  else if (e.key === 'ArrowRight' && tag !== 'input'){ e.preventDefault(); jumpChapter(1); }
+  else if (e.key === 'ArrowLeft' && tag !== 'input'){ e.preventDefault(); jumpChapter(-1); }
+  else if (e.key === 'r' || e.key === 'R'){ replay(); }
+  else if (e.key === 's' || e.key === 'S'){ $('bSpeed').click(); }
+  else if (e.key === 'm' || e.key === 'M'){ $('bSound').click(); }
+});
+document.addEventListener('visibilitychange', () => { if (document.hidden && playing) pause(); });
+
+// debug/test hook
+window.__pb = { seek: seekTo, get t(){ return t; }, DUR, play, pause, scoreAt, disp };
+
+render(0); updateUI();
+})();
+</script>
+</body>
+</html>

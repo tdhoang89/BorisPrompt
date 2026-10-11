@@ -1,0 +1,2259 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Mưa Đà Lạt</title>
+<meta name="description" content="Mưa là quán cà phê nhỏ trên Dốc Mưa Bay, cách hồ Xuân Hương 5 phút đi bộ. Cà phê Cầu Đất rang tại quán, lò sưởi củi thông, ô cửa kính nhìn ra đồi thông.">
+<meta name="theme-color" content="#E6ECEA">
+<meta property="og:title" content="Mưa Đà Lạt">
+<meta property="og:description" content="Quán cà phê trên dốc, cách hồ Xuân Hương 5 phút đi bộ. Mưa rồi, ghé Mưa thôi.">
+<meta property="og:locale" content="vi_VN">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M16 2.5C16 2.5 6 14 6 21a10 10 0 0 0 20 0C26 14 16 2.5 16 2.5z' fill='%23EDC12E' stroke='%23142826' stroke-width='2.2'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..700,0..100;1,9..144,300..700,0..100&family=Patrick+Hand&display=swap">
+<script>
+  /* Áp giao diện đã chọn trước khi vẽ để không nháy màu */
+  document.documentElement.lang = 'vi';
+  try { var t = localStorage.getItem('mua-theme'); if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t); } catch (e) {}
+</script>
+<style>
+/* Layout: một ô cửa vòm kiểu biệt thự Pháp là trung tâm của hero, khách lau kính mờ để nhìn ra đồi thông.
+   Phần dưới đi theo nhịp một ngày ở quán: thực đơn, chỗ ngồi, giữ bàn, đường đến. */
+:root{
+  /* Sương sớm (giao diện sáng) */
+  --bg:#E6ECEA;          /* sương */
+  --bg-2:#DAE2DF;        /* dải nền đậm hơn */
+  --surface:#F3F6F4;     /* giấy ướt */
+  --ink:#142826;         /* mực lá thông */
+  --ink-2:#3B504D;
+  --ink-3:#4E615D;
+  --line:#C3CFCB;
+  --line-2:#A9B8B3;
+  --pine:#24463F;
+  --mimosa:#EDC12E;      /* hoa mimosa, áo mưa vàng */
+  --mimosa-ink:#7A5800;
+  --on-mimosa:#1D1806;
+  --hydra:#4D5FAA;       /* cẩm tú cầu */
+  --hydra-soft:#D7DCF1;
+  --ember:#C65A27;       /* lửa lò sưởi */
+  --ok:#286B44;
+  --warn:#9A6200;
+  --bad:#B23A2B;
+  --focus:#4D5FAA;
+  --shadow:rgba(20,40,38,.28);
+  --chip-bg:rgba(243,246,244,.82);
+  --paper:#FBFAF3;
+  --note-1:#F6E9AE; --note-2:#DDE2F5; --note-3:#F7F4EA; --note-4:#D9E8DD;
+  --note-ink:#24302E;
+  --coffee:#3A2417; --atiso:#7B2A45; --cream:#F2E6CF;
+
+  /* Cảnh ngoài cửa sổ */
+  --sky-top:#AFBFBE; --sky-bot:#E1E8E5;
+  --hill-far:#9DB0AC; --hill-mid:#6B8680; --hill-near:#2F4B45;
+  --mist:#EEF2F0; --lamp:#FFCF52; --rain:#5F7974; --fog:#E3EAE7;
+  --house:#3E5852; --roof:#243A35;
+  --frame:#24463F; --wood:#8A6748; --wood-2:#6B4E36;
+
+  /* Minh hoạ không gian */
+  --v-wall:#D3DDD9; --v-wall-2:#C2CFCA; --v-wood:#9A7556; --v-wood-2:#76563D;
+  --v-sky:#C4D1CF; --v-hill:#8AA19B; --v-pine:#41605A; --v-frame:#24463F;
+  --v-rain:#6F8A85; --v-cream:#F4ECDD; --v-stone:#A7B3AF; --v-hearth:#2A2522;
+  --v-sofa:#7B4B35; --v-pink:#C68BB0; --glow-op:.32;
+  --m-tree:#41605A;
+
+  /* Bản đồ */
+  --m-land:#EFF2EC; --m-water:#A8C3CC; --m-water-ink:#3B6372; --m-road:#FFFFFF;
+  --m-road-edge:#C5CFCB; --m-contour:#C9D5CC; --m-park:#CFE0CE; --m-label:#3B504D;
+
+  --f-display:"Fraunces","Iowan Old Style","Palatino Linotype",Georgia,serif;
+  --f-body:"Be Vietnam Pro","Segoe UI",system-ui,-apple-system,"Helvetica Neue",Arial,sans-serif;
+  --f-hand:"Patrick Hand","Segoe Print","Bradley Hand","Comic Sans MS",cursive;
+
+  --maxw:1200px;
+  --gutter:clamp(16px,4vw,40px);
+  --sec:clamp(72px,10vw,132px);
+  --r:14px;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0D1719; --bg-2:#111E21; --surface:#152427; --ink:#E3EBE7; --ink-2:#AFC0BB; --ink-3:#8DA09B;
+    --line:#25383B; --line-2:#36504F; --pine:#8FC2AE; --mimosa:#F0C93F; --mimosa-ink:#F0C93F; --on-mimosa:#1D1806;
+    --hydra:#A3B0EC; --hydra-soft:#242D4C; --ember:#F08A4B; --ok:#6FCB95; --warn:#E9B65A; --bad:#F08A7B; --focus:#A3B0EC;
+    --shadow:rgba(0,0,0,.6); --chip-bg:rgba(13,23,25,.78); --paper:#1B2A2D;
+    --note-1:#3A3418; --note-2:#262F4E; --note-3:#22302F; --note-4:#1D3328; --note-ink:#E8EEEA;
+    --sky-top:#0A1317; --sky-bot:#1D2D33; --hill-far:#1E3036; --hill-mid:#16262A; --hill-near:#0C1719;
+    --mist:#3A4F55; --lamp:#FFC447; --rain:#9DB5BB; --fog:#5A6F74; --house:#152226; --roof:#0B1416;
+    --frame:#2E5148; --wood:#6E4F38; --wood-2:#543B29;
+    --v-wall:#1B2B2E; --v-wall-2:#142225; --v-wood:#6E5039; --v-wood-2:#543C2B; --v-sky:#22353B; --v-hill:#1A2C30;
+    --v-pine:#0F1D20; --v-frame:#3A6457; --v-rain:#8FA9AF; --v-cream:#D9CFBD; --v-stone:#3A4747; --v-hearth:#0A0A0A;
+    --v-sofa:#5E3726; --v-pink:#8F5C7F; --glow-op:.16; --m-tree:#6E9488;
+    --m-land:#132124; --m-water:#1E3B47; --m-water-ink:#8DB6C6; --m-road:#2C3E42; --m-road-edge:#0A1416;
+    --m-contour:#1F3336; --m-park:#173026; --m-label:#B9C9C4;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0D1719; --bg-2:#111E21; --surface:#152427; --ink:#E3EBE7; --ink-2:#AFC0BB; --ink-3:#8DA09B;
+  --line:#25383B; --line-2:#36504F; --pine:#8FC2AE; --mimosa:#F0C93F; --mimosa-ink:#F0C93F; --on-mimosa:#1D1806;
+  --hydra:#A3B0EC; --hydra-soft:#242D4C; --ember:#F08A4B; --ok:#6FCB95; --warn:#E9B65A; --bad:#F08A7B; --focus:#A3B0EC;
+  --shadow:rgba(0,0,0,.6); --chip-bg:rgba(13,23,25,.78); --paper:#1B2A2D;
+  --note-1:#3A3418; --note-2:#262F4E; --note-3:#22302F; --note-4:#1D3328; --note-ink:#E8EEEA;
+  --sky-top:#0A1317; --sky-bot:#1D2D33; --hill-far:#1E3036; --hill-mid:#16262A; --hill-near:#0C1719;
+  --mist:#3A4F55; --lamp:#FFC447; --rain:#9DB5BB; --fog:#5A6F74; --house:#152226; --roof:#0B1416;
+  --frame:#2E5148; --wood:#6E4F38; --wood-2:#543B29;
+  --v-wall:#1B2B2E; --v-wall-2:#142225; --v-wood:#6E5039; --v-wood-2:#543C2B; --v-sky:#22353B; --v-hill:#1A2C30;
+  --v-pine:#0F1D20; --v-frame:#3A6457; --v-rain:#8FA9AF; --v-cream:#D9CFBD; --v-stone:#3A4747; --v-hearth:#0A0A0A;
+  --v-sofa:#5E3726; --v-pink:#8F5C7F; --glow-op:.16; --m-tree:#6E9488;
+  --m-land:#132124; --m-water:#1E3B47; --m-water-ink:#8DB6C6; --m-road:#2C3E42; --m-road-edge:#0A1416;
+  --m-contour:#1F3336; --m-park:#173026; --m-label:#B9C9C4;
+  color-scheme:dark;
+}
+
+/* ---------- Nền tảng ---------- */
+*,*::before,*::after{box-sizing:border-box}
+[hidden]{display:none!important}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:clip;transition:background-color .4s ease,color .4s ease}
+img,svg,canvas{display:block;max-width:100%}
+a{color:inherit;text-underline-offset:.2em;text-decoration-thickness:1px}
+button,input,textarea,select{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:3px solid var(--focus);outline-offset:3px;border-radius:6px}
+h1,h2,h3,h4{margin:0;font-weight:inherit;text-wrap:balance}
+p{margin:0}
+ul,ol{margin:0;padding:0;list-style:none}
+.wrap{max-width:var(--maxw);margin-inline:auto;padding-inline:var(--gutter)}
+.sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.skip{position:absolute;left:16px;top:-80px;z-index:100;background:var(--ink);color:var(--bg);padding:.6em 1em;border-radius:8px;text-decoration:none;font-weight:600}
+.skip:focus{top:calc(env(safe-area-inset-top,0px) + 12px)}
+section[id]{scroll-margin-top:84px}
+.eyebrow{font-size:.78rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3)}
+.sec{padding-block:var(--sec)}
+.sec-head{display:grid;gap:14px;align-content:start;max-width:760px;margin-bottom:clamp(36px,5vw,60px)}
+.faq-grid .sec-head{position:sticky;top:110px;align-self:start}
+.sec-head h2{font-family:var(--f-display);font-variation-settings:"SOFT" 100,"opsz" 120;font-weight:380;font-size:clamp(2.1rem,4.4vw,3.4rem);line-height:1.08;letter-spacing:-.015em}
+.sec-head h2 em{font-style:italic;font-weight:360}
+.sec-head .lede{color:var(--ink-2);font-size:1.075rem;max-width:62ch}
+.hand{font-family:var(--f-hand)}
+.num{font-variant-numeric:tabular-nums}
+
+/* ---------- Nút ---------- */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.55em;font-weight:600;font-size:1rem;line-height:1.1;padding:.95em 1.45em;border-radius:999px;border:1.5px solid transparent;text-decoration:none;transition:transform .18s ease,background-color .2s ease,border-color .2s ease,box-shadow .2s ease;white-space:nowrap;-webkit-tap-highlight-color:transparent}
+.btn svg{width:1.1em;height:1.1em;flex:none}
+.btn:active{transform:translateY(1px) scale(.99)}
+.btn-primary{background:var(--mimosa);color:var(--on-mimosa);box-shadow:0 1px 0 rgba(0,0,0,.08),0 10px 24px -14px var(--shadow)}
+.btn-primary:hover{box-shadow:0 1px 0 rgba(0,0,0,.08),0 14px 30px -12px var(--shadow);transform:translateY(-1px)}
+.btn-ghost{border-color:var(--ink);color:var(--ink);background:transparent}
+.btn-ghost:hover{background:var(--ink);color:var(--bg)}
+.btn-quiet{border-color:var(--line-2);color:var(--ink);background:transparent}
+.btn-quiet:hover{border-color:var(--ink)}
+.btn-sm{font-size:.9rem;padding:.7em 1.1em}
+.btn-lg{font-size:1.06rem;padding:1.05em 1.7em}
+.btn[aria-busy="true"]{pointer-events:none;opacity:.85}
+.spinner{width:1em;height:1em;border-radius:50%;border:2px solid currentColor;border-right-color:transparent;animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.icon-btn{display:inline-grid;place-items:center;width:42px;height:42px;border-radius:50%;border:1.5px solid var(--line-2);background:transparent;transition:border-color .2s,background-color .2s}
+.icon-btn:hover{border-color:var(--ink)}
+.icon-btn svg{width:20px;height:20px}
+.link-arrow{display:inline-flex;align-items:center;gap:.4em;font-weight:600;text-decoration:none;color:var(--ink);border-bottom:1.5px solid var(--mimosa);padding-bottom:2px}
+.link-arrow:hover{border-bottom-color:var(--ink)}
+.link-arrow svg{width:1em;height:1em;transition:transform .2s}
+.link-arrow:hover svg{transform:translateX(3px)}
+
+/* ---------- Header ---------- */
+.site-header{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:color-mix(in srgb,var(--bg) 82%,transparent);-webkit-backdrop-filter:saturate(1.2) blur(14px);backdrop-filter:saturate(1.2) blur(14px);border-bottom:1px solid transparent;transition:border-color .3s,background-color .4s}
+.site-header.scrolled{border-bottom-color:var(--line)}
+.header-in{display:flex;align-items:center;gap:20px;min-height:70px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;margin-right:auto}
+.brand-mark{width:22px;height:28px;flex:none}
+.brand-mark{fill:var(--mimosa);stroke:var(--ink);stroke-width:2}
+.brand-name{font-family:var(--f-display);font-variation-settings:"SOFT" 100,"opsz" 72;font-size:1.75rem;font-weight:450;line-height:1;letter-spacing:-.01em}
+.brand-sub{font-size:.74rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);font-weight:600;padding-left:10px;border-left:1px solid var(--line-2);line-height:1.2}
+.nav{display:flex;gap:4px}
+.nav a{text-decoration:none;font-weight:500;font-size:.95rem;padding:.5em .8em;border-radius:999px;color:var(--ink-2);transition:color .2s,background-color .2s}
+.nav a:hover{color:var(--ink);background:var(--bg-2)}
+.nav a[aria-current="true"]{color:var(--ink);background:var(--bg-2)}
+.header-actions{display:flex;align-items:center;gap:10px}
+.status-pill{display:inline-flex;align-items:center;gap:8px;font-size:.84rem;font-weight:500;color:var(--ink-2);white-space:nowrap}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--ink-3);flex:none}
+.dot[data-state="open"]{background:var(--ok);box-shadow:0 0 0 0 color-mix(in srgb,var(--ok) 60%,transparent);animation:pulse 2.4s infinite}
+.dot[data-state="soon"]{background:var(--warn)}
+.dot[data-state="closed"]{background:var(--bad)}
+@keyframes pulse{0%{box-shadow:0 0 0 0 color-mix(in srgb,var(--ok) 55%,transparent)}70%{box-shadow:0 0 0 8px transparent}100%{box-shadow:0 0 0 0 transparent}}
+.theme-toggle .moon{display:none}
+:root[data-theme="dark"] .theme-toggle .sun{display:none}
+:root[data-theme="dark"] .theme-toggle .moon{display:block}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]) .theme-toggle .sun{display:none}
+  :root:not([data-theme="light"]) .theme-toggle .moon{display:block}
+}
+@media (max-width:1080px){ .status-pill{display:none} }
+@media (max-width:860px){ .nav{display:none} .brand-sub{display:none} }
+
+/* ---------- Hero ---------- */
+.hero{padding-block:clamp(28px,4.5vw,64px) clamp(64px,8vw,112px)}
+.hero-grid{display:grid;grid-template-columns:minmax(0,1.08fr) minmax(0,.92fr);gap:clamp(40px,6vw,88px);align-items:center}
+.hero-copy{display:grid;gap:26px;align-content:center}
+.hero-copy>*,.window-wrap{animation:rise .8s cubic-bezier(.2,.7,.2,1) both}
+.hero-title{animation-delay:.08s!important}.hero-copy .lede{animation-delay:.18s!important}.hero-ctas{animation-delay:.26s!important}.facts{animation-delay:.34s!important}.window-wrap{animation-delay:.1s!important}
+.hero-title{font-family:var(--f-display);font-variation-settings:"SOFT" 100,"opsz" 144;font-weight:340;font-size:clamp(3.2rem,7.6vw,6.6rem);line-height:1.02;letter-spacing:-.025em}
+.hero-title em{font-style:italic;font-weight:330;position:relative;white-space:nowrap}
+.hero-title em::after{content:"";position:absolute;left:.02em;right:.08em;bottom:.04em;height:.11em;background:var(--mimosa);border-radius:99px;z-index:-1;opacity:.9;transform-origin:left;animation:underline 1.1s .5s cubic-bezier(.2,.7,.2,1) both}
+@keyframes underline{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+.hero-title .line{display:block}
+.lede{font-size:clamp(1.05rem,1.4vw,1.2rem);color:var(--ink-2);max-width:52ch;line-height:1.7}
+.hero-ctas{display:flex;flex-wrap:wrap;gap:12px}
+.facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;margin:8px 0 0;border-top:1px solid var(--line-2)}
+.facts>div{padding:14px 16px 0 0}
+.facts>div+div{padding-left:16px;border-left:1px solid var(--line)}
+.facts dt{font-size:.76rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);font-weight:600}
+.facts dd{margin:4px 0 0;font-family:var(--f-display);font-variation-settings:"SOFT" 100,"opsz" 36;font-size:1.22rem;line-height:1.25}
+@media (max-width:520px){ .hero-ctas .btn{flex:1 1 auto} .facts{grid-template-columns:1fr 1fr} .facts>div:nth-child(3){grid-column:1/-1;border-left:0;padding-left:0;border-top:1px solid var(--line);margin-top:14px} }
+
+.window-wrap{position:relative;width:100%;max-width:520px;justify-self:center}
+.window{position:relative;margin:0;aspect-ratio:4/5;width:100%;border:clamp(10px,1.5vw,15px) solid var(--frame);border-radius:50% 50% 8px 8px / 40% 40% 8px 8px;overflow:hidden;background:var(--sky-bot);box-shadow:inset 0 0 0 2px rgba(0,0,0,.18),0 40px 80px -40px var(--shadow);touch-action:pan-y;cursor:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='34' height='34'%3E%3Ccircle cx='17' cy='17' r='13' fill='rgba(255,255,255,0.25)' stroke='white' stroke-width='2'/%3E%3Ccircle cx='17' cy='17' r='13' fill='none' stroke='rgba(0,0,0,0.35)' stroke-width='1' /%3E%3C/svg%3E") 17 17,crosshair;-webkit-user-select:none;user-select:none;isolation:isolate}
+.window canvas{position:absolute;inset:0;width:100%;height:100%}
+.w-glass{pointer-events:none}
+.w-bar{position:absolute;left:0;right:0;top:40%;height:clamp(7px,1vw,10px);background:var(--frame);transform:translateY(-50%);pointer-events:none;box-shadow:0 2px 0 rgba(0,0,0,.12)}
+.w-ray{position:absolute;left:50%;top:0;height:40%;width:clamp(5px,.7vw,7px);margin-left:calc(clamp(5px,.7vw,7px) / -2);background:var(--frame);transform-origin:50% 100%;pointer-events:none}
+.w-ray.r1{transform:rotate(-52deg)} .w-ray.r3{transform:rotate(52deg)}
+.w-hub{position:absolute;left:50%;top:40%;width:22%;aspect-ratio:2/1;transform:translate(-50%,-100%);border-radius:999px 999px 0 0;border:clamp(5px,.7vw,7px) solid var(--frame);border-bottom:0;pointer-events:none}
+.w-hint{position:absolute;left:50%;bottom:20px;transform:translateX(-50%);display:inline-flex;align-items:center;gap:8px;padding:.5em .95em;border-radius:999px;background:var(--chip-bg);color:var(--ink);font-size:.86rem;font-weight:500;white-space:nowrap;pointer-events:none;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);transition:opacity .6s ease,transform .6s ease;box-shadow:0 6px 18px -10px var(--shadow)}
+.w-hint svg{width:18px;height:18px}
+.w-hint.gone{opacity:0;transform:translate(-50%,8px)}
+.sill{position:relative;height:20px;margin-inline:-14px;margin-top:-2px;border-radius:4px;background:linear-gradient(var(--wood),var(--wood-2));box-shadow:0 14px 24px -14px var(--shadow)}
+.sill-cup{position:absolute;right:13%;bottom:100%;width:54px;height:auto;margin-bottom:-1px}
+.sill-cup .cup{fill:var(--cream)} .sill-cup .cup-in{fill:var(--coffee)} .sill-cup .saucer{fill:var(--cream);opacity:.9}
+.sill-cup .steam{fill:none;stroke:var(--ink-3);stroke-width:1.6;stroke-linecap:round;opacity:.0;animation:steam 3.6s ease-in-out infinite}
+.sill-cup .steam.s2{animation-delay:1.2s}.sill-cup .steam.s3{animation-delay:2.4s}
+@keyframes steam{0%{opacity:0;transform:translateY(6px)}30%{opacity:.7}100%{opacity:0;transform:translateY(-12px)}}
+.window-tools{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:18px}
+.sound-btn{display:inline-flex;align-items:center;gap:10px;padding:.6em 1.05em .6em .8em;border-radius:999px;border:1.5px solid var(--line-2);background:transparent;font-weight:600;font-size:.92rem;transition:border-color .2s,background-color .2s}
+.sound-btn:hover{border-color:var(--ink)}
+.sound-btn[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.bars{display:inline-flex;align-items:flex-end;gap:2px;height:14px}
+.bars i{display:block;width:3px;height:4px;border-radius:2px;background:currentColor}
+.sound-btn[aria-pressed="true"] .bars i{animation:bar 1s ease-in-out infinite}
+.bars i:nth-child(2){animation-delay:.2s!important}.bars i:nth-child(3){animation-delay:.45s!important}.bars i:nth-child(4){animation-delay:.1s!important}
+@keyframes bar{0%,100%{height:4px}50%{height:14px}}
+.tools-note{font-size:.84rem;color:var(--ink-3)}
+
+.now-card{position:absolute;left:-112px;top:1%;width:min(244px,58%);background:var(--paper);border-radius:12px;padding:16px 18px;box-shadow:0 24px 40px -22px var(--shadow),0 0 0 1px var(--line);display:grid;gap:8px;transform:rotate(-1.6deg);font-size:.9rem;z-index:2}
+.now-card::before{content:"";position:absolute;top:-10px;left:50%;width:74px;height:20px;transform:translateX(-50%) rotate(2deg);background:color-mix(in srgb,var(--mimosa) 55%,transparent);border-radius:2px}
+.now-head{display:flex;justify-content:space-between;align-items:baseline;gap:10px;font-size:.74rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);font-weight:600}
+.now-head time{font-family:var(--f-display);font-size:1.5rem;letter-spacing:0;text-transform:none;color:var(--ink);font-weight:400;font-variant-numeric:tabular-nums}
+.now-weather{font-family:var(--f-display);font-variation-settings:"SOFT" 100,"opsz" 36;font-size:1.2rem;line-height:1.25}
+.now-msg{color:var(--ink-2);line-height:1.5}
+.now-list{display:grid;gap:4px;padding-top:8px;border-top:1px dashed var(--line-2);font-size:.86rem;color:var(--ink-2)}
+.now-list li{display:flex;align-items:center;gap:8px}
+@media (max-width:1180px){ .now-card{position:relative;left:auto;top:auto;width:auto;transform:none;margin-top:26px} }
+@media (max-width:960px){
+  .hero-grid{grid-template-columns:1fr;gap:24px}
+  .hero-copy{display:contents}
+  .hero-copy .eyebrow{order:1} .hero-title{order:2} .window-wrap{order:3;margin-block:8px 6px} .hero-copy .lede{order:4} .hero-ctas{order:5} .facts{order:6}
+  .window-wrap{max-width:480px}
+  .now-card{position:relative;left:auto;bottom:auto;width:auto;transform:none;margin-top:26px}
+}
+
+/* ---------- Một ngày ---------- */
+.day{background:var(--bg-2)}
+.day-list{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:0;position:relative;counter-reset:none}
+.day-list::before{content:"";position:absolute;left:0;right:0;top:27px;height:1.5px;background:var(--line-2)}
+.day-item{position:relative;padding:0 22px 0 0;display:grid;gap:10px;align-content:start}
+.day-icon{position:relative;z-index:1;width:56px;height:56px;border-radius:50%;display:grid;place-items:center;background:var(--bg-2);border:1.5px solid var(--line-2);color:var(--ink-2);transition:background-color .3s,border-color .3s,color .3s}
+.day-icon svg{width:26px;height:26px}
+.day-item time{font-family:var(--f-display);font-size:1.6rem;font-variation-settings:"SOFT" 100,"opsz" 48;font-weight:400;line-height:1;margin-top:10px;font-variant-numeric:tabular-nums}
+.day-item h3{font-weight:600;font-size:1.02rem}
+.day-item p{color:var(--ink-2);font-size:.95rem;line-height:1.6}
+.day-item .now-tag{display:none;position:absolute;left:62px;top:16px;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;font-weight:700;background:var(--mimosa);color:var(--on-mimosa);padding:3px 9px;border-radius:999px;z-index:1}
+.day-item.is-now .day-icon{background:var(--mimosa);border-color:var(--mimosa);color:var(--on-mimosa)}
+.day-item.is-now .now-tag{display:inline-block}
+@media (max-width:900px){
+  .day-list{grid-template-columns:1fr;gap:28px}
+  .day-list::before{left:27px;right:auto;top:0;bottom:0;width:1.5px;height:auto}
+  .day-item{grid-template-columns:56px minmax(0,1fr);column-gap:20px;row-gap:4px;padding:0}
+  .day-item .day-icon{grid-row:1/span 3}
+  .day-item time{margin-top:4px}
+  .day-item .now-tag{position:static;justify-self:start;grid-column:2;order:-1}
+}
+
+/* ---------- Thực đơn ---------- */
+.menu-layout{display:grid;grid-template-columns:minmax(0,300px) minmax(0,1fr);gap:clamp(32px,5vw,72px);align-items:start}
+.signature{position:sticky;top:96px;background:var(--surface);border-radius:20px;padding:26px 24px 24px;display:grid;gap:12px;box-shadow:0 0 0 1px var(--line)}
+.signature svg{width:132px;margin:0 auto 4px}
+.signature .eyebrow{color:var(--mimosa-ink)}
+.signature h3{font-family:var(--f-display);font-variation-settings:"SOFT" 100,"opsz" 72;font-size:2rem;font-weight:400;line-height:1.05}
+.signature p{color:var(--ink-2);font-size:.96rem}
+.signature .price{font-family:var(--f-display);font-size:1.4rem}
+.signature .btn{justify-self:start}
+.glass-line{fill:none;stroke:var(--ink-2);stroke-width:2.2;stroke-linejoin:round}
+.glass-shine{fill:none;stroke:var(--surface);stroke-width:3;stroke-linecap:round;opacity:.6}
+.ice{fill:var(--atiso);opacity:.85}
+.straw{fill:var(--hydra)}
+.menu-tools{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:14px;margin-bottom:22px}
+.tabs{display:flex;gap:6px;flex-wrap:wrap}
+.tab{border:1.5px solid var(--line-2);background:transparent;border-radius:999px;padding:.62em 1.1em;font-weight:600;font-size:.94rem;color:var(--ink-2);display:inline-flex;align-items:center;gap:8px;transition:all .2s}
+.tab:hover{border-color:var(--ink);color:var(--ink)}
+.tab[aria-selected="true"]{background:var(--ink);border-color:var(--ink);color:var(--bg)}
+.tab .rain-dot{width:7px;height:7px;border-radius:50%;background:var(--hydra)}
+.tab[data-live="on"] .rain-dot{background:var(--ok);animation:pulse 2s infinite}
+.suggest-btn{display:inline-flex;align-items:center;gap:8px;background:none;border:0;padding:.5em 0;font-weight:600;color:var(--ink);border-bottom:1.5px dashed var(--line-2)}
+.suggest-btn:hover{border-bottom-color:var(--ink)}
+.suggest-btn svg{width:18px;height:18px}
+.suggest{margin-bottom:26px;padding:18px 20px;border-radius:16px;background:var(--hydra-soft);display:grid;gap:10px;animation:rise .35s ease both}
+.suggest-title{font-weight:600}
+.suggest-items{display:flex;flex-wrap:wrap;gap:8px 18px;font-family:var(--f-display);font-size:1.25rem;font-variation-settings:"SOFT" 100,"opsz" 36}
+.suggest-items span small{font-family:var(--f-body);font-size:.85rem;color:var(--ink-2);margin-left:6px}
+.suggest-why{color:var(--ink-2);font-size:.95rem}
+@keyframes rise{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.rain-status{display:flex;gap:12px;align-items:flex-start;padding:14px 16px;border-radius:14px;border:1.5px dashed var(--line-2);margin-bottom:24px;color:var(--ink-2)}
+.rain-status strong{color:var(--ink)}
+.rain-status svg{width:22px;height:22px;flex:none;margin-top:2px;color:var(--hydra)}
+.menu-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:clamp(28px,4vw,56px);row-gap:26px}
+.item{display:grid;gap:5px;padding:4px 0;border-radius:10px;transition:background-color .3s,box-shadow .3s}
+.item.flash{background:color-mix(in srgb,var(--mimosa) 20%,transparent);box-shadow:0 0 0 10px color-mix(in srgb,var(--mimosa) 20%,transparent)}
+.item-top{display:flex;align-items:baseline;gap:10px}
+.item-name{font-family:var(--f-display);font-variation-settings:"SOFT" 100,"opsz" 36;font-size:1.28rem;font-weight:450;line-height:1.25;min-width:0}
+.leader{flex:1;min-width:20px;border-bottom:2px dotted var(--line-2);transform:translateY(-5px)}
+.item-price{font-family:var(--f-display);font-size:1.25rem;font-variant-numeric:tabular-nums;white-space:nowrap}
+.item-price small{font-size:.72em;margin-left:1px;color:var(--ink-3)}
+.item-desc{color:var(--ink-2);font-size:.95rem;line-height:1.55;max-width:46ch}
+.item-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:2px}
+.tag{font-size:.74rem;font-weight:600;letter-spacing:.04em;padding:2px 9px;border-radius:999px;border:1px solid var(--line-2);color:var(--ink-2)}
+.tag.sig{background:var(--mimosa);border-color:var(--mimosa);color:var(--on-mimosa)}
+.tag.veg{border-color:color-mix(in srgb,var(--ok) 55%,transparent);color:var(--ok)}
+.menu-note{margin-top:34px;padding-top:18px;border-top:1px solid var(--line);color:var(--ink-3);font-size:.9rem}
+@media (max-width:900px){
+  .menu-layout{grid-template-columns:1fr}
+  .signature{position:relative;top:auto;grid-template-columns:110px minmax(0,1fr);column-gap:20px;align-items:center}
+  .signature svg{grid-row:1/span 6;width:100%;margin:0}
+}
+@media (max-width:720px){ .menu-list{grid-template-columns:1fr} }
+@media (max-width:440px){ .signature{grid-template-columns:76px minmax(0,1fr);column-gap:16px;padding:20px 18px} .signature svg{grid-row:1/span 3;align-self:start} .signature>p:not(.eyebrow),.signature .btn{grid-column:1/-1} }
+
+/* ---------- Không gian ---------- */
+.spaces{background:var(--bg-2)}
+.space-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(18px,2.5vw,28px)}
+.space{background:var(--surface);border-radius:20px;overflow:hidden;display:grid;grid-template-rows:auto 1fr;box-shadow:0 0 0 1px var(--line)}
+.space .vg{width:100%;height:auto;aspect-ratio:16/9}
+.space-body{padding:22px 24px 24px;display:grid;gap:10px;align-content:start}
+.space-top{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
+.space h3{font-family:var(--f-display);font-variation-settings:"SOFT" 100,"opsz" 48;font-size:1.65rem;font-weight:420;line-height:1.1}
+.space-meta{font-size:.84rem;font-weight:600;color:var(--ink-3);letter-spacing:.02em}
+.space p.desc{color:var(--ink-2)}
+.space .link-arrow{justify-self:start;margin-top:6px}
+@media (max-width:760px){ .space-grid{grid-template-columns:1fr} }
+.vg .wall{fill:var(--v-wall)} .vg .wall2{fill:var(--v-wall-2)} .vg .wood{fill:var(--v-wood)} .vg .wood2{fill:var(--v-wood-2)}
+.vg .sky{fill:var(--v-sky)} .vg .hill{fill:var(--v-hill)} .vg .pine{fill:var(--v-pine)} .vg .frame{fill:var(--v-frame)}
+.vg .cream{fill:var(--v-cream)} .vg .stone{fill:var(--v-stone)} .vg .hearth{fill:var(--v-hearth)} .vg .sofa{fill:var(--v-sofa)}
+.vg .glow{fill:var(--mimosa)} .vg .ember{fill:var(--ember)} .vg .hydra{fill:var(--hydra)} .vg .hydra2{fill:var(--hydra-soft)} .vg .pink{fill:var(--v-pink)}
+.vg .inkf{fill:var(--ink)} .vg .coffee{fill:var(--coffee)}
+.vg .stroke-wood{fill:none;stroke:var(--v-wood-2);stroke-width:3;stroke-linecap:round}
+.vg .stroke-frame{fill:none;stroke:var(--v-frame);stroke-width:4}
+.vg .rainl{stroke:var(--v-rain);stroke-width:1.4;stroke-linecap:round;opacity:.8}
+.vg .rain-anim{animation:vgrain 1.1s linear infinite}
+@keyframes vgrain{from{transform:translate(0,-18px)}to{transform:translate(-4px,18px)}}
+.vg .steam{fill:none;stroke:var(--ink-3);stroke-width:1.6;stroke-linecap:round;animation:steam 3.4s ease-in-out infinite}
+.vg .steam.d{animation-delay:1.6s}
+.vg .flame{transform-box:fill-box;transform-origin:50% 100%;animation:flick 1.3s ease-in-out infinite alternate}
+.vg .flame.f2{animation-duration:.9s;animation-delay:.3s}
+@keyframes flick{0%{transform:scale(1,1) skewX(0)}50%{transform:scale(.94,1.08) skewX(-3deg)}100%{transform:scale(1.04,.94) skewX(2deg)}}
+.vg .lampglow{fill:var(--mimosa);opacity:var(--glow-op);filter:url(#soft)}
+.vg .shade{fill:var(--ink);opacity:.12}
+
+/* ---------- Đặt bàn ---------- */
+.booking-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,340px);gap:clamp(32px,5vw,72px);align-items:start}
+.demo-note{display:flex;gap:10px;align-items:flex-start;font-size:.9rem;color:var(--ink-2);background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin-bottom:28px}
+.demo-note svg{width:18px;height:18px;flex:none;margin-top:3px;color:var(--hydra)}
+.saved{display:grid;gap:12px;padding:18px 20px;border-radius:16px;background:var(--hydra-soft);margin-bottom:28px}
+.saved p{line-height:1.5}
+.saved-actions{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+form{display:grid;gap:34px}
+fieldset{border:0;margin:0;padding:0;min-width:0;display:grid;gap:14px}
+legend{display:flex;align-items:center;gap:12px;font-weight:600;font-size:1.08rem;padding:0;margin-bottom:14px}
+legend .step{display:inline-grid;place-items:center;width:28px;height:28px;border-radius:50%;border:1.5px solid var(--ink);font-family:var(--f-display);font-size:.95rem;font-weight:500;flex:none}
+.legend-sub{font-weight:400;color:var(--ink-3);font-size:.9rem}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{position:relative;display:inline-flex}
+.chip input{position:absolute;inset:0;opacity:0;margin:0;cursor:pointer;width:100%;height:100%}
+.chip input:disabled{cursor:not-allowed}
+.chip span{display:inline-flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;min-height:44px;padding:.5em 1em;border:1.5px solid var(--line-2);border-radius:12px;font-weight:500;font-size:.95rem;line-height:1.2;transition:background-color .15s,border-color .15s,color .15s;background:var(--surface)}
+.chip span small{font-size:.74rem;color:var(--ink-3);font-weight:500}
+.chip:hover input:not(:disabled)+span{border-color:var(--ink)}
+.chip input:checked+span{background:var(--ink);border-color:var(--ink);color:var(--bg)}
+.chip input:checked+span small{color:inherit;opacity:.8}
+.chip input:focus-visible+span{outline:3px solid var(--focus);outline-offset:2px}
+.chip input:disabled+span{opacity:.5;background:transparent;border-style:dashed}
+.chip input:disabled+span b{text-decoration:line-through;font-weight:500}
+.chip.date span{min-width:76px;padding:.55em .9em}
+.chip.date span b{font-weight:600}
+.chip.time span{min-width:68px;font-variant-numeric:tabular-nums}
+.chip.tagc span{border-radius:999px;min-height:38px;padding:.4em .95em;font-size:.9rem}
+.time-group{display:grid;gap:8px}
+.time-group h4{font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);font-weight:600}
+.other-date{display:inline-flex;align-items:center;gap:10px;font-size:.92rem;color:var(--ink-2)}
+.other-date input{border:1.5px solid var(--line-2);border-radius:10px;padding:.45em .7em;background:var(--surface);min-height:44px}
+.stepper{display:inline-flex;align-items:center;gap:6px;border:1.5px solid var(--line-2);border-radius:999px;padding:4px;background:var(--surface);justify-self:start}
+.stepper button{width:44px;height:44px;border-radius:50%;border:0;background:transparent;display:grid;place-items:center;font-size:1.4rem;line-height:1}
+.stepper button:hover:not(:disabled){background:var(--bg-2)}
+.stepper button:disabled{opacity:.35;cursor:not-allowed}
+.stepper output{min-width:96px;text-align:center;font-weight:600;font-variant-numeric:tabular-nums}
+.zones{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:10px}
+.zone{position:relative;display:block}
+.zone input{position:absolute;inset:0;opacity:0;margin:0;width:100%;height:100%;cursor:pointer}
+.zone input:disabled{cursor:not-allowed}
+.zone .zc{display:grid;grid-template-columns:36px minmax(0,1fr);gap:4px 12px;align-items:start;height:100%;padding:14px;border:1.5px solid var(--line-2);border-radius:14px;background:var(--surface);transition:border-color .15s,box-shadow .15s}
+.zone .zc svg{width:36px;height:36px;grid-row:1/span 2;color:var(--ink-2)}
+.zone .zn{font-weight:600;line-height:1.3}
+.zone .zd{font-size:.86rem;color:var(--ink-3);line-height:1.4}
+.zone:hover input:not(:disabled)+.zc{border-color:var(--ink)}
+.zone input:checked+.zc{border-color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--ink);background:color-mix(in srgb,var(--mimosa) 14%,var(--surface))}
+.zone input:checked+.zc svg{color:var(--ink)}
+.zone input:focus-visible+.zc{outline:3px solid var(--focus);outline-offset:2px}
+.zone input:disabled+.zc{opacity:.5;border-style:dashed;background:transparent}
+.field{display:grid;gap:6px}
+.field label{font-weight:500;font-size:.95rem}
+.field .opt{color:var(--ink-3);font-weight:400}
+.field input,.field textarea{width:100%;border:1.5px solid var(--line-2);border-radius:12px;padding:.8em .95em;background:var(--surface);min-height:48px;transition:border-color .15s,box-shadow .15s}
+.field textarea{min-height:92px;resize:vertical;line-height:1.5}
+.field input:hover,.field textarea:hover{border-color:var(--ink-3)}
+.field input:focus,.field textarea:focus{outline:none;border-color:var(--focus);box-shadow:0 0 0 3px color-mix(in srgb,var(--focus) 30%,transparent)}
+.field input[aria-invalid="true"]{border-color:var(--bad)}
+.err{color:var(--bad);font-size:.88rem;font-weight:500;display:flex;gap:6px;align-items:center}
+.err:empty{display:none}
+.hint{font-size:.86rem;color:var(--ink-3)}
+.fields-2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+@media (max-width:600px){ .fields-2{grid-template-columns:1fr} }
+.smart-hint{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;padding:12px 14px;border-radius:12px;background:color-mix(in srgb,var(--mimosa) 18%,transparent);font-size:.92rem;animation:rise .3s ease both}
+.smart-hint button{background:none;border:0;padding:0;font-weight:700;text-decoration:underline;text-underline-offset:.2em}
+.submit-row{display:grid;gap:12px;justify-items:start}
+.mini-summary{display:none;font-size:.95rem;color:var(--ink-2)}
+.booking-grid.is-done{grid-template-columns:minmax(0,1fr)}
+.booking-grid.is-done .ticket{display:none}
+.ticket{position:sticky;top:96px;background:var(--paper);border-radius:16px;padding:24px 22px 20px;box-shadow:0 24px 50px -30px var(--shadow),0 0 0 1px var(--line);display:grid;gap:16px}
+.ticket::after{content:"";position:absolute;left:14px;right:14px;top:96px;border-top:2px dashed var(--line-2)}
+.ticket-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;min-height:56px}
+.ticket-head .t-title{font-family:var(--f-display);font-variation-settings:"SOFT" 100,"opsz" 48;font-size:1.5rem;line-height:1.1}
+.ticket-head .brand-mark{width:26px;height:33px}
+.t-rows{display:grid;gap:12px;margin-top:18px}
+.t-row{display:grid;grid-template-columns:86px minmax(0,1fr);gap:10px;font-size:.95rem;align-items:baseline}
+.t-row dt{font-size:.74rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);font-weight:600}
+.t-row dd{margin:0;font-weight:500;overflow-wrap:anywhere}
+.t-row dd.empty{color:var(--ink-3);font-weight:400}
+.t-foot{font-size:.84rem;color:var(--ink-3);border-top:1px solid var(--line);padding-top:12px;line-height:1.5}
+@media (max-width:960px){
+  .booking-grid{grid-template-columns:1fr}
+  .ticket{display:none}
+  .mini-summary{display:block}
+}
+.confirm{display:grid;gap:22px;animation:rise .4s ease both}
+.confirm:focus{outline:none}
+.confirm-title{font-family:var(--f-display);font-variation-settings:"SOFT" 100,"opsz" 96;font-size:clamp(2rem,4vw,2.8rem);font-weight:380;line-height:1.08}
+.c-ticket{background:var(--paper);border-radius:18px;box-shadow:0 30px 60px -36px var(--shadow),0 0 0 1px var(--line);display:grid;grid-template-columns:minmax(0,1fr) auto;overflow:hidden;max-width:620px}
+.c-main{padding:24px;display:grid;gap:12px}
+.c-stub{padding:24px 22px;border-left:2px dashed var(--line-2);display:grid;place-content:center;text-align:center;gap:6px;background:color-mix(in srgb,var(--mimosa) 22%,var(--paper));position:relative}
+.c-stub::before,.c-stub::after{content:"";position:absolute;left:-11px;width:20px;height:20px;border-radius:50%;background:var(--bg)}
+.c-stub::before{top:-10px}.c-stub::after{bottom:-10px}
+.c-code{font-family:var(--f-display);font-size:1.6rem;letter-spacing:.06em;font-variant-numeric:tabular-nums}
+.c-stub small{font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-2);font-weight:600}
+.c-actions{display:flex;flex-wrap:wrap;gap:10px}
+.c-fine{font-size:.9rem;color:var(--ink-3);max-width:62ch}
+@media (max-width:560px){ .c-ticket{grid-template-columns:1fr} .c-stub{border-left:0;border-top:2px dashed var(--line-2)} .c-stub::before,.c-stub::after{display:none} }
+
+/* ---------- Sổ lưu bút ---------- */
+.notes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(18px,3vw,34px);padding-top:10px}
+.note{position:relative;padding:26px 22px 20px;background:var(--note-1);color:var(--note-ink);border-radius:3px;box-shadow:0 18px 30px -22px var(--shadow);display:grid;gap:12px;transform:rotate(var(--rot,0deg));transition:transform .3s ease}
+.note:hover{transform:rotate(0) translateY(-3px)}
+.note::before{content:"";position:absolute;top:-11px;left:50%;width:84px;height:22px;transform:translateX(-50%) rotate(-3deg);background:color-mix(in srgb,var(--surface) 70%,transparent);box-shadow:0 1px 2px rgba(0,0,0,.08)}
+.note p{font-family:var(--f-hand);font-size:1.38rem;line-height:1.3}
+.note footer{font-family:var(--f-hand);font-size:1.08rem;opacity:.75}
+.note:nth-child(1){--rot:-2.2deg}
+.note:nth-child(2){--rot:1.4deg;background:var(--note-2)}
+.note:nth-child(3){--rot:-.8deg;background:var(--note-3)}
+.note:nth-child(4){--rot:1.9deg;background:var(--note-4)}
+.note:nth-child(5){--rot:-1.6deg;background:var(--note-3)}
+.note:nth-child(6){--rot:1deg;background:var(--note-2)}
+.note svg{width:34px;height:34px;color:var(--ember)}
+@media (max-width:900px){ .notes{grid-template-columns:repeat(2,minmax(0,1fr))} }
+@media (max-width:560px){ .notes{grid-template-columns:1fr} .note{--rot:0deg!important} }
+
+/* ---------- Đường đến ---------- */
+.find{background:var(--bg-2)}
+.find-grid{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:clamp(28px,4vw,56px);align-items:start}
+.map-card{display:grid;gap:14px}
+.route-tabs{display:flex;flex-wrap:wrap;gap:6px}
+.route-tabs button{border:1.5px solid var(--line-2);background:transparent;border-radius:999px;padding:.5em 1em;font-weight:600;font-size:.9rem;color:var(--ink-2);transition:all .2s}
+.route-tabs button:hover{border-color:var(--ink);color:var(--ink)}
+.route-tabs button[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--bg)}
+.map-box{position:relative;border-radius:20px;overflow:hidden;box-shadow:0 0 0 1px var(--line);aspect-ratio:3/2;background:var(--m-land)}
+.map{width:100%;height:100%;font-family:var(--f-body)}
+.map .land{fill:var(--m-land)}
+.map .contour{fill:none;stroke:var(--m-contour);stroke-width:1.4}
+.map .elev{fill:var(--m-label);font-size:12px;opacity:.55;letter-spacing:.06em}
+.map .park{fill:var(--m-park)}
+.map .water{fill:var(--m-water)}
+.map .water-lbl{fill:var(--m-water-ink);font-family:var(--f-display);font-style:italic;font-size:22px}
+.map .road-edge{fill:none;stroke:var(--m-road-edge);stroke-width:15;stroke-linecap:round;stroke-linejoin:round}
+.map .road{fill:none;stroke:var(--m-road);stroke-width:11;stroke-linecap:round;stroke-linejoin:round}
+.map .lane-edge{fill:none;stroke:var(--m-road-edge);stroke-width:9;stroke-linecap:round;stroke-linejoin:round}
+.map .lane{fill:none;stroke:var(--m-road);stroke-width:6;stroke-linecap:round;stroke-linejoin:round}
+.map .road-lbl{fill:var(--m-label);font-size:12.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;opacity:.75}
+.map .tree{fill:var(--m-tree);opacity:.55}
+.map .route{fill:none;stroke:var(--hydra);stroke-width:5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:2 11;opacity:0;transition:opacity .4s}
+.map .route.on{opacity:1;animation:march 1s linear infinite}
+@keyframes march{to{stroke-dashoffset:-13}}
+.map .poi circle.bg{fill:var(--surface);stroke:var(--ink-2);stroke-width:2}
+.map .poi .ic{fill:none;stroke:var(--ink);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.map .poi.on circle.bg{fill:var(--hydra-soft);stroke:var(--hydra);stroke-width:3}
+.map .lbl{fill:var(--ink);font-size:17px;font-weight:600;paint-order:stroke;stroke:var(--m-land);stroke-width:5px;stroke-linejoin:round}
+.map .lbl.sm{font-size:14px;font-weight:500;fill:var(--ink-2)}
+.map .cafe-drop{fill:var(--mimosa);stroke:var(--ink);stroke-width:2.5}
+.map .cafe-pulse{fill:var(--mimosa);opacity:.35;transform-box:fill-box;transform-origin:center;animation:ping 2.2s ease-out infinite}
+@keyframes ping{0%{transform:scale(.6);opacity:.55}100%{transform:scale(2.4);opacity:0}}
+.map .cafe-sub{paint-order:stroke;stroke:var(--m-land);stroke-width:5px;opacity:1}
+.map .cafe-lbl{fill:var(--ink);font-family:var(--f-display);font-size:26px;font-weight:500;paint-order:stroke;stroke:var(--m-land);stroke-width:6px;stroke-linejoin:round}
+.compass-ov{position:absolute;bottom:12px;right:12px;width:40px;height:auto;pointer-events:none}
+@media (max-width:640px){
+  .map-box{aspect-ratio:1/1}
+  .map .lbl{font-size:24px;stroke-width:6px} .map .lbl.sm{font-size:19px}
+  .map .cafe-sub{paint-order:stroke;stroke:var(--m-land);stroke-width:5px;opacity:1}
+.map .cafe-lbl{font-size:34px}
+  .map .road-lbl{font-size:16px}
+  .map .water-lbl{font-size:28px}
+}
+.map-caption{font-size:.84rem;color:var(--ink-3)}
+.route-info{display:grid;gap:10px;padding:18px 20px;border-radius:16px;background:var(--surface);box-shadow:0 0 0 1px var(--line);min-height:150px}
+.route-info .ri-top{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:baseline}
+.route-info h3{font-weight:600;font-size:1.05rem}
+.route-info .ri-time{font-family:var(--f-display);font-size:1.15rem;color:var(--ink-2)}
+.route-steps{display:grid;gap:8px;counter-reset:st}
+.route-steps li{display:grid;grid-template-columns:24px minmax(0,1fr);gap:10px;color:var(--ink-2);font-size:.95rem;line-height:1.5}
+.route-steps li::before{counter-increment:st;content:counter(st);display:grid;place-items:center;width:22px;height:22px;border-radius:50%;background:var(--hydra-soft);color:var(--ink);font-size:.78rem;font-weight:700;margin-top:1px}
+.find-info{display:grid;gap:26px}
+.addr{font-family:var(--f-display);font-variation-settings:"SOFT" 100,"opsz" 48;font-size:clamp(1.6rem,2.6vw,2.05rem);line-height:1.2;font-weight:400}
+.addr-actions{display:flex;flex-wrap:wrap;gap:10px}
+.hours{display:grid;gap:0;border-top:1px solid var(--line-2)}
+.hours>div{display:flex;justify-content:space-between;gap:14px;padding:11px 0;border-bottom:1px solid var(--line)}
+.hours dt{color:var(--ink-2)}
+.hours dd{margin:0;font-weight:600;font-variant-numeric:tabular-nums;text-align:right}
+.tips{display:grid;gap:14px}
+.tips li{display:grid;grid-template-columns:28px minmax(0,1fr);gap:12px;color:var(--ink-2);line-height:1.55}
+.tips svg{width:24px;height:24px;color:var(--pine);margin-top:1px}
+.tips strong{color:var(--ink);font-weight:600}
+@media (max-width:960px){ .find-grid{grid-template-columns:1fr} }
+
+/* ---------- FAQ ---------- */
+.faq-grid{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:clamp(28px,5vw,72px)}
+.faq{border-top:1px solid var(--line-2)}
+.faq details{border-bottom:1px solid var(--line-2)}
+.faq summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:20px 0;font-weight:600;font-size:1.06rem}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary .pm{position:relative;width:18px;height:18px;flex:none}
+.faq summary .pm::before,.faq summary .pm::after{content:"";position:absolute;left:0;right:0;top:50%;height:2px;background:currentColor;border-radius:2px;transition:transform .25s ease}
+.faq summary .pm::after{transform:rotate(90deg)}
+.faq details[open] summary .pm::after{transform:rotate(0)}
+.faq summary:hover{color:var(--pine)}
+.faq details p{padding:0 32px 22px 0;color:var(--ink-2);max-width:64ch}
+@media (max-width:860px){ .faq-grid{grid-template-columns:1fr} .faq-grid .sec-head{position:static} }
+
+/* ---------- Footer ---------- */
+.site-footer{background:var(--pine);color:var(--bg);padding-block:clamp(56px,7vw,88px) 40px}
+:root .site-footer{--f-ink:var(--bg)}
+.foot-grid{display:grid;grid-template-columns:minmax(0,1.4fr) repeat(3,minmax(0,1fr));gap:36px}
+.foot-brand .brand-name{font-size:3rem}
+.foot-brand p{margin-top:12px;opacity:.85;max-width:34ch}
+.site-footer h3{font-size:.76rem;letter-spacing:.14em;text-transform:uppercase;opacity:.7;font-weight:600;margin-bottom:12px}
+.site-footer ul{display:grid;gap:8px}
+.site-footer a{text-decoration:none;opacity:.92}
+.site-footer a:hover{text-decoration:underline;opacity:1}
+.foot-fine{margin-top:48px;padding-top:20px;border-top:1px solid color-mix(in srgb,var(--bg) 25%,transparent);display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;font-size:.86rem;opacity:.8}
+.site-footer .brand-mark{stroke:currentColor}
+:root[data-theme="dark"] .site-footer{background:#091113;color:var(--ink)}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]) .site-footer{background:#091113;color:var(--ink)} }
+@media (max-width:860px){ .foot-grid{grid-template-columns:1fr 1fr} .foot-brand{grid-column:1/-1} }
+
+/* ---------- Thanh dưới (điện thoại) ---------- */
+.dock{position:fixed;left:0;right:0;bottom:0;z-index:60;display:none;gap:8px;padding:10px 12px calc(10px + env(safe-area-inset-bottom,0px));background:color-mix(in srgb,var(--bg) 90%,transparent);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border-top:1px solid var(--line);transition:transform .35s ease}
+.dock a{flex:1 1 0;min-width:0;display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:46px;padding-inline:8px;border-radius:999px;text-decoration:none;font-weight:600;font-size:.88rem;white-space:nowrap;border:1.5px solid var(--line-2)}
+.dock a svg{width:18px;height:18px;flex:none}
+@media (max-width:360px){ .dock a:not(.primary) svg{display:none} }
+.dock a.primary{flex:1.25 1 0;background:var(--mimosa);color:var(--on-mimosa);border-color:var(--mimosa)}
+.dock.hide{transform:translateY(110%)}
+@media (max-width:720px){ .dock{display:flex} body{padding-bottom:76px} }
+
+/* ---------- Toast ---------- */
+.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translate(-50%,20px);background:var(--ink);color:var(--bg);padding:.75em 1.2em;border-radius:999px;font-weight:500;font-size:.94rem;opacity:0;pointer-events:none;transition:opacity .25s,transform .25s;z-index:80;max-width:calc(100% - 32px);text-align:center}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+@media (max-width:720px){ .toast{bottom:calc(90px + env(safe-area-inset-bottom,0px))} }
+
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#noi-dung">Bỏ qua, tới nội dung</a>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <filter id="soft" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="12"/></filter>
+    <symbol id="i-drop" viewBox="0 0 24 30"><path class="drop" d="M12 1.5C12 1.5 3 12 3 19a9 9 0 0 0 18 0C21 12 12 1.5 12 1.5z"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 20 20"><path d="M4 10h12m-5-5 5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><circle cx="12" cy="9.5" r="2.5" fill="none" stroke="currentColor" stroke-width="1.8"/></symbol>
+    <symbol id="i-cup" viewBox="0 0 24 24"><path d="M4 9h12v5a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5V9zM16 10h1.5a2.5 2.5 0 0 1 0 5H16M8 3c-.8 1 .8 2 0 3M12 3c-.8 1 .8 2 0 3" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-cal" viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="15" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M3.5 10h17M8 3v4M16 3v4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+    <symbol id="i-copy" viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="12" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M16 8V6.5A2.5 2.5 0 0 0 13.5 4h-7A2.5 2.5 0 0 0 4 6.5v7A2.5 2.5 0 0 0 6.5 16H8" fill="none" stroke="currentColor" stroke-width="1.8"/></symbol>
+    <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 11v6M12 7.5v.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+    <symbol id="i-rain" viewBox="0 0 24 24"><path d="M7 15a4.5 4.5 0 0 1-.4-9A6 6 0 0 1 18 7.5 3.8 3.8 0 0 1 17.5 15H7z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M8 18l-1 2.5M12 18l-1 2.5M16 18l-1 2.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+    <symbol id="i-spark" viewBox="0 0 24 24"><path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5 18 18M6 18l2.5-2.5M15.5 8.5 18 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+    <symbol id="i-finger" viewBox="0 0 24 24"><path d="M9 11V5.5a1.5 1.5 0 0 1 3 0V11m0-1.5a1.5 1.5 0 0 1 3 0V12m0-1a1.5 1.5 0 0 1 3 0v4a6 6 0 0 1-6 6h-.5a6 6 0 0 1-4.7-2.3L5 16.2a1.6 1.6 0 0 1 2.4-2.1L9 15.5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-umbrella" viewBox="0 0 24 24"><path d="M3 12a9 9 0 0 1 18 0H3zM12 12v6.5a2 2 0 0 1-4 0M12 3v0" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-bike" viewBox="0 0 24 24"><circle cx="6" cy="16" r="3.5" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="18" cy="16" r="3.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M6 16l4-7h5l3 7M10 9 8.5 6H6.5M15 9l-1.5-3h2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-car" viewBox="0 0 24 24"><path d="M4 16v-3.5L6 8h12l2 4.5V16H4zM4 16v2.5M20 16v2.5M7.5 13h.01M16.5 13h.01" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-slope" viewBox="0 0 24 24"><path d="M3 20h18L3 8v12zM9 5l2 2M13 4l1.5 2.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  </defs>
+</svg>
+
+<header class="site-header" id="dau-trang">
+  <div class="wrap header-in">
+    <a class="brand" href="#dau-trang" aria-label="Mưa, về đầu trang">
+      <svg class="brand-mark" viewBox="0 0 24 30" aria-hidden="true"><use href="#i-drop"/></svg>
+      <span class="brand-name">Mưa</span>
+      <span class="brand-sub">Cà phê<br>Đà Lạt</span>
+    </a>
+    <nav class="nav" aria-label="Các phần của trang">
+      <a href="#thuc-don">Thực đơn</a>
+      <a href="#khong-gian">Không gian</a>
+      <a href="#dat-ban">Đặt bàn</a>
+      <a href="#duong-den">Đường đến</a>
+    </nav>
+    <div class="header-actions">
+      <span class="status-pill"><span class="dot" data-status-dot></span><span data-status-text>Mở 7:00 – 22:00</span></span>
+      <button class="icon-btn theme-toggle" type="button" aria-label="Đổi giao diện sáng tối">
+        <svg class="sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        <svg class="moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M19.5 14.5A8 8 0 0 1 9.5 4.5a8 8 0 1 0 10 10z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M15 3.5l-.8 1.6M18.5 7l-1.2.6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+      </button>
+      <a class="btn btn-primary btn-sm" href="#dat-ban" data-header-cta>Giữ bàn</a>
+    </div>
+  </div>
+</header>
+
+<main id="noi-dung">
+
+<!-- ================= HERO ================= -->
+<section class="hero" aria-labelledby="hero-title">
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <p class="eyebrow">Cà phê trên dốc · Đà Lạt</p>
+      <h1 class="hero-title" id="hero-title"><span class="line">Mưa rồi,</span> <span class="line"><em>ghé Mưa</em> thôi.</span></h1>
+      <p class="lede">Một quán nhỏ lưng chừng dốc, cách hồ Xuân Hương năm phút đi bộ. Cà phê Cầu Đất rang ngay tại quán, lò sưởi củi thông đốt từ năm giờ chiều, và một ô cửa kính lớn để bạn ngồi nhìn mưa trên đồi thông.</p>
+      <div class="hero-ctas">
+        <a class="btn btn-primary btn-lg" href="#dat-ban" data-zone="cua-so">Giữ bàn bên cửa sổ <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+        <a class="btn btn-ghost btn-lg" href="#thuc-don">Xem thực đơn</a>
+      </div>
+      <dl class="facts">
+        <div><dt>Mở mỗi ngày</dt><dd>7:00 – 22:00</dd></div>
+        <div><dt>Một ly phin</dt><dd>từ 35.000đ</dd></div>
+        <div><dt>Hồ Xuân Hương</dt><dd>5 phút đi bộ</dd></div>
+      </dl>
+    </div>
+
+    <div class="window-wrap">
+      <figure class="window" id="window" role="img" aria-label="Ô cửa kính mờ hơi nước nhìn ra đồi thông Đà Lạt đang mưa. Có thể lau kính bằng chuột hoặc ngón tay.">
+        <canvas class="w-view" aria-hidden="true"></canvas>
+        <canvas class="w-fog" aria-hidden="true"></canvas>
+        <canvas class="w-glass" aria-hidden="true"></canvas>
+        <span class="w-ray r1" aria-hidden="true"></span><span class="w-ray r2" aria-hidden="true"></span><span class="w-ray r3" aria-hidden="true"></span>
+        <span class="w-hub" aria-hidden="true"></span>
+        <span class="w-bar" aria-hidden="true"></span>
+        <p class="w-hint" aria-hidden="true"><svg><use href="#i-finger"/></svg><span data-hint>Nhấn và kéo để lau kính</span></p>
+      </figure>
+      <div class="sill" aria-hidden="true">
+        <svg class="sill-cup" viewBox="0 0 54 50">
+          <path class="steam" d="M22 18c-3-4 3-6 0-10"/><path class="steam s2" d="M28 17c-3-4 3-6 0-11"/><path class="steam s3" d="M34 18c-3-4 3-6 0-10"/>
+          <ellipse class="saucer" cx="27" cy="47" rx="24" ry="3.4"/>
+          <path class="cup" d="M12 24h30v9a12 12 0 0 1-12 12h-6a12 12 0 0 1-12-12v-9z"/>
+          <path class="cup" d="M41 27h3.5a5 5 0 0 1 0 10H40" fill="none" stroke-width="3" style="stroke:var(--cream)"/>
+          <ellipse class="cup-in" cx="27" cy="24.5" rx="14" ry="2.2"/>
+        </svg>
+      </div>
+      <div class="window-tools">
+        <button class="sound-btn" type="button" aria-pressed="false" id="sound-btn">
+          <span class="bars" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+          <span data-sound-label>Nghe mưa trên mái tôn</span>
+        </button>
+        <p class="tools-note" data-sound-note>Âm thanh tạo ngay trên máy bạn, không phát tự động.</p>
+      </div>
+
+      <aside class="now-card" aria-label="Đà Lạt lúc này">
+        <p class="now-head"><span>Đà Lạt lúc này</span><time data-clock>--:--</time></p>
+        <p class="now-weather" data-weather>Đang xem trời…</p>
+        <p class="now-msg" data-weather-msg aria-live="polite">Mùa này, mưa Đà Lạt thường đến sau hai giờ chiều.</p>
+        <ul class="now-list">
+          <li><span class="dot" data-status-dot></span><span data-status-text>Mở 7:00 – 22:00</span></li>
+          <li data-fire><svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3c1 3.5 5 5.5 5 10a5 5 0 0 1-10 0c0-2.6 1.6-4 2.5-5.5.3 1.6 1 2.6 2 3C11.8 8 11 5.5 12 3z" style="fill:var(--ember)"/></svg><span data-fire-text>Lò sưởi đốt từ 17:00</span></li>
+        </ul>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- ================= MỘT NGÀY ================= -->
+<section class="day sec" id="mot-ngay" aria-labelledby="day-title">
+  <div class="wrap">
+    <header class="sec-head">
+      <p class="eyebrow">Một ngày ở Mưa</p>
+      <h2 id="day-title">Quán đổi khác theo từng giờ, <em>như trời Đà Lạt</em></h2>
+      <p class="lede" data-day-now></p>
+    </header>
+    <ol class="day-list">
+      <li class="day-item" data-from="420" data-to="600">
+        <span class="day-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 9h11M6 13h14M3 17h10M17 9h4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span>
+        <span class="now-tag">Bây giờ</span>
+        <time>7:00</time>
+        <h3>Sương sớm</h3>
+        <p>Mẻ bánh mì xíu mại đầu tiên ra lò. Ly phin đầu ngày nhỏ giọt bên khung cửa còn mờ sương.</p>
+      </li>
+      <li class="day-item" data-from="600" data-to="840">
+        <span class="day-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 3v2M12 19v2M3 12h2M19 12h2M5.6 5.6l1.4 1.4M17 17l1.4 1.4M5.6 18.4 7 17M17 7l1.4-1.4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span>
+        <span class="now-tag">Bây giờ</span>
+        <time>10:00</time>
+        <h3>Nắng hanh</h3>
+        <p>Nắng lên hiên vườn. Cẩm tú cầu đang độ đẹp nhất, ghế mây ấm dần.</p>
+      </li>
+      <li class="day-item" data-from="840" data-to="1020">
+        <span class="day-icon" aria-hidden="true"><svg><use href="#i-rain"/></svg></span>
+        <span class="now-tag">Bây giờ</span>
+        <time>14:00</time>
+        <h3>Mưa đến</h3>
+        <p>Mùa này mưa thường về sau hai giờ chiều. Mái tôn rộn tiếng mưa, bếp bắt đầu nướng khoai.</p>
+      </li>
+      <li class="day-item" data-from="1020" data-to="1200">
+        <span class="day-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3c1 3.5 5 5.5 5 10a5 5 0 0 1-10 0c0-2.6 1.6-4 2.5-5.5.3 1.6 1 2.6 2 3C11.8 8 11 5.5 12 3z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M5 21h14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span>
+        <span class="now-tag">Bây giờ</span>
+        <time>17:00</time>
+        <h3>Nhóm lửa</h3>
+        <p>Lò sưởi củi thông được đốt. Mùi nhựa thông, vang nóng quế hồi và ánh đèn vàng.</p>
+      </li>
+      <li class="day-item" data-from="1200" data-to="1320">
+        <span class="day-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M19.5 14.5A8 8 0 0 1 9.5 4.5a8 8 0 1 0 10 10z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg></span>
+        <span class="now-tag">Bây giờ</span>
+        <time>20:00</time>
+        <h3>Khuya dần</h3>
+        <p>Nhạc vặn nhỏ, ai cũng nói khẽ hơn. Quán nhận khách tới 21:30 và đóng cửa lúc 22:00.</p>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- ================= THỰC ĐƠN ================= -->
+<section class="sec" id="thuc-don" aria-labelledby="menu-title">
+  <div class="wrap">
+    <header class="sec-head">
+      <p class="eyebrow">Thực đơn</p>
+      <h2 id="menu-title">Cà phê Cầu Đất, <em>rang mỗi sáng thứ Hai</em></h2>
+      <p class="lede">Hạt Arabica từ một nông hộ ở Cầu Đất, cách quán 25 cây số. Sữa tươi lấy từ trại bò Đà Lạt, bánh nướng tại quán, và vài món chỉ có khi trời đổ mưa.</p>
+    </header>
+
+    <div class="menu-layout">
+      <aside class="signature" aria-labelledby="sig-title">
+        <svg viewBox="0 0 160 240" aria-hidden="true" id="ly-mua">
+          <defs>
+            <linearGradient id="lm-liquid" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" style="stop-color:var(--coffee)"/>
+              <stop offset=".5" style="stop-color:var(--coffee)"><animate attributeName="offset" values=".55;.3;.55" dur="10s" repeatCount="indefinite"/></stop>
+              <stop offset=".85" style="stop-color:var(--atiso)"><animate attributeName="offset" values=".9;.6;.9" dur="10s" repeatCount="indefinite"/></stop>
+              <stop offset="1" style="stop-color:var(--atiso)"/>
+            </linearGradient>
+            <clipPath id="lm-clip"><path d="M33 22 L42 218 Q43 226 51 226 H109 Q117 226 118 218 L127 22 Z"/></clipPath>
+          </defs>
+          <rect x="108" y="2" width="9" height="120" rx="3" class="straw" transform="rotate(14 112 60)"/>
+          <g clip-path="url(#lm-clip)">
+            <rect x="20" y="60" width="120" height="180" fill="url(#lm-liquid)"/>
+            <g><animateTransform attributeName="transform" type="translate" values="0 0;0 5;0 0" dur="6s" repeatCount="indefinite"/>
+              <rect class="ice" x="46" y="70" width="30" height="28" rx="6" transform="rotate(-12 61 84)"/>
+              <rect class="ice" x="80" y="84" width="28" height="27" rx="6" transform="rotate(18 94 97)"/>
+              <rect class="ice" x="56" y="118" width="27" height="26" rx="6" transform="rotate(8 70 131)" opacity=".7"/>
+            </g>
+            <rect x="20" y="58" width="120" height="4" opacity=".5" style="fill:var(--cream)"/>
+          </g>
+          <path class="glass-line" d="M33 22 L42 218 Q43 226 51 226 H109 Q117 226 118 218 L127 22"/>
+          <path class="glass-shine" d="M44 40 L50 190"/>
+        </svg>
+        <p class="eyebrow">Món mang tên quán</p>
+        <h3 id="sig-title">Ly Mưa</h3>
+        <p>Cold brew Cầu Đất rót lên đá viên làm từ trà atisô đỏ. Đá tan tới đâu, ly cà phê đổi màu tới đó, chua nhẹ như mận chín.</p>
+        <p class="price num">59.000đ</p>
+        <button class="btn btn-quiet btn-sm" type="button" data-jump-item="ly-mua">Tìm trong thực đơn</button>
+      </aside>
+
+      <div class="menu-main">
+        <div class="menu-tools">
+          <div class="tabs" role="tablist" aria-label="Nhóm món">
+            <button class="tab" role="tab" id="tab-ca-phe" aria-controls="menu-panel" aria-selected="true" data-cat="ca-phe">Cà phê</button>
+            <button class="tab" role="tab" id="tab-tra" aria-controls="menu-panel" aria-selected="false" tabindex="-1" data-cat="tra">Trà &amp; không cà phê</button>
+            <button class="tab" role="tab" id="tab-banh" aria-controls="menu-panel" aria-selected="false" tabindex="-1" data-cat="banh">Bánh &amp; ăn nhẹ</button>
+            <button class="tab" role="tab" id="tab-mua" aria-controls="menu-panel" aria-selected="false" tabindex="-1" data-cat="mua"><span class="rain-dot" aria-hidden="true"></span>Chỉ khi trời mưa</button>
+          </div>
+          <button class="suggest-btn" type="button" id="suggest-btn"><svg aria-hidden="true"><use href="#i-spark"/></svg><span>Chưa biết gọi gì?</span></button>
+        </div>
+        <div class="suggest" id="suggest" hidden aria-live="polite"></div>
+        <div id="menu-panel" role="tabpanel" aria-labelledby="tab-ca-phe" tabindex="0">
+          <div class="rain-status" id="rain-status" hidden></div>
+          <ul class="menu-list" id="menu-list"></ul>
+        </div>
+        <p class="menu-note">Giá đã gồm VAT. Đổi sang sữa yến mạch cho mọi món sữa: thêm 10.000đ. Mang ly riêng được giảm 5.000đ.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= KHÔNG GIAN ================= -->
+<section class="spaces sec" id="khong-gian" aria-labelledby="space-title">
+  <div class="wrap">
+    <header class="sec-head">
+      <p class="eyebrow">Không gian</p>
+      <h2 id="space-title">Bốn góc ngồi, <em>bốn kiểu nghe mưa</em></h2>
+      <p class="lede">Quán có 34 chỗ trong một căn nhà gỗ hai tầng. Chọn trước góc bạn thích, quán sẽ giữ đúng chỗ đó.</p>
+    </header>
+    <div class="space-grid">
+      <article class="space">
+        <svg class="vg" viewBox="0 0 320 180" aria-hidden="true">
+          <rect class="wall" width="320" height="180"/>
+          <rect class="sky" x="34" y="14" width="252" height="106"/>
+          <path class="hill" d="M34 86 C70 74 104 82 140 74 C180 64 220 78 286 66 V120 H34Z"/>
+          <g class="pine">
+            <rect x="66" y="56" width="2.4" height="50"/><ellipse cx="67" cy="56" rx="11" ry="5"/><ellipse cx="62" cy="64" rx="7" ry="3.5"/><ellipse cx="73" cy="70" rx="7" ry="3.2"/>
+            <rect x="96" y="66" width="2" height="40"/><ellipse cx="97" cy="66" rx="9" ry="4"/><ellipse cx="102" cy="74" rx="6" ry="3"/>
+            <rect x="232" y="50" width="2.4" height="56"/><ellipse cx="233" cy="50" rx="12" ry="5"/><ellipse cx="227" cy="60" rx="8" ry="3.5"/><ellipse cx="240" cy="66" rx="7" ry="3"/>
+            <rect x="258" y="62" width="2" height="44"/><ellipse cx="259" cy="62" rx="9" ry="4"/>
+          </g>
+          <path class="pine" d="M34 104 C90 96 150 104 200 98 C240 94 270 100 286 98 V120 H34Z" opacity=".9"/>
+          <g class="rain-anim">
+            <path class="rainl" d="M50 20l-2 8M80 34l-2 8M112 18l-2 8M140 40l-2 8M176 22l-2 8M204 36l-2 8M240 18l-2 8M268 30l-2 8M62 60l-2 8M128 70l-2 8M190 58l-2 8M252 76l-2 8M96 92l-2 8M220 96l-2 8"/>
+          </g>
+          <rect class="frame" x="28" y="8" width="264" height="7"/><rect class="frame" x="28" y="118" width="264" height="7"/>
+          <rect class="frame" x="28" y="8" width="7" height="117"/><rect class="frame" x="285" y="8" width="7" height="117"/><rect class="frame" x="156" y="8" width="7" height="117"/>
+          <rect class="wood" x="14" y="124" width="292" height="9" rx="2"/>
+          <rect class="wall2" x="18" y="133" width="284" height="47"/>
+          <g class="inkf" opacity=".78">
+            <rect x="82" y="140" width="36" height="7" rx="3.5"/><rect x="98" y="147" width="4" height="33"/><rect x="88" y="168" width="24" height="3" rx="1.5"/>
+            <rect x="196" y="140" width="36" height="7" rx="3.5"/><rect x="212" y="147" width="4" height="33"/><rect x="202" y="168" width="24" height="3" rx="1.5"/>
+          </g>
+          <path class="cream" d="M120 112h16v8a4 4 0 0 1-4 4h-8a4 4 0 0 1-4-4z"/><path d="M136 114h2.5a2.6 2.6 0 0 1 0 5.2H136" fill="none" stroke-width="2" style="stroke:var(--v-cream)"/>
+          <path class="steam" d="M125 108c-2-3 2-4 0-7"/><path class="steam d" d="M131 108c-2-3 2-4 0-7"/>
+          <rect class="hydra" x="176" y="117" width="26" height="7" rx="1"/><rect class="glow" x="178" y="113" width="22" height="4" rx="1"/>
+        </svg>
+        <div class="space-body">
+          <div class="space-top"><h3>Quầy cửa sổ</h3><span class="space-meta">8 ghế · 1–2 người</span></div>
+          <p class="desc">Ghế cao nhìn thẳng ra đồi thông, mỗi ghế có ổ cắm riêng. Chỗ được hỏi nhiều nhất vào những chiều mưa.</p>
+          <a class="link-arrow" href="#dat-ban" data-zone="cua-so">Giữ chỗ ở đây <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+        </div>
+      </article>
+
+      <article class="space">
+        <svg class="vg" viewBox="0 0 320 180" aria-hidden="true">
+          <rect class="wall" width="320" height="180"/>
+          <rect class="wall2" y="150" width="320" height="30"/>
+          <ellipse class="lampglow" cx="120" cy="140" rx="110" ry="40"/>
+          <rect class="stone" x="58" y="42" width="124" height="108"/>
+          <g class="shade"><rect x="58" y="70" width="124" height="2"/><rect x="58" y="98" width="124" height="2"/><rect x="58" y="126" width="124" height="2"/><rect x="88" y="42" width="2" height="28"/><rect x="136" y="72" width="2" height="26"/><rect x="104" y="100" width="2" height="26"/></g>
+          <rect class="wood" x="48" y="36" width="144" height="10" rx="2"/>
+          <path class="hearth" d="M86 150V104a34 30 0 0 1 68 0v46z"/>
+          <path class="flame ember" d="M100 148c-5-12 3-20 2-32 9 7 13 13 12 21 4-4 4-11 5-16 9 10 12 20 7 27z"/>
+          <path class="flame f2 glow" d="M110 148c-2-8 3-13 3-19 5 5 9 10 6 19z"/>
+          <path class="flame f2 ember" d="M128 148c-3-7 1-11 1-16 6 4 8 10 5 16z" opacity=".85"/>
+          <rect class="wood2" x="94" y="145" width="52" height="7" rx="3.5"/>
+          <rect class="cream" x="70" y="24" width="7" height="12" rx="1"/><path class="glow" d="M73.5 17c2 3 2 5 0 6-2-1-2-3 0-6z"/>
+          <path class="pine" d="M162 36c-6-10-2-18 4-22 2 8 8 10 6 22z" opacity=".9"/><rect class="wood2" x="158" y="30" width="12" height="6" rx="1"/>
+          <path class="sofa" d="M198 112h88a12 12 0 0 1 12 12v30H186v-30a12 12 0 0 1 12-12z"/>
+          <rect class="sofa" x="180" y="128" width="16" height="30" rx="6"/><rect class="sofa" x="292" y="128" width="16" height="30" rx="6"/>
+          <rect class="shade" x="196" y="136" width="96" height="3"/>
+          <path class="hydra" d="M232 112h30v44c-8-4-14 2-22-2-6-3-8-8-8-12z"/>
+          <g class="inkf" opacity=".7"><rect x="192" y="158" width="4" height="10"/><rect x="292" y="158" width="4" height="10"/></g>
+          <ellipse class="cream" cx="160" cy="168" rx="64" ry="7" opacity=".55"/>
+        </svg>
+        <div class="space-body">
+          <div class="space-top"><h3>Góc lò sưởi</h3><span class="space-meta">2 bộ sofa · tới 6 người</span></div>
+          <p class="desc">Sofa da cũ quây quanh lò củi thông. Chăn len để sẵn trên tay ghế. Lửa đốt từ 17:00 tới lúc đóng cửa.</p>
+          <a class="link-arrow" href="#dat-ban" data-zone="lo-suoi">Giữ chỗ ở đây <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+        </div>
+      </article>
+
+      <article class="space">
+        <svg class="vg" viewBox="0 0 320 180" aria-hidden="true">
+          <rect class="wall" width="320" height="180"/>
+          <path class="wood2" d="M0 0h230L0 96z"/>
+          <path class="stroke-wood" d="M40 0 0 17M100 0 0 42M160 0 0 67M220 0 0 92" opacity=".5"/>
+          <rect class="wood" y="150" width="320" height="30"/>
+          <path class="stroke-wood" d="M0 160h320M0 170h320" opacity=".35"/>
+          <circle class="sky" cx="262" cy="64" r="30"/>
+          <path class="hill" d="M232 72c10-6 22-2 30-6s20-2 30 2v6a30 30 0 0 1-60 0z"/>
+          <g class="rain-anim"><path class="rainl" d="M248 44l-2 7M262 52l-2 7M276 42l-2 7M254 66l-2 7M270 70l-2 7"/></g>
+          <circle class="stroke-frame" cx="262" cy="64" r="30"/><path class="stroke-frame" d="M262 34v60M232 64h60" stroke-width="3"/>
+          <rect class="wood2" x="18" y="86" width="64" height="64"/>
+          <rect class="wood" x="22" y="90" width="56" height="2"/><rect class="wood" x="22" y="118" width="56" height="2"/>
+          <g><rect class="hydra" x="26" y="96" width="6" height="22"/><rect class="glow" x="33" y="100" width="5" height="18"/><rect class="cream" x="39" y="94" width="7" height="24"/><rect class="ember" x="47" y="99" width="5" height="19"/><rect class="pine" x="53" y="96" width="6" height="22"/><rect class="hydra2" x="60" y="102" width="9" height="16" transform="rotate(-12 64 110)"/>
+          <rect class="cream" x="26" y="124" width="8" height="24"/><rect class="pink" x="35" y="128" width="6" height="20"/><rect class="hydra" x="42" y="126" width="6" height="22"/><rect class="glow" x="49" y="130" width="6" height="18"/></g>
+          <path d="M150 0v40" stroke-width="1.5" opacity=".6" style="stroke:var(--ink)"/>
+          <path class="inkf" d="M138 52h24l-6-12h-12z" opacity=".85"/>
+          <ellipse class="lampglow" cx="150" cy="120" rx="90" ry="58"/>
+          <circle class="glow" cx="150" cy="54" r="4"/>
+          <rect class="wood2" x="108" y="132" width="88" height="8" rx="2"/><rect class="wood2" x="114" y="140" width="5" height="12"/><rect class="wood2" x="185" y="140" width="5" height="12"/>
+          <path class="cream" d="M140 118h18a2 2 0 0 1 2 2v6a6 6 0 0 1-6 6h-10a6 6 0 0 1-6-6v-6a2 2 0 0 1 2-2z"/><path d="M160 121c6-2 7 6 0 7" fill="none" stroke-width="2" style="stroke:var(--v-cream)"/><path class="cream" d="M136 120l-8-4"/>
+          <rect class="cream" x="166" y="124" width="8" height="8" rx="2"/><rect class="cream" x="124" y="124" width="8" height="8" rx="2"/>
+          <path class="steam" d="M149 114c-2-3 2-4 0-7"/>
+          <ellipse class="hydra" cx="92" cy="152" rx="22" ry="7"/><ellipse class="glow" cx="214" cy="152" rx="22" ry="7"/><ellipse class="pink" cx="244" cy="156" rx="18" ry="6"/>
+        </svg>
+        <div class="space-body">
+          <div class="space-top"><h3>Gác lửng</h3><span class="space-meta">Bàn thấp · 2–8 người</span></div>
+          <p class="desc">Ngồi bệt trên nệm dưới mái gỗ thông dốc, có tủ sách cho mượn. Không có ổ cắm, để ai cũng nói nhỏ và đọc lâu hơn.</p>
+          <a class="link-arrow" href="#dat-ban" data-zone="gac-lung">Giữ chỗ ở đây <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+        </div>
+      </article>
+
+      <article class="space">
+        <svg class="vg" viewBox="0 0 320 180" aria-hidden="true">
+          <rect class="sky" width="320" height="180"/>
+          <path class="hill" d="M0 70c40-14 80-6 120-14s90-12 130-2 50 6 70 2v124H0z"/>
+          <g class="pine" opacity=".9"><rect x="40" y="30" width="2.4" height="50"/><ellipse cx="41" cy="30" rx="11" ry="4.5"/><ellipse cx="47" cy="40" rx="7" ry="3"/><rect x="280" y="24" width="2.4" height="54"/><ellipse cx="281" cy="24" rx="12" ry="5"/><ellipse cx="274" cy="34" rx="7" ry="3"/></g>
+          <g class="rain-anim"><path class="rainl" d="M20 8l-2 8M60 2l-2 8M100 12l-2 8M150 4l-2 8M200 10l-2 8M250 2l-2 8M300 12l-2 8"/></g>
+          <path d="M0 26 320 44" stroke-width="5" style="stroke:var(--v-frame)"/>
+          <path d="M0 26 320 44V52L0 34z" opacity=".28" style="fill:var(--v-cream)"/>
+          <path d="M40 28v120M160 35v113M280 42v106" stroke-width="4" style="stroke:var(--v-frame)"/>
+          <g class="hydra2"><circle cx="70" cy="34" r="2.2"/><circle cx="120" cy="36" r="1.8"/><circle cx="210" cy="41" r="2"/><circle cx="250" cy="43" r="1.6"/></g>
+          <rect class="wall2" y="146" width="320" height="34"/>
+          <g>
+            <ellipse class="pine" cx="44" cy="146" rx="40" ry="16" opacity=".85"/>
+            <circle class="hydra" cx="26" cy="132" r="12"/><circle class="hydra2" cx="46" cy="126" r="13"/><circle class="hydra" cx="64" cy="134" r="11"/><circle class="pink" cx="40" cy="140" r="10"/>
+            <ellipse class="pine" cx="282" cy="146" rx="42" ry="16" opacity=".85"/>
+            <circle class="pink" cx="262" cy="132" r="12"/><circle class="hydra" cx="284" cy="124" r="13"/><circle class="hydra2" cx="304" cy="134" r="12"/><circle class="hydra" cx="276" cy="140" r="9"/>
+          </g>
+          <g class="stroke-wood" stroke-width="3.2">
+            <path d="M118 104c0-14 26-14 26 0v22M118 104v22M114 126h34M118 126l-3 22M144 126l3 22"/>
+            <path d="M196 104c0-14 26-14 26 0v22M196 104v22M192 126h34M196 126l-3 22M222 126l3 22"/>
+          </g>
+          <rect class="wood" x="150" y="118" width="40" height="5" rx="2"/><rect class="wood2" x="167" y="123" width="5" height="25"/>
+          <path class="cream" d="M162 108h12v6a4 4 0 0 1-4 4h-4a4 4 0 0 1-4-4z"/>
+          <path class="steam" d="M168 104c-2-3 2-4 0-7"/>
+          <path class="inkf" opacity=".72" d="M92 156c0-6 6-9 12-9h14c4 0 6-4 9-4 4 0 6 3 6 6s-3 4-5 5c-2 2-2 4-6 4H96c-3 0-4-1-4-2z"/>
+          <path class="inkf" opacity=".72" d="M127 145l2-4 3 3z"/>
+        </svg>
+        <div class="space-body">
+          <div class="space-top"><h3>Hiên vườn</h3><span class="space-meta">Mái kính · tới 6 người</span></div>
+          <p class="desc">Ghế mây dưới mái kính che mưa, quanh hiên là cẩm tú cầu xanh tím. Thú cưng được vào đây, quán có bát nước và khăn lau chân.</p>
+          <a class="link-arrow" href="#dat-ban" data-zone="hien-vuon">Giữ chỗ ở đây <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ================= ĐẶT BÀN ================= -->
+<section class="sec" id="dat-ban" aria-labelledby="book-title">
+  <div class="wrap booking-grid">
+    <div class="booking-main">
+      <header class="sec-head">
+        <p class="eyebrow">Đặt bàn</p>
+        <h2 id="book-title">Giữ một chỗ, <em>trước khi mưa đến</em></h2>
+        <p class="lede">Chọn ngày, giờ và góc bạn thích. Quán giữ bàn 15 phút sau giờ hẹn. Đến muộn vì kẹt mưa thì nhắn quán một câu là được.</p>
+      </header>
+      <p class="demo-note"><svg aria-hidden="true"><use href="#i-info"/></svg><span>Đây là bản demo của một quán hư cấu. Form chạy thật trên máy bạn nhưng không gửi dữ liệu đi đâu cả.</span></p>
+
+      <div class="saved" id="saved" hidden></div>
+
+      <form id="book-form" novalidate>
+        <fieldset id="fs-date">
+          <legend><span class="step">1</span>Ngày nào?</legend>
+          <div class="chips" id="date-chips" role="radiogroup" aria-label="Chọn ngày"></div>
+          <label class="other-date" for="f-date-other">Hoặc chọn ngày khác (trong 30 ngày tới) <input type="date" id="f-date-other"></label>
+        </fieldset>
+
+        <fieldset>
+          <legend><span class="step">2</span>Mấy người?</legend>
+          <div class="stepper">
+            <button type="button" id="party-minus" aria-label="Bớt một người">−</button>
+            <output id="party-out" aria-live="polite" for="party-minus party-plus">2 người</output>
+            <button type="button" id="party-plus" aria-label="Thêm một người">+</button>
+          </div>
+          <p class="hint" id="party-hint">Nhóm từ 9 người trở lên, gọi quán để đặt riêng gác lửng (tối đa 14 người).</p>
+        </fieldset>
+
+        <fieldset>
+          <legend><span class="step">3</span>Ngồi ở đâu?</legend>
+          <div class="zones" id="zones"></div>
+          <div id="zone-note" aria-live="polite"></div>
+        </fieldset>
+
+        <fieldset id="fs-time" aria-describedby="err-time">
+          <legend><span class="step">4</span>Mấy giờ bạn đến? <span class="legend-sub" id="time-sub"></span></legend>
+          <div id="time-groups" class="time-groups" style="display:grid;gap:16px"></div>
+          <p class="err" id="err-time" role="alert"></p>
+        </fieldset>
+
+        <fieldset>
+          <legend><span class="step">5</span>Quán gọi ai khi bàn sẵn sàng?</legend>
+          <div class="fields-2">
+            <div class="field">
+              <label for="f-name">Tên của bạn</label>
+              <input id="f-name" name="name" type="text" autocomplete="name" placeholder="Ví dụ: Thu Hà" aria-describedby="err-name" maxlength="60">
+              <p class="err" id="err-name"></p>
+            </div>
+            <div class="field">
+              <label for="f-phone">Số điện thoại hoặc Zalo</label>
+              <input id="f-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="0912 345 678" aria-describedby="err-phone hint-phone" maxlength="20">
+              <p class="hint" id="hint-phone">Quán chỉ dùng số này để báo bàn đã sẵn sàng.</p>
+              <p class="err" id="err-phone"></p>
+            </div>
+          </div>
+          <div class="field">
+            <span id="tags-label" style="font-weight:500;font-size:.95rem">Có gì quán nên biết trước? <span class="opt">(tuỳ chọn)</span></span>
+            <div class="chips" id="tag-chips" role="group" aria-labelledby="tags-label"></div>
+          </div>
+          <div id="tag-note" aria-live="polite"></div>
+          <div class="field">
+            <label for="f-note">Lời nhắn <span class="opt">(tuỳ chọn)</span></label>
+            <textarea id="f-note" name="note" maxlength="300" placeholder="Ví dụ: cho mình bàn gần lò sưởi, có một bạn hơi lạnh."></textarea>
+          </div>
+        </fieldset>
+
+        <div class="submit-row">
+          <p class="mini-summary" id="mini-summary" aria-live="polite"></p>
+          <button class="btn btn-primary btn-lg" type="submit" id="submit-btn">Giữ bàn này</button>
+          <p class="hint">Bấm giữ bàn là xong, không cần trả trước.</p>
+        </div>
+      </form>
+
+      <div class="confirm" id="confirm" hidden tabindex="-1"></div>
+    </div>
+
+    <aside class="ticket" aria-label="Phiếu giữ bàn của bạn">
+      <div class="ticket-head">
+        <div><p class="eyebrow">Phiếu giữ bàn</p><p class="t-title">Mưa · Đà Lạt</p></div>
+        <svg class="brand-mark" viewBox="0 0 24 30" aria-hidden="true"><use href="#i-drop"/></svg>
+      </div>
+      <dl class="t-rows" id="ticket-rows"></dl>
+      <p class="t-foot" id="ticket-foot">Quán giữ bàn 15 phút sau giờ hẹn. Có ô cho mượn ở chân Dốc Mưa Bay.</p>
+    </aside>
+  </div>
+</section>
+
+<!-- ================= SỔ LƯU BÚT ================= -->
+<section class="sec" id="so-luu-but" aria-labelledby="notes-title" style="padding-top:0">
+  <div class="wrap">
+    <header class="sec-head">
+      <p class="eyebrow">Sổ lưu bút</p>
+      <h2 id="notes-title">Khách viết gì <em>trên tường quán</em></h2>
+      <p class="lede">Cạnh quầy có một bức tường gỗ và hộp giấy nhớ. Đây là vài tờ quán thích nhất mùa mưa năm nay.</p>
+    </header>
+    <ul class="notes">
+      <li class="note"><p>Ngồi quầy cửa sổ từ hai giờ tới lúc lên đèn. Mưa không dứt, mình cũng không muốn về.</p><footer>Linh, Hà Nội</footer></li>
+      <li class="note"><p>Cà phê trứng khò ngon hơn ở Hà Nội. Đừng nói với mẹ em nha.</p><footer>Tùng</footer></li>
+      <li class="note"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z" fill="none" stroke="currentColor" stroke-width="1.6"/></svg><p>Con thích ca cao có kẹo dẻo cháy!!!</p><footer>An, 7 tuổi</footer></li>
+      <li class="note"><p>Kỷ niệm năm năm. Năm sau quay lại, vẫn góc lò sưởi nhé.</p><footer>Minh &amp; Thư</footer></li>
+      <li class="note"><p>Cảm ơn quán cho mượn ô ở chân dốc. Hôm sau mình mang trả rồi đó.</p><footer>Một người đi bộ từ hồ lên</footer></li>
+      <li class="note"><p>Le meilleur café de mon voyage. Cảm ơn Mưa!</p><footer>Camille, Lyon</footer></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ================= ĐƯỜNG ĐẾN ================= -->
+<section class="find sec" id="duong-den" aria-labelledby="find-title">
+  <div class="wrap">
+    <header class="sec-head">
+      <p class="eyebrow">Đường đến</p>
+      <h2 id="find-title">Năm phút từ hồ, <em>một con dốc nhỏ</em></h2>
+    </header>
+    <div class="find-grid">
+      <div class="map-card">
+        <div class="route-tabs" role="group" aria-label="Chọn điểm xuất phát">
+          <button type="button" data-route="tong-quan" aria-pressed="true">Tổng quan</button>
+          <button type="button" data-route="quang-truong" aria-pressed="false">Từ Quảng trường Lâm Viên</button>
+          <button type="button" data-route="cho" aria-pressed="false">Từ Chợ Đà Lạt</button>
+          <button type="button" data-route="ga" aria-pressed="false">Từ Ga Đà Lạt</button>
+        </div>
+        <div class="map-box">
+          <svg class="map" id="map" viewBox="130 110 750 420" preserveAspectRatio="xMidYMid meet" role="img" aria-labelledby="map-t map-d">
+            <title id="map-t">Bản đồ minh hoạ khu hồ Xuân Hương</title>
+            <desc id="map-d">Quán Mưa nằm trên Dốc Mưa Bay, rẽ từ đường Yersin, phía đông nam hồ Xuân Hương, giữa Quảng trường Lâm Viên và Ga Đà Lạt.</desc>
+            <rect class="land" x="-600" y="-500" width="2100" height="1600"/>
+            <g>
+              <path class="contour" d="M560 600c10-70 80-120 170-118s150 40 190 110"/>
+              <path class="contour" d="M600 600c14-50 70-86 136-84s110 30 140 84"/>
+              <path class="contour" d="M650 600c12-30 46-50 88-48s70 18 90 48"/>
+              <path class="contour" d="M520 470c40-60 130-90 220-86s160 40 200 90"/>
+              <path class="contour" d="M-20 150c40-40 110-60 170-50s100 40 110 80c8 34-30 56-90 60S-10 220-20 150z"/>
+              <path class="contour" d="M20 150c30-26 80-34 120-26s70 26 74 52c4 22-24 36-64 38S26 194 20 150z"/>
+              <path class="contour" d="M300 80c60-30 160-34 240-20s120 30 130 50"/>
+              <path class="contour" d="M330 100c50-20 130-22 190-12s100 20 110 34"/>
+              <text class="elev" x="770" y="555">1.520 m</text>
+              <text class="elev" x="60" y="178">1.510 m</text>
+              <text class="elev" x="520" y="96">1.500 m</text>
+            </g>
+            <path class="park" d="M300 150c40-30 140-46 240-38 60 6 80 22 70 40-60-4-120 0-180 14-50 12-110 6-130-16z"/>
+            <path class="park" d="M705 120c30-14 70-10 84 12 10 18-4 44-30 50-24 6-50-4-60-24-6-14-4-30 6-38z"/>
+            <path class="park" d="M470 370c20-14 70-14 96 0 14 10 6 24-14 28-24 4-60 4-76-6-10-6-12-16-6-22z"/>
+            <path class="water" d="M168 262c40-30 110-34 170-26 60 10 110-14 180-30 60-13 112-10 142 8 16 10 10 26-12 30-46 8-86 18-126 36-50 22-100 36-160 32s-110-12-160-20c-28-4-46-16-34-30z"/>
+            <text class="water-lbl" x="400" y="270" text-anchor="middle">hồ Xuân Hương</text>
+            <g>
+              <path id="rd-a" class="road-edge" d="M150 282C180 300 200 318 230 328S340 344 380 344s80-2 90-6 60-12 90-18 60-16 80-24 40-18 60-28"/>
+              <path class="road-edge" d="M150 282c16-26 30-44 50-50s80-26 120-34 100-12 140-14 100-2 140-2 70 8 100 24c14 12 20 30 12 42-6 10-10 16-12 30"/>
+              <path class="road-edge" d="M30 276l120 6"/>
+              <path class="road-edge" d="M700 268c20 10 40 22 60 32s30 14 46 20"/>
+              <path id="rd-e" class="road-edge" d="M640 296c10 12 20 24 28 34s20 26 32 42 28 38 42 58 20 46 28 70"/>
+              <path class="road" d="M150 282C180 300 200 318 230 328S340 344 380 344s80-2 90-6 60-12 90-18 60-16 80-24 40-18 60-28"/>
+              <path class="road" d="M150 282c16-26 30-44 50-50s80-26 120-34 100-12 140-14 100-2 140-2 70 8 100 24c14 12 20 30 12 42-6 10-10 16-12 30"/>
+              <path class="road" d="M30 276l120 6"/>
+              <path class="road" d="M700 268c20 10 40 22 60 32s30 14 46 20"/>
+              <path class="road" d="M640 296c10 12 20 24 28 34s20 26 32 42 28 38 42 58 20 46 28 70"/>
+              <path class="lane-edge" d="M700 372C690 380 676 392 662 402S624 432 600 446"/>
+              <path class="lane" d="M700 372C690 380 676 392 662 402S624 432 600 446"/>
+            </g>
+            <text class="road-lbl"><textPath href="#rd-a" startOffset="38%">Trần Quốc Toản</textPath></text>
+            <text class="road-lbl" dy="-10"><textPath href="#rd-e" startOffset="55%">Yersin</textPath></text>
+                        <g class="tree">
+              <circle cx="330" cy="150" r="5"/><circle cx="350" cy="140" r="4"/><circle cx="380" cy="148" r="5"/><circle cx="420" cy="134" r="4"/><circle cx="460" cy="142" r="5"/><circle cx="500" cy="130" r="4"/><circle cx="540" cy="138" r="5"/>
+              <circle cx="730" cy="140" r="4"/><circle cx="760" cy="152" r="5"/><circle cx="742" cy="168" r="4"/>
+              <circle cx="600" cy="440" r="5"/><circle cx="620" cy="470" r="4"/><circle cx="700" cy="460" r="5"/><circle cx="720" cy="490" r="4"/><circle cx="660" cy="500" r="5"/><circle cx="560" cy="480" r="4"/><circle cx="780" cy="420" r="5"/><circle cx="810" cy="450" r="4"/>
+              <circle cx="90" cy="320" r="4"/><circle cx="110" cy="340" r="5"/><circle cx="230" cy="370" r="4"/><circle cx="270" cy="384" r="5"/>
+            </g>
+            <text class="lbl sm" x="430" y="128" text-anchor="middle">Đồi Cù</text>
+
+            <g>
+              <path class="route" data-route="quang-truong" d="M500 358L500 338C530 330 548 324 560 320S620 302 640 296C650 308 660 320 668 330S688 356 700 372C690 380 676 392 662 402S624 432 600 446"/>
+              <path class="route" data-route="cho" d="M80 262C100 270 130 278 150 282 180 300 200 318 230 328S340 344 380 344s80-2 90-6 60-12 90-18 60-16 80-24C650 308 660 320 668 330S688 356 700 372C690 380 676 392 662 402S624 432 600 446"/>
+              <path class="route" data-route="ga" d="M818 312C800 318 776 308 760 300S720 278 700 268C680 278 660 288 640 296 650 308 660 320 668 330S688 356 700 372C690 380 676 392 662 402S624 432 600 446"/>
+            </g>
+
+            <g class="poi" data-poi="cho" transform="translate(80 248)">
+              <circle class="bg" r="17"/>
+              <path class="ic" d="M-8 6V-1l8-6 8 6v7M-3 6V1h6v5"/>
+              <text class="lbl" x="0" y="-26" text-anchor="middle">Chợ Đà Lạt</text>
+            </g>
+            <g class="poi" data-poi="quang-truong" transform="translate(500 372)">
+              <circle class="bg" r="17"/>
+              <path class="ic" d="M0-9c4 3 6 7 6 11a6 6 0 0 1-12 0c0-4 2-8 6-11zM-5 1c3 1 7 1 10 0M-6 6h12"/>
+              <text class="lbl" x="-24" y="6" text-anchor="end">Quảng trường Lâm Viên</text>
+            </g>
+            <g class="poi" data-poi="ga" transform="translate(822 296)">
+              <circle class="bg" r="17"/>
+              <path class="ic" d="M-9 7v-6l3-6 3 6 3-6 3 6 3-6 3 6v6z"/>
+              <text class="lbl" x="0" y="-26" text-anchor="middle">Ga Đà Lạt</text>
+            </g>
+            <g class="poi" data-poi="vuon-hoa" transform="translate(746 150)">
+              <circle class="bg" r="15"/>
+              <path class="ic" d="M0-6a3 3 0 1 1 0 6 3 3 0 1 1 0-6zM0 0v8M-4 5l4 3 4-3"/>
+              <text class="lbl sm" x="-22" y="5" text-anchor="end">Vườn hoa thành phố</text>
+            </g>
+
+            <g class="cafe" transform="translate(600 446)">
+              <circle class="cafe-pulse" r="16"/>
+              <path class="cafe-drop" d="M0-40C0-40-15-22-15-11a15 15 0 0 0 30 0C15-22 0-40 0-40z"/>
+              <circle r="4" style="fill:var(--ink)"/>
+              <text class="cafe-lbl" x="0" y="44" text-anchor="middle">Mưa</text>
+              <text class="road-lbl cafe-sub" x="0" y="64" text-anchor="middle">7 Dốc Mưa Bay</text>
+            </g>
+
+          </svg>
+          <svg class="compass-ov" viewBox="-24 -32 48 56" aria-hidden="true"><circle r="17" stroke-width="1.5" style="fill:var(--m-land);stroke:var(--ink-2)"/><path d="M0-13 5 0 0 13-5 0z" opacity=".35" style="fill:var(--ink-2)"/><path d="M0-13 5 0H-5z" style="fill:var(--ink-2)"/><text x="0" y="-21" text-anchor="middle" font-size="12" font-weight="700" font-family="Be Vietnam Pro, sans-serif" style="fill:var(--ink-2)">B</text></svg>
+        </div>
+        <p class="map-caption">Bản đồ minh hoạ, không theo tỉ lệ. Chữ B là hướng Bắc.</p>
+        <div class="route-info" id="route-info" aria-live="polite"></div>
+      </div>
+
+      <div class="find-info">
+        <div>
+          <p class="eyebrow" style="margin-bottom:8px">Địa chỉ</p>
+          <p class="addr" id="addr">7 Dốc Mưa Bay, phường Xuân Hương – Đà Lạt, Lâm Đồng</p>
+        </div>
+        <div class="addr-actions">
+          <a class="btn btn-primary" href="https://www.google.com/maps/dir/?api=1&amp;destination=11.9396,108.4498&amp;travelmode=walking" target="_blank" rel="noopener">
+            <svg aria-hidden="true"><use href="#i-pin"/></svg>Chỉ đường bằng Google Maps</a>
+          <button class="btn btn-quiet" type="button" data-copy="#addr" data-copy-done="Đã chép địa chỉ"><svg aria-hidden="true"><use href="#i-copy"/></svg>Chép địa chỉ</button>
+        </div>
+        <dl class="hours">
+          <div><dt>Mở cửa, cả tuần</dt><dd>7:00 – 22:00</dd></div>
+          <div><dt>Nhận khách cuối</dt><dd>21:30</dd></div>
+          <div><dt>Bếp bánh mì xíu mại</dt><dd>7:00 – 10:30</dd></div>
+          <div><dt>Lò sưởi</dt><dd>17:00 – đóng cửa</dd></div>
+          <div><dt>Điện thoại · Zalo</dt><dd>0263 3 123 456</dd></div>
+        </dl>
+        <ul class="tips">
+          <li><svg aria-hidden="true"><use href="#i-umbrella"/></svg><span><strong>Quên ô?</strong> Ở chân dốc có giỏ ô cho mượn. Lên tới quán thì để lại ở cửa.</span></li>
+          <li><svg aria-hidden="true"><use href="#i-slope"/></svg><span><strong>Dốc hơi đứng, trơn khi mưa.</strong> Mang giày đế bám, hoặc gọi quán ra đón ở chân dốc.</span></li>
+          <li><svg aria-hidden="true"><use href="#i-bike"/></svg><span><strong>Xe máy</strong> gửi miễn phí trước cửa quán, có mái che.</span></li>
+          <li><svg aria-hidden="true"><use href="#i-car"/></svg><span><strong>Ô tô</strong> đỗ ở bãi Quảng trường Lâm Viên rồi đi bộ 6 phút.</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FAQ ================= -->
+<section class="sec" id="hoi-dap" aria-labelledby="faq-title">
+  <div class="wrap faq-grid">
+    <header class="sec-head" style="margin-bottom:0">
+      <p class="eyebrow">Trước khi ghé</p>
+      <h2 id="faq-title">Mấy điều <em>khách hay hỏi</em></h2>
+      <p class="lede">Còn thắc mắc gì khác, nhắn Zalo cho quán. Có người trả lời từ 7:00 tới 22:00.</p>
+    </header>
+    <div class="faq">
+      <details><summary>Có cần đặt bàn trước không?<span class="pm" aria-hidden="true"></span></summary><p>Ngày thường thì không cần. Cuối tuần và những chiều mưa, quầy cửa sổ và góc lò sưởi thường kín từ 14:00, nên đặt trước sẽ chắc chỗ hơn.</p></details>
+      <details><summary>Quán có Wi‑Fi và ổ cắm không?<span class="pm" aria-hidden="true"></span></summary><p>Có Wi‑Fi, mật khẩu viết trên bảng phấn cạnh quầy. Quầy cửa sổ có ổ cắm dưới từng ghế. Gác lửng thì không có, để giữ yên tĩnh.</p></details>
+      <details><summary>Mang thú cưng theo được không?<span class="pm" aria-hidden="true"></span></summary><p>Được, ở hiên vườn. Quán có bát nước, khăn lau chân và vài chiếc bánh quy cho chó.</p></details>
+      <details><summary>Có món chay, món không sữa không?<span class="pm" aria-hidden="true"></span></summary><p>Có. Các món gắn nhãn “Chay” không dùng sản phẩm từ động vật. Mọi món sữa đổi được sang sữa yến mạch, thêm 10.000đ.</p></details>
+      <details><summary>Nhóm đông trên 8 người thì sao?<span class="pm" aria-hidden="true"></span></summary><p>Gọi quán để đặt riêng gác lửng, ngồi được tối đa 14 người. Quán cần báo trước ít nhất một ngày.</p></details>
+      <details><summary>Thanh toán bằng gì?<span class="pm" aria-hidden="true"></span></summary><p>Tiền mặt, thẻ, hoặc chuyển khoản bằng mã QR ở quầy.</p></details>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <span class="brand" style="margin:0"><svg class="brand-mark" viewBox="0 0 24 30" aria-hidden="true" style="width:30px;height:38px"><use href="#i-drop"/></svg><span class="brand-name">Mưa</span></span>
+        <p>Quán cà phê cho những chiều mưa ở Đà Lạt. Mở cửa mỗi ngày, kể cả khi trời nắng.</p>
+      </div>
+      <div>
+        <h3>Ghé quán</h3>
+        <ul><li>7 Dốc Mưa Bay</li><li>Phường Xuân Hương – Đà Lạt</li><li>7:00 – 22:00 mỗi ngày</li></ul>
+      </div>
+      <div>
+        <h3>Liên lạc</h3>
+        <ul><li>0263 3 123 456</li><li>Zalo cùng số</li><li>@mua.dalat</li></ul>
+      </div>
+      <div>
+        <h3>Trên trang này</h3>
+        <ul><li><a href="#thuc-don">Thực đơn</a></li><li><a href="#khong-gian">Không gian</a></li><li><a href="#dat-ban">Đặt bàn</a></li><li><a href="#duong-den">Đường đến</a></li></ul>
+      </div>
+    </div>
+    <div class="foot-fine">
+      <p>Mưa là một quán cà phê hư cấu. Địa chỉ, số điện thoại và lời nhắn của khách trên trang đều là minh hoạ.</p>
+      <p>Thời tiết lấy từ Open‑Meteo khi có mạng.</p>
+    </div>
+  </div>
+</footer>
+
+<nav class="dock" id="dock" aria-label="Lối tắt">
+  <a href="#thuc-don"><svg aria-hidden="true"><use href="#i-cup"/></svg>Thực đơn</a>
+  <a href="#duong-den"><svg aria-hidden="true"><use href="#i-pin"/></svg>Đường đến</a>
+  <a class="primary" href="#dat-ban"><svg aria-hidden="true"><use href="#i-cal"/></svg>Giữ bàn</a>
+</nav>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(() => {
+'use strict';
+
+/* =========================================================
+   Tiện ích
+   ========================================================= */
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+const store = {
+  get(k) { try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : null; } catch (e) { return null; } },
+  set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} },
+  del(k) { try { localStorage.removeItem(k); } catch (e) {} }
+};
+let params; try { params = new URLSearchParams(location.search); } catch (e) { params = new URLSearchParams(''); }
+const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)');
+const coarse = matchMedia('(pointer: coarse)');
+const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+function mulberry32(a) { return function () { a |= 0; a = a + 0x6D2B79F5 | 0; let t = Math.imul(a ^ a >>> 15, 1 | a); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+function hash01(str) { let h = 2166136261; for (let i = 0; i < str.length; i++) { h ^= str.charCodeAt(i); h = Math.imul(h, 16777619); } return ((h >>> 0) % 100000) / 100000; }
+
+let toastTimer;
+function toast(msg) {
+  const t = $('#toast'); t.textContent = msg; t.classList.add('show');
+  clearTimeout(toastTimer); toastTimer = setTimeout(() => t.classList.remove('show'), 2600);
+}
+function copyText(text, done) {
+  const fallback = () => {
+    const ta = document.createElement('textarea'); ta.value = text; ta.setAttribute('readonly', ''); ta.style.position = 'fixed'; ta.style.opacity = '0';
+    document.body.appendChild(ta); ta.select();
+    let ok = false; try { ok = document.execCommand('copy'); } catch (e) {}
+    ta.remove(); toast(ok ? done : 'Không chép được. Bạn bôi đen và chép tay giúp quán nhé.');
+  };
+  try {
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(() => toast(done), fallback);
+    else fallback();
+  } catch (e) { fallback(); }
+}
+document.addEventListener('click', e => {
+  const b = e.target.closest('[data-copy]'); if (!b) return;
+  const src = $(b.getAttribute('data-copy')); if (src) copyText(src.textContent.trim(), b.getAttribute('data-copy-done') || 'Đã chép');
+});
+
+/* =========================================================
+   Giờ Đà Lạt (UTC+7), không phụ thuộc múi giờ máy khách
+   ========================================================= */
+const TZ = 'Asia/Ho_Chi_Minh';
+const partsFmt = new Intl.DateTimeFormat('en-GB', { timeZone: TZ, year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', hourCycle: 'h23' });
+const DOW = ['Chủ Nhật', 'Thứ Hai', 'Thứ Ba', 'Thứ Tư', 'Thứ Năm', 'Thứ Sáu', 'Thứ Bảy'];
+const DOW_S = ['CN', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7'];
+let clockOverride = null;
+const gioParam = params.get('gio');
+if (gioParam && /^\d{1,2}:\d{2}$/.test(gioParam)) { const [h, m] = gioParam.split(':').map(Number); if (h < 24 && m < 60) clockOverride = h * 60 + m; }
+function dowOf(key) { const [y, m, d] = key.split('-').map(Number); return new Date(Date.UTC(y, m - 1, d)).getUTCDay(); }
+function addDays(key, n) { const [y, m, d] = key.split('-').map(Number); return new Date(Date.UTC(y, m - 1, d + n)).toISOString().slice(0, 10); }
+function dayDiff(a, b) { const p = a.split('-').map(Number), q = b.split('-').map(Number); return Math.round((Date.UTC(q[0], q[1] - 1, q[2]) - Date.UTC(p[0], p[1] - 1, p[2])) / 864e5); }
+function now() {
+  const p = {}; for (const x of partsFmt.formatToParts(new Date())) p[x.type] = x.value;
+  let mins = (Number(p.hour) % 24) * 60 + Number(p.minute);
+  if (clockOverride != null) mins = clockOverride;
+  const key = `${p.year}-${p.month}-${p.day}`;
+  return { key, mins, dow: dowOf(key) };
+}
+const hhmm = mins => `${Math.floor(mins / 60)}:${String(mins % 60).padStart(2, '0')}`;
+const dm = key => { const [, m, d] = key.split('-').map(Number); return `${d}/${m}`; };
+function dateLong(key, ref) {
+  const diff = dayDiff(ref, key);
+  const base = `${DOW[dowOf(key)]}, ${dm(key)}`;
+  if (diff === 0) return `Hôm nay, ${base}`;
+  if (diff === 1) return `Ngày mai, ${base}`;
+  return base;
+}
+const vnd = k => `${k}.000đ`;
+
+const OPEN = 7 * 60, CLOSE = 22 * 60, LAST_SEAT = 21 * 60 + 30, LAST_BOOK = 21 * 60;
+function openStatus(mins) {
+  if (mins < OPEN) { const left = OPEN - mins; return { state: 'closed', text: left <= 60 ? `Mở cửa sau ${left} phút` : 'Đang đóng · mở lúc 7:00' }; }
+  if (mins >= CLOSE) return { state: 'closed', text: 'Đã đóng · mở lại 7:00 sáng mai' };
+  if (mins >= LAST_SEAT) return { state: 'soon', text: `Sắp đóng · còn ${CLOSE - mins} phút` };
+  return { state: 'open', text: 'Đang mở · tới 22:00' };
+}
+
+/* =========================================================
+   Thời tiết (Open-Meteo, không cần khoá). Không có mạng thì dùng lời chung theo mùa.
+   ========================================================= */
+const weather = { status: 'loading', raining: false, temp: null, desc: '', next: null };
+const forced = params.get('mua');
+const WMO = {
+  0: 'trời quang', 1: 'ít mây', 2: 'mây rải rác', 3: 'nhiều mây', 45: 'sương mù', 48: 'sương mù đọng',
+  51: 'mưa phùn nhẹ', 53: 'mưa phùn', 55: 'mưa phùn dày', 56: 'mưa phùn lạnh', 57: 'mưa phùn lạnh',
+  61: 'mưa nhẹ', 63: 'mưa vừa', 65: 'mưa to', 66: 'mưa lạnh', 67: 'mưa lạnh to',
+  80: 'mưa rào nhẹ', 81: 'mưa rào', 82: 'mưa rào rất to', 95: 'có dông', 96: 'dông kèm mưa đá', 99: 'dông kèm mưa đá'
+};
+const isRainCode = c => (c >= 51 && c <= 67) || (c >= 80 && c <= 82) || c >= 95;
+async function loadWeather() {
+  if (forced === '1' || forced === '0') {
+    Object.assign(weather, { status: 'ok', raining: forced === '1', temp: forced === '1' ? 17 : 21, desc: forced === '1' ? 'mưa vừa' : 'ít mây', next: forced === '1' ? null : { h: 15, p: 70 } });
+    return renderWeather();
+  }
+  const url = 'https://api.open-meteo.com/v1/forecast?latitude=11.94&longitude=108.44&current=temperature_2m,weather_code,precipitation&hourly=precipitation_probability&timezone=Asia%2FHo_Chi_Minh&forecast_days=2';
+  try {
+    const ctrl = new AbortController(); const to = setTimeout(() => ctrl.abort(), 7000);
+    const res = await fetch(url, { signal: ctrl.signal }); clearTimeout(to);
+    if (!res.ok) throw new Error('http ' + res.status);
+    const d = await res.json();
+    const code = d.current.weather_code;
+    weather.status = 'ok';
+    weather.temp = Math.round(d.current.temperature_2m);
+    weather.desc = WMO[code] || 'trời âm u';
+    weather.raining = isRainCode(code) || (d.current.precipitation || 0) > 0.1;
+    // Giờ đầu tiên trong 10 tiếng tới có xác suất mưa từ 50% trở lên
+    const n = now(); const times = d.hourly.time, probs = d.hourly.precipitation_probability;
+    weather.next = null;
+    for (let i = 0; i < times.length; i++) {
+      const [dk, hm] = times[i].split('T'); const h = Number(hm.slice(0, 2));
+      const ahead = dayDiff(n.key, dk) * 1440 + h * 60 - n.mins;
+      if (ahead > 0 && ahead <= 600 && probs[i] >= 50) { weather.next = { h, p: probs[i] }; break; }
+    }
+  } catch (e) { weather.status = 'fail'; }
+  renderWeather();
+}
+function renderWeather() {
+  const w = $('[data-weather]'), m = $('[data-weather-msg]');
+  const month = Number(now().key.slice(5, 7));
+  const rainySeason = month >= 5 && month <= 11;
+  if (weather.status === 'ok') {
+    w.textContent = `${weather.temp}°C, ${weather.desc}`;
+    if (weather.raining) m.textContent = 'Đà Lạt đang mưa thật. Quầy cửa sổ đang là chỗ đẹp nhất thành phố.';
+    else if (weather.next) m.textContent = `Khoảng ${weather.next.h}:00 có thể mưa (${weather.next.p}%). Đến sớm một chút để chọn chỗ bên cửa sổ.`;
+    else m.textContent = 'Hôm nay trời khô ráo. Nhớ mưa thì bấm nghe tiếng mưa ngay dưới ô cửa.';
+  } else if (weather.status === 'fail') {
+    w.textContent = rainySeason ? `Tháng ${month}, mùa mưa` : `Tháng ${month}, mùa khô`;
+    m.textContent = rainySeason ? 'Mưa thường đến sau hai giờ chiều. Mang theo áo khoác mỏng.' : 'Sáng nhiều sương, chiều nắng hanh. Tối se lạnh, hợp ngồi cạnh lò sưởi.';
+  }
+  renderRainStatus();
+}
+
+/* =========================================================
+   Đồng hồ, trạng thái mở cửa, mốc trong ngày
+   ========================================================= */
+function tick() {
+  const n = now(); const st = openStatus(n.mins);
+  $$('[data-status-dot]').forEach(d => d.setAttribute('data-state', st.state));
+  $$('[data-status-text]').forEach(t => { t.textContent = st.text; });
+  const c = $('[data-clock]'); if (c) { c.textContent = hhmm(n.mins); c.setAttribute('datetime', hhmm(n.mins).padStart(5, '0')); }
+  const fire = $('[data-fire-text]');
+  if (fire) fire.textContent = n.mins >= 1020 && n.mins < CLOSE ? 'Lò sưởi đang cháy' : (n.mins < 1020 && n.mins >= OPEN ? `Lò sưởi đốt sau ${Math.ceil((1020 - n.mins) / 60)} tiếng nữa` : 'Lò sưởi đốt từ 17:00');
+  const dn = $('[data-day-now]');
+  if (dn) {
+    const curItem = $$('.day-item').find(li => n.mins >= +li.dataset.from && n.mins < +li.dataset.to);
+    dn.textContent = curItem ? `Bây giờ là ${hhmm(n.mins)} ở Đà Lạt, quán đang ở khúc “${$('h3', curItem).textContent}”.`
+      : n.mins >= CLOSE ? `Bây giờ là ${hhmm(n.mins)} ở Đà Lạt. Quán đã tắt đèn, hẹn bạn lúc 7:00 sáng mai.`
+      : `Bây giờ là ${hhmm(n.mins)} ở Đà Lạt. Quán chưa mở, ${OPEN - n.mins <= 60 ? `còn ${OPEN - n.mins} phút nữa` : 'mở cửa lúc 7:00'}.`;
+  }
+  $$('.day-item').forEach(li => {
+    const on = n.mins >= +li.dataset.from && n.mins < +li.dataset.to;
+    li.classList.toggle('is-now', on);
+    if (on) li.setAttribute('aria-current', 'time'); else li.removeAttribute('aria-current');
+  });
+}
+
+/* =========================================================
+   Giao diện sáng / tối
+   ========================================================= */
+const root = document.documentElement;
+const darkMQ = matchMedia('(prefers-color-scheme: dark)');
+const isDark = () => root.getAttribute('data-theme') ? root.getAttribute('data-theme') === 'dark' : darkMQ.matches;
+const themeBtn = $('.theme-toggle');
+function syncThemeBtn() {
+  const d = isDark();
+  themeBtn.setAttribute('aria-label', d ? 'Chuyển sang giao diện sáng' : 'Chuyển sang giao diện tối (đêm mưa)');
+  themeBtn.title = d ? 'Trời sáng' : 'Đêm mưa';
+  const meta = $('meta[name="theme-color"]'); if (meta) meta.setAttribute('content', getComputedStyle(root).getPropertyValue('--bg').trim());
+}
+themeBtn.addEventListener('click', () => {
+  const next = isDark() ? 'light' : 'dark';
+  root.setAttribute('data-theme', next);
+  try { localStorage.setItem('mua-theme', next); } catch (e) {}
+  syncThemeBtn(); document.dispatchEvent(new CustomEvent('themechange'));
+});
+darkMQ.addEventListener && darkMQ.addEventListener('change', () => { syncThemeBtn(); document.dispatchEvent(new CustomEvent('themechange')); });
+
+/* =========================================================
+   Ô cửa kính: cảnh đồi thông, mưa rơi, hơi nước có thể lau
+   ========================================================= */
+const Win = (() => {
+  const fig = $('#window'); if (!fig) return null;
+  const cv = $('.w-view', fig), cf = $('.w-fog', fig), cg = $('.w-glass', fig);
+  const vx = cv.getContext('2d'), fx = cf.getContext('2d'), gx = cg.getContext('2d');
+  const hintEl = $('.w-hint', fig);
+  let W = 0, H = 0, DPR = 1, scene = null, fogImg = null, bead = null, C = null;
+  let drops = [], beads = [], drips = [];
+  let visible = true, raf = 0, last = 0, lastRefog = 0, lastBead = 0;
+  let writing = null, interactedAt = 0, lastWriteAt = 0, userTouched = false;
+  const R = mulberry32(20190907);
+
+  function colors() {
+    const cs = getComputedStyle(root); const g = n => cs.getPropertyValue(n).trim();
+    return { skyTop: g('--sky-top'), skyBot: g('--sky-bot'), far: g('--hill-far'), mid: g('--hill-mid'), near: g('--hill-near'),
+      mist: g('--mist'), lamp: g('--lamp'), rain: g('--rain'), fog: g('--fog'), house: g('--house'), roof: g('--roof'), dark: isDark() };
+  }
+  function rgba(hex, a) {
+    hex = hex.replace('#', ''); if (hex.length === 3) hex = hex.split('').map(c => c + c).join('');
+    const n = parseInt(hex, 16); return `rgba(${n >> 16 & 255},${n >> 8 & 255},${n & 255},${a})`;
+  }
+
+  function drawScene() {
+    scene = document.createElement('canvas'); scene.width = Math.round(W * DPR); scene.height = Math.round(H * DPR);
+    const c = scene.getContext('2d'); c.setTransform(DPR, 0, 0, DPR, 0, 0);
+    const r = mulberry32(7); const s = W / 480;
+    const sky = c.createLinearGradient(0, 0, 0, H * .7); sky.addColorStop(0, C.skyTop); sky.addColorStop(1, C.skyBot);
+    c.fillStyle = sky; c.fillRect(0, 0, W, H);
+    // Mây thấp
+    for (let i = 0; i < 9; i++) { c.fillStyle = rgba(C.mist, C.dark ? .12 : .35); c.beginPath(); c.ellipse(r() * W, H * (.08 + r() * .25), W * (.18 + r() * .2), H * (.03 + r() * .03), 0, 0, Math.PI * 2); c.fill(); }
+    // Trăng mờ sau mây (đêm) hoặc vầng sáng (ngày)
+    const glow = c.createRadialGradient(W * .74, H * .2, 0, W * .74, H * .2, W * .3);
+    glow.addColorStop(0, rgba(C.dark ? '#cfd9e0' : '#ffffff', C.dark ? .22 : .5)); glow.addColorStop(1, rgba(C.dark ? '#cfd9e0' : '#ffffff', 0));
+    c.fillStyle = glow; c.fillRect(0, 0, W, H);
+
+    const ridge = (base, amp, seed) => { const q = mulberry32(seed); const p1 = q() * 6, p2 = q() * 6, p3 = q() * 6; const f1 = (1.4 + q()) * Math.PI / W, f2 = (4 + q() * 2) * Math.PI / W, f3 = (10 + q() * 4) * Math.PI / W; return x => base - amp * (.55 * Math.sin(x * f1 + p1) + .3 * Math.sin(x * f2 + p2) + .15 * Math.sin(x * f3 + p3)); };
+    const fillRidge = (fn, col) => { c.beginPath(); c.moveTo(0, H); for (let x = 0; x <= W + 6; x += 4) c.lineTo(x, fn(x)); c.lineTo(W, H); c.closePath(); c.fillStyle = col; c.fill(); };
+    const mistBand = (y, h, a) => { const g = c.createLinearGradient(0, y - h / 2, 0, y + h / 2); g.addColorStop(0, rgba(C.mist, 0)); g.addColorStop(.5, rgba(C.mist, a)); g.addColorStop(1, rgba(C.mist, 0)); c.fillStyle = g; c.fillRect(0, y - h / 2, W, h); };
+    // Thông ba lá: thân cao, tán gom ở ngọn
+    const kesiya = (x, baseY, h, col) => {
+      const lean = (r() - .5) * h * .1, tx = x + lean, ty = baseY - h;
+      c.strokeStyle = col; c.fillStyle = col; c.lineCap = 'round';
+      c.lineWidth = Math.max(1, h * .02); c.beginPath(); c.moveTo(x, baseY); c.quadraticCurveTo(x + lean * .3, baseY - h * .5, tx, ty + h * .06); c.stroke();
+      const clump = (cx, cy, rw) => { for (let k = 0; k < 5; k++) { c.beginPath(); c.ellipse(cx + (r() - .5) * rw * 1.2, cy + (r() - .5) * rw * .45, rw * (.45 + r() * .4), rw * (.2 + r() * .16), (r() - .5) * .3, 0, Math.PI * 2); c.fill(); } };
+      c.lineWidth = Math.max(.8, h * .009);
+      const n = 3 + Math.floor(r() * 3);
+      for (let i = 0; i < n; i++) {
+        const t = .06 + r() * .34, by = ty + h * t, bx = tx - lean * t, dir = r() < .5 ? -1 : 1, len = h * (.08 + r() * .13);
+        const ex = bx + dir * len, ey = by - len * .3;
+        c.beginPath(); c.moveTo(bx, by); c.lineTo(ex, ey); c.stroke(); clump(ex, ey, len * .55);
+      }
+      clump(tx, ty + h * .03, h * .11);
+    };
+
+    const r1 = ridge(H * .45, H * .05, 11);
+    for (let x = -4; x < W + 4; x += 3 + r() * 5) { const y = r1(x), h = (6 + r() * 11) * s; c.fillStyle = C.far; c.beginPath(); c.moveTo(x - h * .28, y + 3); c.lineTo(x, y - h); c.lineTo(x + h * .28, y + 3); c.fill(); }
+    fillRidge(r1, C.far);
+    mistBand(H * .5, H * .16, C.dark ? .35 : .6);
+    const r2 = ridge(H * .6, H * .06, 23);
+    fillRidge(r2, C.mid);
+    for (let x = 0; x < W; x += (8 + r() * 14) * s) kesiya(x, r2(x) + 6 * s, (24 + r() * 30) * s, C.mid);
+    mistBand(H * .64, H * .12, C.dark ? .3 : .5);
+
+    const r3 = x => H * .76 + (x / W) * H * .05 - Math.sin(x / W * 3.2 + .6) * H * .025;
+    // Ngôi nhà gỗ có cửa sổ sáng đèn
+    const hx = W * .6, hy = r3(hx) + 6 * s, bw = 86 * s, bh = 44 * s;
+    c.fillStyle = C.house; c.fillRect(hx - bw / 2, hy - bh, bw, bh + 40 * s);
+    c.fillRect(hx + bw / 2 - 2, hy - bh * .62, bw * .45, bh * .62 + 40 * s);
+    c.fillStyle = C.roof; c.beginPath(); c.moveTo(hx - bw / 2 - 8 * s, hy - bh + 2); c.lineTo(hx - 4 * s, hy - bh - 46 * s); c.lineTo(hx + bw / 2 + 8 * s, hy - bh + 2); c.closePath(); c.fill();
+    c.beginPath(); c.moveTo(hx + bw / 2 - 4, hy - bh * .62 + 2); c.lineTo(hx + bw / 2 + bw * .22, hy - bh * .62 - 22 * s); c.lineTo(hx + bw / 2 + bw * .5, hy - bh * .62 + 2); c.closePath(); c.fill();
+    c.fillRect(hx + 16 * s, hy - bh - 40 * s, 9 * s, 22 * s);
+    const lit = [[hx - bw * .32, hy - bh * .62], [hx - bw * .06, hy - bh * .62], [hx + bw * .2, hy - bh * .62], [hx + bw * .62, hy - bh * .42]];
+    for (const [lx, ly] of lit) {
+      const g = c.createRadialGradient(lx + 6 * s, ly + 8 * s, 0, lx + 6 * s, ly + 8 * s, 34 * s);
+      g.addColorStop(0, rgba(C.lamp, C.dark ? .55 : .3)); g.addColorStop(1, rgba(C.lamp, 0));
+      c.fillStyle = g; c.fillRect(lx - 30 * s, ly - 26 * s, 72 * s, 72 * s);
+      c.fillStyle = rgba(C.lamp, C.dark ? .95 : .8); c.fillRect(lx, ly, 12 * s, 16 * s);
+      c.fillStyle = C.house; c.fillRect(lx + 5.4 * s, ly, 1.2 * s, 16 * s);
+    }
+    // Khói ống khói
+    for (let i = 0; i < 6; i++) { c.fillStyle = rgba(C.mist, (C.dark ? .14 : .28) * (1 - i / 6)); c.beginPath(); c.ellipse(hx + 20 * s + i * 5 * s, hy - bh - 46 * s - i * 11 * s, (6 + i * 3) * s, (4 + i * 1.6) * s, 0, 0, Math.PI * 2); c.fill(); }
+    // Đèn đường
+    const lpx = W * .36, lpy = r3(lpx);
+    c.strokeStyle = C.near; c.lineWidth = 2 * s; c.beginPath(); c.moveTo(lpx, lpy); c.lineTo(lpx, lpy - 54 * s); c.stroke();
+    const lg = c.createRadialGradient(lpx, lpy - 56 * s, 0, lpx, lpy - 56 * s, 40 * s); lg.addColorStop(0, rgba(C.lamp, C.dark ? .7 : .4)); lg.addColorStop(1, rgba(C.lamp, 0));
+    c.fillStyle = lg; c.fillRect(lpx - 40 * s, lpy - 96 * s, 80 * s, 80 * s);
+    c.fillStyle = rgba(C.lamp, .95); c.beginPath(); c.arc(lpx, lpy - 56 * s, 3.2 * s, 0, Math.PI * 2); c.fill();
+
+    fillRidge(r3, C.near);
+    for (const [px, ph] of [[.05, .58], [.15, .47], [.24, .36], [.84, .44], [.95, .6], [.73, .3]]) kesiya(W * px, r3(W * px) + 30 * s, H * ph, C.near);
+    const fg = c.createLinearGradient(0, H * .82, 0, H); fg.addColorStop(0, rgba(C.mist, 0)); fg.addColorStop(1, rgba(C.mist, C.dark ? .12 : .3));
+    c.fillStyle = fg; c.fillRect(0, H * .82, W, H * .18);
+  }
+
+  function makeFog() {
+    fogImg = document.createElement('canvas'); fogImg.width = scene.width; fogImg.height = scene.height;
+    const f = fogImg.getContext('2d');
+    if (typeof f.filter === 'string') {
+      const pad = 40 * DPR; f.filter = `blur(${Math.round(16 * DPR)}px)`;
+      f.drawImage(scene, -pad, -pad, fogImg.width + pad * 2, fogImg.height + pad * 2); f.filter = 'none';
+    } else {
+      const a = document.createElement('canvas'); a.width = Math.max(2, fogImg.width >> 3); a.height = Math.max(2, fogImg.height >> 3);
+      const b = document.createElement('canvas'); b.width = Math.max(2, a.width >> 2); b.height = Math.max(2, a.height >> 2);
+      a.getContext('2d').drawImage(scene, 0, 0, a.width, a.height); b.getContext('2d').drawImage(a, 0, 0, b.width, b.height);
+      f.imageSmoothingEnabled = true; f.drawImage(b, 0, 0, fogImg.width, fogImg.height);
+    }
+    // Lớp hơi nước: dày hơn ở mép dưới kính
+    const g = f.createLinearGradient(0, 0, 0, fogImg.height);
+    g.addColorStop(0, rgba(C.fog, C.dark ? .42 : .34)); g.addColorStop(1, rgba(C.fog, C.dark ? .62 : .6));
+    f.fillStyle = g; f.fillRect(0, 0, fogImg.width, fogImg.height);
+    // Hạt li ti
+    const r = mulberry32(99); const n = Math.round(fogImg.width * fogImg.height / 70);
+    for (let i = 0; i < n; i++) { f.fillStyle = r() < .5 ? `rgba(255,255,255,${.04 + r() * .1})` : `rgba(0,0,0,${.02 + r() * .04})`; f.fillRect(r() * fogImg.width, r() * fogImg.height, DPR * (r() < .9 ? 1 : 2), DPR * (r() < .9 ? 1 : 2)); }
+  }
+
+  function makeBead() {
+    bead = document.createElement('canvas'); bead.width = bead.height = 64; const b = bead.getContext('2d');
+    const g = b.createRadialGradient(30, 28, 2, 32, 32, 30);
+    g.addColorStop(0, 'rgba(255,255,255,0.02)'); g.addColorStop(.6, 'rgba(255,255,255,0.06)');
+    g.addColorStop(.86, C.dark ? 'rgba(0,0,0,0.45)' : 'rgba(20,40,38,0.26)'); g.addColorStop(1, 'rgba(0,0,0,0)');
+    b.fillStyle = g; b.beginPath(); b.arc(32, 32, 30, 0, Math.PI * 2); b.fill();
+    b.fillStyle = C.dark ? 'rgba(255,255,255,0.55)' : 'rgba(255,255,255,0.9)'; b.beginPath(); b.ellipse(24, 21, 7, 4.5, -.6, 0, Math.PI * 2); b.fill();
+    b.fillStyle = `rgba(255,255,255,${C.dark ? .12 : .3})`; b.beginPath(); b.ellipse(36, 46, 10, 4, 0, 0, Math.PI * 2); b.fill();
+  }
+
+  function initRain() {
+    const n = Math.round(W * H / 2400);
+    drops = Array.from({ length: n }, () => newDrop(true));
+  }
+  function newDrop(any) { const z = Math.random(); return { x: Math.random() * (W + 80) - 20, y: any ? Math.random() * H : -30 - Math.random() * 60, z, len: 9 + z * 18, v: .35 + z * .5 }; }
+  function initBeads() {
+    beads = []; const n = Math.round(W * H / 2600);
+    for (let i = 0; i < n; i++) beads.push(newBead());
+  }
+  function newBead() { const y = Math.random() * H; return { x: Math.random() * W, y, r: .7 + Math.random() * (1.2 + 2.2 * (y / H)) }; }
+
+  function fillFog() { fx.globalCompositeOperation = 'source-over'; fx.globalAlpha = 1; fx.clearRect(0, 0, W, H); fx.drawImage(fogImg, 0, 0, W, H); }
+  function erase(x0, y0, x1, y1, w, a = .92) {
+    fx.save(); fx.globalCompositeOperation = 'destination-out'; fx.lineCap = 'round'; fx.lineJoin = 'round';
+    fx.lineWidth = w; fx.strokeStyle = `rgba(0,0,0,${a})`; fx.shadowColor = `rgba(0,0,0,${a})`; fx.shadowBlur = w * .28 * DPR;
+    fx.beginPath(); fx.moveTo(x0, y0); fx.lineTo(x1, y1); fx.stroke(); fx.restore();
+    // Lau qua thì hạt nước trên kính cũng mất
+    const rr = w * .7;
+    beads = beads.filter(b => { const dx = b.x - x1, dy = b.y - y1; return dx * dx + dy * dy > rr * rr; });
+  }
+  function spawnDrip(x, y, big) { if (reduceMotion.matches || drips.length > 26) return; drips.push({ x, y, px: x, py: y, r: (big ? 2.6 : 1.8) + Math.random() * 1.8, vy: 0, wait: 20 + Math.random() * 90, wob: Math.random() * 6 }); }
+
+  // Chữ “Mưa” viết tay bằng ngón tay, toạ độ trong khung 100 × 60
+  const WORD = [
+    [[2, 58], [5, 30], [7, 9], [12, 26], [17, 44], [22, 26], [27, 9], [29, 30], [32, 58]],
+    [[40, 26], [40.5, 44], [43, 54], [49, 58], [55, 54], [58, 42], [58.5, 26], [58.6, 44], [59.5, 58]],
+    [[57, 30], [62, 27], [66, 20]],
+    [[88, 33], [80, 26], [71, 30], [67, 42], [69, 54], [76, 58], [84, 52], [87.5, 40], [88, 30], [88, 46], [89, 56], [92, 59]]
+  ];
+  function catmull(pts, seg) {
+    const out = [];
+    for (let i = 0; i < pts.length - 1; i++) {
+      const p0 = pts[i - 1] || pts[i], p1 = pts[i], p2 = pts[i + 1], p3 = pts[i + 2] || p2;
+      for (let t = 0; t < 1; t += 1 / seg) {
+        const t2 = t * t, t3 = t2 * t;
+        out.push([.5 * (2 * p1[0] + (-p0[0] + p2[0]) * t + (2 * p0[0] - 5 * p1[0] + 4 * p2[0] - p3[0]) * t2 + (-p0[0] + 3 * p1[0] - 3 * p2[0] + p3[0]) * t3),
+                  .5 * (2 * p1[1] + (-p0[1] + p2[1]) * t + (2 * p0[1] - 5 * p1[1] + 4 * p2[1] - p3[1]) * t2 + (-p0[1] + 3 * p1[1] - 3 * p2[1] + p3[1]) * t3)]);
+      }
+    }
+    out.push(pts[pts.length - 1]); return out;
+  }
+  function startWriting(instant) {
+    const ww = Math.min(W * .64, 360), sc = ww / 100, ox = (W - ww) / 2 + ww * .02, oy = H * .5;
+    const strokes = WORD.map(st => catmull(st.map(([x, y]) => [ox + x * sc, oy + y * sc]), 8));
+    let total = 0; const lens = strokes.map(s => { let l = 0; for (let i = 1; i < s.length; i++) l += Math.hypot(s[i][0] - s[i - 1][0], s[i][1] - s[i - 1][1]); total += l; return l; });
+    writing = { strokes, lens, total, width: Math.max(12, ww * .062), t0: performance.now(), dur: 2300, done: 0, si: 0, pi: 1 };
+    lastWriteAt = performance.now();
+    if (instant) { writing.t0 -= writing.dur; stepWriting(performance.now()); }
+  }
+  function stepWriting(t) {
+    if (!writing) return;
+    const w = writing; const p = Math.min(1, (t - w.t0) / w.dur);
+    const ease = p < .5 ? 2 * p * p : 1 - Math.pow(-2 * p + 2, 2) / 2;
+    const target = ease * w.total;
+    while (w.si < w.strokes.length) {
+      const s = w.strokes[w.si];
+      if (w.pi >= s.length) { const lowest = s.reduce((a, b) => b[1] > a[1] ? b : a); if (Math.random() < .5) spawnDrip(lowest[0], lowest[1] + w.width * .3, true); w.si++; w.pi = 1; continue; }
+      const a = s[w.pi - 1], b = s[w.pi]; const seg = Math.hypot(b[0] - a[0], b[1] - a[1]);
+      if (w.done + seg > target) break;
+      erase(a[0], a[1], b[0], b[1], w.width * (.92 + Math.sin(w.pi * .7) * .08), .95);
+      w.done += seg; w.pi++;
+    }
+    if (p >= 1 && w.si >= w.strokes.length) writing = null;
+  }
+
+  function drawView(dt) {
+    vx.drawImage(scene, 0, 0, W, H);
+    const wind = -.16;
+    vx.strokeStyle = C.rain; vx.lineCap = 'round';
+    for (let layer = 0; layer < 3; layer++) {
+      vx.globalAlpha = C.dark ? .22 + layer * .16 : .18 + layer * .16; vx.lineWidth = .6 + layer * .55;
+      vx.beginPath();
+      for (let i = layer; i < drops.length; i += 3) {
+        const d = drops[i];
+        vx.moveTo(d.x, d.y); vx.lineTo(d.x + wind * d.len, d.y + d.len);
+        if (!reduceMotion.matches) { d.y += d.v * dt; d.x += wind * d.v * dt; if (d.y > H + 20) Object.assign(d, newDrop(false)); }
+      }
+      vx.stroke();
+    }
+    vx.globalAlpha = 1;
+  }
+  function drawGlass(dt) {
+    gx.clearRect(0, 0, W, H);
+    for (const b of beads) gx.drawImage(bead, b.x - b.r, b.y - b.r, b.r * 2, b.r * 2);
+    for (let i = drips.length - 1; i >= 0; i--) {
+      const d = drips[i];
+      if (d.wait > 0) d.wait -= dt / 16; else { d.vy = Math.min(d.vy + .004 * dt, .09 + d.r * .025); d.py = d.y; d.px = d.x; d.y += d.vy * dt; d.x += Math.sin(d.y * .06 + d.wob) * .18; erase(d.px, d.py, d.x, d.y, d.r * 1.05, .55); }
+      gx.drawImage(bead, d.x - d.r * 1.25, d.y - d.r * 1.25, d.r * 2.5, d.r * 2.5);
+      if (d.y > H + 10) drips.splice(i, 1);
+    }
+  }
+  function refog(t) {
+    if (t - lastRefog < 260) return; lastRefog = t;
+    fx.globalCompositeOperation = 'source-over'; fx.globalAlpha = .028; fx.drawImage(fogImg, 0, 0, W, H); fx.globalAlpha = 1;
+    if (t - lastBead > 500 && beads.length < W * H / 2600) { beads.push(newBead()); lastBead = t; }
+  }
+
+  function frame(t) {
+    raf = 0; if (!visible || document.hidden || !scene) return;
+    const dt = Math.min(48, t - (last || t)) || 16; last = t;
+    drawView(dt); stepWriting(t); drawGlass(dt); refog(t);
+    // Không ai lau một lúc thì kính tự mờ lại và quán viết lại chữ
+    if (!writing && !reduceMotion.matches && t - lastWriteAt > 26000 && t - interactedAt > 16000) startWriting(false);
+    raf = requestAnimationFrame(frame);
+  }
+  function start() { if (!raf && scene && visible && !document.hidden) { last = 0; raf = requestAnimationFrame(frame); } }
+
+  function build(keepWord) {
+    W = fig.clientWidth; H = fig.clientHeight; if (!W || !H) return;
+    DPR = Math.min(window.devicePixelRatio || 1, 1.75);
+    for (const c of [cv, cf, cg]) { c.width = Math.round(W * DPR); c.height = Math.round(H * DPR); }
+    for (const x of [vx, fx, gx]) x.setTransform(DPR, 0, 0, DPR, 0, 0);
+    C = colors(); drawScene(); makeFog(); makeBead(); initRain(); initBeads(); drips = [];
+    fillFog(); drawView(16); drawGlass(16);
+    startWriting(reduceMotion.matches || keepWord);
+    if (reduceMotion.matches) { stepWriting(performance.now()); drawGlass(16); }
+  }
+
+  // Lau kính
+  let down = false, lp = null, acc = 0;
+  const pos = e => { const r = cf.getBoundingClientRect(); return [(e.clientX - r.left) * (W / r.width), (e.clientY - r.top) * (H / r.height)]; };
+  const brush = () => Math.max(22, W * .07);
+  fig.addEventListener('pointerdown', e => {
+    if (e.button > 0) return; down = true; lp = pos(e); acc = 0;
+    erase(lp[0], lp[1], lp[0] + .1, lp[1] + .1, brush());
+    if (!userTouched) { userTouched = true; hintEl.classList.add('gone'); }
+    interactedAt = performance.now(); start();
+  });
+  fig.addEventListener('pointermove', e => {
+    if (!down) return; const p = pos(e);
+    erase(lp[0], lp[1], p[0], p[1], brush());
+    acc += Math.hypot(p[0] - lp[0], p[1] - lp[1]);
+    if (acc > 90) { acc = 0; if (Math.random() < .55) spawnDrip(p[0] + (Math.random() - .5) * brush() * .6, p[1] + brush() * .42, false); }
+    lp = p; interactedAt = performance.now();
+  });
+  const up = () => { down = false; };
+  fig.addEventListener('pointerup', up); fig.addEventListener('pointercancel', up); fig.addEventListener('pointerleave', up);
+  $('[data-hint]', fig).textContent = coarse.matches ? 'Vuốt ngang để lau kính' : 'Nhấn giữ và kéo để lau kính';
+
+  let lastW = fig.clientWidth, rt;
+  build(false);
+  new ResizeObserver(() => { const w = fig.clientWidth; if (Math.abs(w - lastW) < 2) return; lastW = w; clearTimeout(rt); rt = setTimeout(() => { build(true); start(); }, 120); }).observe(fig);
+  new IntersectionObserver(es => { visible = es[0].isIntersecting; if (visible) start(); }, { threshold: 0 }).observe(fig);
+  document.addEventListener('visibilitychange', () => { if (!document.hidden) start(); });
+  document.addEventListener('themechange', () => { build(true); start(); });
+  reduceMotion.addEventListener && reduceMotion.addEventListener('change', () => build(true));
+  return { build, start };
+})();
+
+/* =========================================================
+   Tiếng mưa trên mái tôn, tổng hợp bằng Web Audio
+   ========================================================= */
+const Sound = (() => {
+  const btn = $('#sound-btn'); const label = $('[data-sound-label]'); const note = $('[data-sound-note]');
+  let A = null, on = false;
+  function noise(ac, sec, kind) {
+    const len = Math.floor(ac.sampleRate * sec), buf = ac.createBuffer(2, len, ac.sampleRate);
+    for (let ch = 0; ch < 2; ch++) {
+      const d = buf.getChannelData(ch); let b0 = 0, b1 = 0, b2 = 0, b3 = 0, b4 = 0, b5 = 0, b6 = 0, lastOut = 0;
+      for (let i = 0; i < len; i++) {
+        const w = Math.random() * 2 - 1;
+        if (kind === 'pink') { b0 = .99886 * b0 + w * .0555179; b1 = .99332 * b1 + w * .0750759; b2 = .969 * b2 + w * .153852; b3 = .8665 * b3 + w * .3104856; b4 = .55 * b4 + w * .5329522; b5 = -.7616 * b5 - w * .016898; d[i] = (b0 + b1 + b2 + b3 + b4 + b5 + b6 + w * .5362) * .11; b6 = w * .115926; }
+        else if (kind === 'brown') { lastOut = (lastOut + .02 * w) / 1.02; d[i] = lastOut * 3.5; }
+        else d[i] = w;
+      }
+    }
+    return buf;
+  }
+  function setup() {
+    const AC = window.AudioContext || window.webkitAudioContext; if (!AC) return null;
+    const ac = new AC(); const master = ac.createGain(); master.gain.value = 0; master.connect(ac.destination);
+    const bed = ac.createBufferSource(); bed.buffer = noise(ac, 4, 'pink'); bed.loop = true;
+    const hp = ac.createBiquadFilter(); hp.type = 'highpass'; hp.frequency.value = 450;
+    const lp = ac.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = 6500;
+    const g1 = ac.createGain(); g1.gain.value = .42;
+    bed.connect(hp).connect(lp).connect(g1).connect(master);
+    const rum = ac.createBufferSource(); rum.buffer = noise(ac, 4, 'brown'); rum.loop = true;
+    const lp2 = ac.createBiquadFilter(); lp2.type = 'lowpass'; lp2.frequency.value = 320;
+    const g2 = ac.createGain(); g2.gain.value = .5; rum.connect(lp2).connect(g2).connect(master);
+    const lfo = ac.createOscillator(); lfo.frequency.value = .06; const lfoG = ac.createGain(); lfoG.gain.value = .12; lfo.connect(lfoG).connect(g1.gain);
+    bed.start(); rum.start(); lfo.start();
+    return { ac, master, white: noise(ac, .06, 'white'), timer: 0 };
+  }
+  // Giọt nước gõ lên mái tôn
+  function drip() {
+    const { ac, master, white } = A; const t = ac.currentTime;
+    const src = ac.createBufferSource(); src.buffer = white;
+    const bp = ac.createBiquadFilter(); bp.type = 'bandpass'; bp.frequency.value = 1400 + Math.random() * 4200; bp.Q.value = 7 + Math.random() * 8;
+    const g = ac.createGain(); const peak = .05 + Math.random() * .13;
+    g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(peak, t + .003); g.gain.exponentialRampToValueAtTime(.0008, t + .05 + Math.random() * .05);
+    let node = src.connect(bp).connect(g);
+    if (ac.createStereoPanner) { const p = ac.createStereoPanner(); p.pan.value = Math.random() * 1.6 - .8; node = node.connect(p); }
+    node.connect(master); src.start(t); src.stop(t + .12);
+  }
+  async function toggle() {
+    try {
+      if (!A) A = setup();
+      if (!A) { note.textContent = 'Trình duyệt này chưa phát được âm thanh tổng hợp.'; return; }
+      on = !on;
+      const t = A.ac.currentTime;
+      A.master.gain.cancelScheduledValues(t); A.master.gain.setValueAtTime(A.master.gain.value, t);
+      if (on) {
+        await A.ac.resume();
+        A.master.gain.linearRampToValueAtTime(.85, t + 1.6);
+        clearInterval(A.timer); A.timer = setInterval(() => { const k = Math.random(); if (k < .55) drip(); if (k < .18) setTimeout(drip, 40); }, 70);
+      } else {
+        A.master.gain.linearRampToValueAtTime(0, t + .6); clearInterval(A.timer);
+        setTimeout(() => { if (!on) A.ac.suspend(); }, 700);
+      }
+      btn.setAttribute('aria-pressed', String(on));
+      label.textContent = on ? 'Tắt tiếng mưa' : 'Nghe mưa trên mái tôn';
+      note.textContent = on ? 'Đang mưa trên mái tôn của quán.' : 'Âm thanh tạo ngay trên máy bạn, không phát tự động.';
+    } catch (e) { note.textContent = 'Không bật được âm thanh trên trình duyệt này.'; }
+  }
+  btn.addEventListener('click', toggle);
+})();
+
+/* =========================================================
+   Thực đơn
+   ========================================================= */
+const MENU = {
+  'ca-phe': [
+    { id: 'phin', n: 'Phin Cầu Đất', d: 'Arabica Cầu Đất rang mộc tại quán, pha phin chậm. Đen hoặc sữa đặc.', p: 35, t: ['Nóng · Đá'] },
+    { id: 'bac-xiu', n: 'Bạc xỉu sương mù', d: 'Sữa tươi Đà Lạt đánh bọt mịn như sương, một chút cà phê phin dưới đáy ly.', p: 45, t: ['Nóng · Đá'] },
+    { id: 'ly-mua', n: 'Ly Mưa', d: 'Cold brew rót lên đá trà atisô đỏ. Đá tan tới đâu, ly đổi màu tới đó.', p: 59, t: ['Món của quán', 'Đá'], sig: true },
+    { id: 'trung-kho', n: 'Cà phê trứng khò', d: 'Trứng gà ta đánh bông với mật ong, khò cháy mặt như kem brûlée.', p: 55, t: ['Nóng'] },
+    { id: 'muoi', n: 'Cà phê muối', d: 'Lớp kem muối hồng béo nhẹ trên nền phin đậm.', p: 45, t: ['Nóng · Đá'] },
+    { id: 'pour', n: 'Pour-over đơn nguồn', d: 'Pha V60 từ mẻ rang trong tuần. Hỏi barista hôm nay có hạt gì.', p: 65, t: ['Nóng'] }
+  ],
+  'tra': [
+    { id: 'ca-cao', n: 'Ca cao Lâm Hà, kẹo dẻo nướng', d: 'Ca cao nguyên chất nấu với sữa tươi, kẹo dẻo khò cháy cạnh.', p: 50, t: ['Trẻ em thích'] },
+    { id: 'atiso', n: 'Trà atisô đỏ', d: 'Hoa atisô đỏ phơi khô nấu cùng cỏ ngọt. Uống nóng, không đường.', p: 40, t: ['Chay'] },
+    { id: 'gung', n: 'Trà gừng mật ong rừng', d: 'Gừng già đập dập, mật ong rừng Lâm Đồng, một lát chanh.', p: 40, t: ['Nóng'] },
+    { id: 'olong', n: 'Ô long Cầu Đất', d: 'Ấm nhỏ pha được ba nước, kèm một đĩa mứt gừng.', p: 55, t: ['Chay'] },
+    { id: 'dau-nanh', n: 'Sữa đậu nành nóng', d: 'Nấu mỗi sáng với lá dứa, như ở chợ đêm Đà Lạt.', p: 25, t: ['Chay', 'Tới 11:00'] },
+    { id: 'dau-tam', n: 'Dâu tằm soda', d: 'Siro dâu tằm quán tự ngâm, soda và lá bạc hà.', p: 45, t: ['Chay', 'Đá'] }
+  ],
+  'banh': [
+    { id: 'banh-mi', n: 'Bánh mì xíu mại', d: 'Xíu mại hấp sốt cà chua, bánh mì nóng giòn để chấm. Bán tới 10:30.', p: 40, t: ['Buổi sáng'] },
+    { id: 'croissant', n: 'Croissant bơ lạt', d: 'Nướng hai mẻ mỗi ngày, lúc 7:00 và 13:00.', p: 45, t: [] },
+    { id: 'tart-dau', n: 'Tart dâu tây', d: 'Dâu tây vườn Trại Mát trên lớp kem vani mát lạnh.', p: 55, t: [] },
+    { id: 'chuoi', n: 'Bánh chuối nướng', d: 'Chuối sứ, nước cốt dừa, ăn khi còn ấm.', p: 40, t: ['Chay'] },
+    { id: 'flan', n: 'Flan cà phê', d: 'Caramel đắng nhẹ, rưới một muỗng phin nóng.', p: 30, t: [] },
+    { id: 'sup', n: 'Súp kem bí đỏ', d: 'Bí đỏ nướng, kem tươi, bánh mì bơ tỏi.', p: 55, t: ['Nóng'] }
+  ],
+  'mua': [
+    { id: 'khoai', n: 'Khoai lang mật nướng than', d: 'Khoai lang mật Đơn Dương nướng trên than hồng, chảy mật.', p: 35, t: ['Chay'] },
+    { id: 'bap', n: 'Bắp nướng mỡ hành', d: 'Bắp nếp Đà Lạt, phết mỡ hành bằng chổi lá sả.', p: 30, t: [] },
+    { id: 'bt-nuong', n: 'Bánh tráng nướng', d: 'Trứng cút, ruốc, hành lá, tương ớt nhà làm.', p: 35, t: [] },
+    { id: 'vang', n: 'Vang nóng quế hồi', d: 'Vang đỏ Đà Lạt ủ ấm với quế, hồi, vỏ cam. Phục vụ từ 17:00.', p: 75, t: ['18+'] },
+    { id: 'che', n: 'Chè trôi nước gừng', d: 'Viên nếp nhân đậu xanh trong nước đường gừng nóng.', p: 35, t: ['Chay'] }
+  ]
+};
+const ALL_ITEMS = Object.entries(MENU).flatMap(([cat, items]) => items.map(i => ({ ...i, cat })));
+const findItem = id => ALL_ITEMS.find(i => i.id === id);
+let curCat = 'ca-phe';
+function tagHTML(t, sig) {
+  const cls = sig && t === 'Món của quán' ? 'tag sig' : t === 'Chay' ? 'tag veg' : 'tag';
+  return `<span class="${cls}">${esc(t)}</span>`;
+}
+function renderMenu() {
+  const list = $('#menu-list');
+  list.innerHTML = MENU[curCat].map(i => `
+    <li class="item" id="mon-${i.id}">
+      <div class="item-top"><h3 class="item-name">${esc(i.n)}</h3><span class="leader" aria-hidden="true"></span><span class="item-price"><span class="sr-only">Giá </span>${i.p}<small>.000đ</small></span></div>
+      <p class="item-desc">${esc(i.d)}</p>
+      ${i.t.length ? `<p class="item-tags">${i.t.map(t => tagHTML(t, i.sig)).join('')}</p>` : ''}
+    </li>`).join('');
+  renderRainStatus();
+}
+function renderRainStatus() {
+  const box = $('#rain-status'); if (!box) return;
+  const tab = $('#tab-mua');
+  tab.setAttribute('data-live', weather.raining ? 'on' : 'off');
+  if (curCat !== 'mua') { box.hidden = true; return; }
+  box.hidden = false;
+  let msg;
+  if (weather.status === 'ok' && weather.raining) msg = '<strong>Đà Lạt đang mưa, bếp than đã đỏ.</strong> Các món dưới đây đang được phục vụ.';
+  else if (weather.status === 'ok' && weather.next) msg = `<strong>Chưa mưa.</strong> Dự báo khoảng ${weather.next.h}:00 có thể mưa. Khi trời đổ mưa, bếp nhóm than và các món này lên thực đơn.`;
+  else if (weather.status === 'ok') msg = '<strong>Hôm nay trời khô.</strong> Các món này chỉ lên bếp khi trời đổ mưa, thường là chiều tối mùa mưa (tháng 5 tới tháng 11).';
+  else msg = '<strong>Các món này chỉ có khi trời mưa.</strong> Khi mưa đến, bếp nhóm than và báo bằng tấm bảng treo trước cửa.';
+  box.innerHTML = `<svg aria-hidden="true"><use href="#i-rain"/></svg><p>${msg}</p>`;
+}
+const tabs = $$('.tab');
+function selectTab(btn, focus) {
+  tabs.forEach(t => { const on = t === btn; t.setAttribute('aria-selected', String(on)); t.tabIndex = on ? 0 : -1; });
+  curCat = btn.dataset.cat; $('#menu-panel').setAttribute('aria-labelledby', btn.id);
+  renderMenu(); if (focus) btn.focus();
+}
+tabs.forEach((t, i) => {
+  t.addEventListener('click', () => selectTab(t));
+  t.addEventListener('keydown', e => {
+    let j = null;
+    if (e.key === 'ArrowRight') j = (i + 1) % tabs.length; else if (e.key === 'ArrowLeft') j = (i - 1 + tabs.length) % tabs.length;
+    else if (e.key === 'Home') j = 0; else if (e.key === 'End') j = tabs.length - 1;
+    if (j != null) { e.preventDefault(); selectTab(tabs[j], true); }
+  });
+});
+function jumpToItem(id) {
+  const it = findItem(id); if (!it) return;
+  if (curCat !== it.cat) selectTab($(`.tab[data-cat="${it.cat}"]`));
+  const el = $('#mon-' + id); if (!el) return;
+  el.scrollIntoView({ behavior: reduceMotion.matches ? 'auto' : 'smooth', block: 'center' });
+  el.classList.remove('flash'); void el.offsetWidth; el.classList.add('flash');
+  setTimeout(() => el.classList.remove('flash'), 1800);
+}
+document.addEventListener('click', e => { const b = e.target.closest('[data-jump-item]'); if (b) jumpToItem(b.dataset.jumpItem); });
+
+// Gợi ý theo giờ Đà Lạt và thời tiết
+let suggestIdx = 0;
+function suggestions() {
+  const m = now().mins; const rain = weather.raining;
+  if (m < OPEN - 60 || m >= CLOSE) return { when: 'Quán đã đóng cửa. Sáng mai ghé, gọi thử:', sets: [['phin', 'banh-mi', 'Bữa sáng kiểu Đà Lạt, nhớ đến trước 10:30 để kịp xíu mại.'], ['bac-xiu', 'croissant', 'Croissant mẻ đầu ra lò lúc 7:00, còn ấm.']] };
+  if (m < 630) return { when: 'Buổi sáng ở Mưa, gọi thử:', sets: [['phin', 'banh-mi', 'Bữa sáng kiểu Đà Lạt, xíu mại chỉ bán tới 10:30.'], ['dau-nanh', 'croissant', 'Nhẹ bụng, ấm tay, hợp buổi sáng còn sương.']] };
+  if (m < 840) return { when: 'Giờ này nắng hanh, gọi thử:', sets: [['bac-xiu', 'tart-dau', 'Ngồi hiên vườn với một ly bạc xỉu và dâu tây Đà Lạt.'], ['ly-mua', 'chuoi', 'Món mang tên quán, uống chậm để thấy ly đổi màu.']] };
+  if (m < 1020) return { when: rain ? 'Trời đang mưa, gọi thử:' : 'Buổi chiều ở Mưa, gọi thử:', sets: rain ? [['ca-cao', 'khoai', 'Ca cao nóng và khoai nướng than, đúng chất chiều mưa.'], ['trung-kho', 'bap', 'Ngọt béo một chút cho ngày ướt át.']] : [['ly-mua', 'chuoi', 'Món mang tên quán, uống chậm để thấy ly đổi màu.'], ['trung-kho', 'flan', 'Hai món ngọt cho buổi chiều dài.']] };
+  return { when: 'Buổi tối bên lò sưởi, gọi thử:', sets: [[rain ? 'vang' : 'gung', rain ? 'bt-nuong' : 'sup', rain ? 'Vang nóng và bánh tráng nướng, ngồi tới lúc tạnh mưa.' : 'Ấm bụng trước khi ra về trong gió lạnh.'], ['ca-cao', 'che', 'Không cà phê, để tối nay ngủ ngon.']] };
+}
+$('#suggest-btn').addEventListener('click', () => {
+  const s = suggestions(); const set = s.sets[suggestIdx % s.sets.length]; suggestIdx++;
+  const a = findItem(set[0]), b = findItem(set[1]);
+  const box = $('#suggest'); box.hidden = false;
+  box.innerHTML = `<p class="suggest-title">${esc(s.when)}</p>
+    <p class="suggest-items"><span>${esc(a.n)}<small>${vnd(a.p)}</small></span><span>+ ${esc(b.n)}<small>${vnd(b.p)}</small></span></p>
+    <p class="suggest-why">${esc(set[2])} Tổng ${vnd(a.p + b.p)}.</p>
+    <p style="display:flex;gap:16px;flex-wrap:wrap"><button type="button" class="link-arrow" style="background:none;border-left:0;border-right:0;border-top:0;padding:0 0 2px;cursor:pointer" data-jump-item="${a.id}">Xem trong thực đơn</button></p>`;
+  $('#suggest-btn span').textContent = 'Gợi ý khác';
+});
+
+/* =========================================================
+   Đặt bàn (giả lập, chạy hoàn toàn trên máy)
+   ========================================================= */
+const ZONES = [
+  { id: 'bat-ky', n: 'Chỗ nào cũng được', d: 'Quán xếp chỗ đẹp nhất còn trống', max: 8, icon: '<svg viewBox="0 0 36 36" aria-hidden="true"><circle cx="18" cy="18" r="12" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 18h12M18 12v12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>' },
+  { id: 'cua-so', n: 'Quầy cửa sổ', d: '1–2 người · ghế cao, có ổ cắm', max: 2, icon: '<svg viewBox="0 0 36 36" aria-hidden="true"><rect x="6" y="5" width="24" height="18" rx="1.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M18 5v18M10 9l-1 3M15 13l-1 3M23 9l-1 3M4 26h28M12 26v6M24 26v6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>' },
+  { id: 'lo-suoi', n: 'Góc lò sưởi', d: 'Tới 6 người · lửa từ 17:00', max: 6, icon: '<svg viewBox="0 0 36 36" aria-hidden="true"><path d="M6 31V9h24v22M3 9h30M11 31v-9a7 7 0 0 1 14 0v9" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M18 20c2 2 3 3.5 3 5.5a3 3 0 0 1-6 0c0-1.5 1-2.5 1.6-3.3.2 1 .6 1.6 1.2 1.8-.4-1.5-.4-2.7.2-4z" fill="currentColor"/></svg>' },
+  { id: 'gac-lung', n: 'Gác lửng', d: '2–8 người · ngồi bệt, yên tĩnh', max: 8, icon: '<svg viewBox="0 0 36 36" aria-hidden="true"><path d="M4 16 18 5l14 11M8 13v18h20V13M12 31v-6h12v6M14 21h8" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/></svg>' },
+  { id: 'hien-vuon', n: 'Hiên vườn', d: 'Tới 6 người · mang thú cưng được', max: 6, icon: '<svg viewBox="0 0 36 36" aria-hidden="true"><path d="M3 10 33 14M7 11v20M29 14v17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="14" cy="26" r="3.2" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="19" cy="23" r="3.2" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="23" cy="27" r="3.2" fill="none" stroke="currentColor" stroke-width="2"/></svg>' }
+];
+const zoneById = id => ZONES.find(z => z.id === id);
+const TAGS = [{ id: 'sinh-nhat', n: 'Sinh nhật' }, { id: 'ky-niem', n: 'Kỷ niệm' }, { id: 'em-be', n: 'Có em bé' }, { id: 'thu-cung', n: 'Mang thú cưng' }, { id: 'o-cam', n: 'Cần ổ cắm' }];
+const B = { date: null, party: 2, zone: 'bat-ky', time: null, tags: new Set() };
+const form = $('#book-form');
+
+function zoneFull(dk, mins, zid) {
+  const h = mins / 60, dow = dowOf(dk), wk = dow === 0 || dow === 6;
+  let p = .06 + (wk ? .14 : 0) + (h >= 14 && h < 18 ? .18 : 0) + (h >= 18 && h < 20 ? .1 : 0);
+  if (zid === 'cua-so') p += .16 + (h >= 14 && h < 18 ? .1 : 0);
+  if (zid === 'lo-suoi') p += h >= 17 ? .24 : -.05;
+  if (zid === 'gac-lung') p -= .03;
+  return hash01(`${dk}|${mins}|${zid}`) < p;
+}
+function slotFull(dk, mins, zid, party) {
+  if (zid === 'bat-ky') return ZONES.filter(z => z.id !== 'bat-ky' && party <= z.max).every(z => zoneFull(dk, mins, z.id));
+  return zoneFull(dk, mins, zid);
+}
+function slotState(dk, mins) {
+  const n = now();
+  if (dk === n.key && mins < n.mins + 30) return 'past';
+  return slotFull(dk, mins, B.zone, B.party) ? 'full' : 'ok';
+}
+const SLOTS = []; for (let m = OPEN; m <= LAST_BOOK; m += 30) SLOTS.push(m);
+
+let customDate = null;
+function renderDates() {
+  const n = now(); const box = $('#date-chips');
+  const keys = []; for (let i = 0; i < 7; i++) keys.push(addDays(n.key, i));
+  if (customDate && !keys.includes(customDate)) keys.push(customDate);
+  const todayOpen = SLOTS.some(m => m >= n.mins + 30);
+  if (!B.date || (B.date === n.key && !todayOpen)) B.date = todayOpen ? n.key : addDays(n.key, 1);
+  box.innerHTML = keys.map((k, i) => {
+    const diff = dayDiff(n.key, k); const dis = diff === 0 && !todayOpen;
+    const top = diff === 0 ? 'Hôm nay' : diff === 1 ? 'Ngày mai' : DOW[dowOf(k)];
+    const sub = dis ? 'Đã hết giờ' : `${DOW_S[dowOf(k)]} · ${dm(k)}`;
+    return `<label class="chip date"><input type="radio" name="date" value="${k}" ${k === B.date ? 'checked' : ''} ${dis ? 'disabled' : ''} aria-label="${esc(dateLong(k, n.key))}${dis ? ', đã hết giờ nhận khách' : ''}"><span><b>${top}</b><small>${sub}</small></span></label>`;
+  }).join('');
+  const other = $('#f-date-other'); other.min = n.key; other.max = addDays(n.key, 30);
+}
+function renderZones() {
+  $('#zones').innerHTML = ZONES.map(z => {
+    const dis = B.party > z.max;
+    return `<label class="zone"><input type="radio" name="zone" value="${z.id}" ${z.id === B.zone ? 'checked' : ''} ${dis ? 'disabled' : ''} aria-describedby="zd-${z.id}">
+      <span class="zc">${z.icon}<span class="zn">${z.n}</span><span class="zd" id="zd-${z.id}">${dis ? `Chỉ hợp tối đa ${z.max} người` : z.d}</span></span></label>`;
+  }).join('');
+}
+function renderTimes(note) {
+  const groups = [['Buổi sáng', SLOTS.filter(m => m < 720)], ['Buổi chiều', SLOTS.filter(m => m >= 720 && m < 1080)], ['Buổi tối', SLOTS.filter(m => m >= 1080)]];
+  let free = 0;
+  const html = groups.map(([g, ms]) => {
+    // Giờ đã qua trong hôm nay thì ẩn hẳn cho gọn, chỉ giữ một dòng nhắc
+    const live = ms.filter(m => slotState(B.date, m) !== 'past');
+    if (!live.length) return `<div class="time-group"><h4>${g}</h4><p class="hint">Đã qua giờ này hôm nay.</p></div>`;
+    const chips = live.map(m => {
+      const st = slotState(B.date, m); if (st === 'ok') free++;
+      const lbl = st === 'full' ? 'Kín chỗ' : '';
+      return `<label class="chip time"><input type="radio" name="time" value="${m}" ${B.time === m ? 'checked' : ''} ${st !== 'ok' ? 'disabled' : ''} aria-label="${hhmm(m)}${lbl ? ', ' + lbl.toLowerCase() : ''}"><span><b>${hhmm(m)}</b>${lbl ? `<small>${lbl}</small>` : ''}</span></label>`;
+    }).join('');
+    return `<div class="time-group" role="radiogroup" aria-label="${g}"><h4>${g}</h4><div class="chips">${chips}</div></div>`;
+  }).join('');
+  $('#time-groups').innerHTML = html;
+  $('#time-sub').textContent = free ? `còn ${free} khung giờ` : 'ngày này đã kín, thử ngày khác nhé';
+  if (note) $('#err-time').textContent = note;
+}
+function validateTimeStillOk() {
+  if (B.time == null) return null;
+  if (slotState(B.date, B.time) !== 'ok') {
+    const z = zoneById(B.zone); const t = hhmm(B.time); B.time = null;
+    return `Khung ${t} không còn chỗ ở ${z.id === 'bat-ky' ? 'quán' : z.n.toLowerCase()}. Bạn chọn giờ khác nhé.`;
+  }
+  return null;
+}
+function renderTagChips() {
+  $('#tag-chips').innerHTML = TAGS.map(t => `<label class="chip tagc"><input type="checkbox" value="${t.id}" ${B.tags.has(t.id) ? 'checked' : ''}><span>${t.n}</span></label>`).join('');
+}
+function smartHints() {
+  const box = $('#tag-note'); const bits = [];
+  if (B.tags.has('thu-cung') && !['hien-vuon', 'bat-ky'].includes(B.zone)) bits.push(`<div class="smart-hint"><span>Thú cưng chỉ ngồi được ở hiên vườn.</span><button type="button" data-set-zone="hien-vuon">Đổi sang hiên vườn</button></div>`);
+  if (B.tags.has('o-cam') && B.zone === 'gac-lung') bits.push(`<div class="smart-hint"><span>Gác lửng không có ổ cắm.</span>${B.party <= 2 ? '<button type="button" data-set-zone="cua-so">Đổi sang quầy cửa sổ</button>' : '<span>Góc lò sưởi có hai ổ cắm cạnh sofa.</span><button type="button" data-set-zone="lo-suoi">Đổi sang lò sưởi</button>'}</div>`);
+  if (B.zone === 'lo-suoi' && B.time != null && B.time < 1020) bits.push(`<div class="smart-hint"><span>Lò sưởi chỉ đốt từ 17:00. Trước giờ đó góc này vẫn ấm, nhưng chưa có lửa.</span></div>`);
+  if (B.tags.has('thu-cung') && B.zone === 'bat-ky') bits.push(`<div class="smart-hint"><span>Quán sẽ xếp bạn ở hiên vườn để bé đi cùng được.</span></div>`);
+  box.innerHTML = bits.join('');
+  box.style.display = bits.length ? 'grid' : 'none'; box.style.gap = '8px';
+}
+function setZone(id, fromOutside) {
+  const z = zoneById(id); if (!z) return;
+  let msg = '';
+  if (B.party > z.max) { B.party = z.max; msg = `${z.n} hợp tối đa ${z.max} người, mình đã chỉnh số người về ${z.max}. Đông hơn thì chọn góc khác nhé.`; }
+  B.zone = id; renderParty(); renderZones();
+  const err = validateTimeStillOk(); renderTimes(); if (err) $('#err-time').textContent = err;
+  $('#zone-note').innerHTML = msg ? `<div class="smart-hint">${esc(msg)}</div>` : '';
+  smartHints(); renderSummary();
+  if (fromOutside && !form.hidden) { const r = $(`input[name="zone"][value="${id}"]`); if (r) setTimeout(() => r.focus({ preventScroll: true }), 500); }
+}
+function renderParty() {
+  $('#party-out').textContent = `${B.party} người`;
+  $('#party-minus').disabled = B.party <= 1; $('#party-plus').disabled = B.party >= 8;
+  $('#party-hint').style.fontWeight = B.party >= 8 ? '600' : '400';
+}
+function changeParty(d) {
+  const np = Math.max(1, Math.min(8, B.party + d)); if (np === B.party) return;
+  B.party = np; renderParty();
+  let msg = '';
+  const z = zoneById(B.zone);
+  if (B.party > z.max) { msg = `${z.n} chỉ hợp tối đa ${z.max} người, nên mình chuyển về “Chỗ nào cũng được”.`; B.zone = 'bat-ky'; }
+  renderZones(); if (msg) $('#zone-note').innerHTML = `<div class="smart-hint">${esc(msg)}</div>`;
+  const err = validateTimeStillOk(); renderTimes(); if (err) $('#err-time').textContent = err;
+  smartHints(); renderSummary();
+}
+$('#party-minus').addEventListener('click', () => changeParty(-1));
+$('#party-plus').addEventListener('click', () => changeParty(1));
+
+form.addEventListener('change', e => {
+  const t = e.target;
+  if (t.name === 'date') { B.date = t.value; const err = validateTimeStillOk(); renderTimes(); $('#err-time').textContent = err || ''; }
+  else if (t.name === 'zone') { setZone(t.value); return; }
+  else if (t.name === 'time') { B.time = Number(t.value); $('#err-time').textContent = ''; }
+  else if (t.id === 'f-date-other') {
+    const v = t.value; const n = now();
+    if (!v) return;
+    const diff = dayDiff(n.key, v);
+    if (diff < 0 || diff > 30) { toast('Quán chỉ nhận đặt trong 30 ngày tới.'); t.value = ''; return; }
+    customDate = diff >= 7 ? v : null; B.date = v; renderDates();
+    const err = validateTimeStillOk(); renderTimes(); $('#err-time').textContent = err || '';
+  }
+  else if (t.closest('#tag-chips')) { if (t.checked) B.tags.add(t.value); else B.tags.delete(t.value); }
+  smartHints(); renderSummary();
+});
+document.addEventListener('click', e => {
+  const b = e.target.closest('[data-set-zone]'); if (b) { setZone(b.dataset.setZone); return; }
+  const a = e.target.closest('a[data-zone]');
+  if (a) { if (!$('#confirm').hidden) showForm(); setZone(a.dataset.zone, true); }
+});
+['f-name', 'f-phone'].forEach(id => $('#' + id).addEventListener('input', e => { e.target.removeAttribute('aria-invalid'); $('#err-' + id.slice(2)).textContent = ''; renderSummary(); }));
+
+function summaryParts() {
+  const n = now(); const z = zoneById(B.zone);
+  return {
+    date: B.date ? dateLong(B.date, n.key) : null,
+    time: B.time != null ? hhmm(B.time) : null,
+    party: `${B.party} người`,
+    zone: z.n,
+    name: $('#f-name').value.trim() || null,
+    tags: TAGS.filter(t => B.tags.has(t.id)).map(t => t.n)
+  };
+}
+function renderSummary() {
+  const s = summaryParts();
+  const row = (k, v, ph) => `<div class="t-row"><dt>${k}</dt><dd class="${v ? '' : 'empty'}">${esc(v || ph)}</dd></div>`;
+  $('#ticket-rows').innerHTML = row('Ngày', s.date, 'Chưa chọn') + row('Giờ', s.time, 'Chưa chọn') + row('Số người', s.party) + row('Chỗ ngồi', s.zone) + row('Tên', s.name, 'Chưa điền') + (s.tags.length ? row('Ghi chú', s.tags.join(', ')) : '');
+  $('#mini-summary').textContent = `${s.date || 'Chưa chọn ngày'} · ${s.time || 'chưa chọn giờ'} · ${s.party} · ${s.zone}`;
+  $('#submit-btn').textContent = s.time ? `Giữ bàn lúc ${s.time}` : 'Giữ bàn này';
+}
+
+function normPhone(v) { return v.replace(/[\s.\-()]/g, ''); }
+function validate() {
+  const errs = [];
+  const name = $('#f-name'), phone = $('#f-phone');
+  if (B.time == null) { $('#err-time').textContent = 'Bạn chọn giờ đến giúp quán nhé.'; errs.push($('#fs-time input:not(:disabled)') || $('#fs-time')); }
+  if (name.value.trim().length < 2) { $('#err-name').textContent = 'Cho quán xin tên để gọi khi bàn sẵn sàng.'; name.setAttribute('aria-invalid', 'true'); errs.push(name); }
+  const p = normPhone(phone.value);
+  if (!p) { $('#err-phone').textContent = 'Quán cần số điện thoại để báo bàn.'; phone.setAttribute('aria-invalid', 'true'); errs.push(phone); }
+  else if (!/^(?:\+?84|0)(?:[35789]\d{8}|2\d{9})$/.test(p)) { $('#err-phone').textContent = 'Số này chưa đúng. Ví dụ: 0912 345 678.'; phone.setAttribute('aria-invalid', 'true'); errs.push(phone); }
+  return errs;
+}
+let framed = false; try { framed = window.self !== window.top; } catch (e) { framed = true; }
+const CODE_CH = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+const makeCode = () => 'MUA-' + Array.from({ length: 4 }, () => CODE_CH[Math.floor(Math.random() * CODE_CH.length)]).join('');
+
+form.addEventListener('submit', e => {
+  e.preventDefault();
+  const errs = validate();
+  if (errs.length) {
+    const first = errs[0];
+    first.scrollIntoView({ behavior: reduceMotion.matches ? 'auto' : 'smooth', block: 'center' });
+    setTimeout(() => first.focus({ preventScroll: true }), reduceMotion.matches ? 0 : 350);
+    return;
+  }
+  const btn = $('#submit-btn'); btn.setAttribute('aria-busy', 'true'); btn.innerHTML = '<span class="spinner" aria-hidden="true"></span>Đang giữ bàn…';
+  setTimeout(() => {
+    btn.removeAttribute('aria-busy');
+    // Lần cuối kiểm lại chỗ (giả lập có người vừa đặt trước)
+    if (slotState(B.date, B.time) !== 'ok') { renderTimes('Khung giờ này vừa kín. Bạn chọn giờ khác nhé.'); renderSummary(); return; }
+    const bk = {
+      code: makeCode(), date: B.date, time: B.time, party: B.party, zone: B.zone,
+      name: $('#f-name').value.trim(), tags: [...B.tags], note: $('#f-note').value.trim(), created: Date.now()
+    };
+    store.set('mua-booking', bk);
+    showConfirm(bk); renderSaved();
+  }, 1100);
+});
+
+function bookingText(bk) {
+  const n = now(); const z = zoneById(bk.zone);
+  return `Mưa · cà phê Đà Lạt\nMã giữ bàn: ${bk.code}\n${dateLong(bk.date, n.key)} lúc ${hhmm(bk.time)}\n${bk.party} người · ${z.n}\nTên: ${bk.name}\nĐịa chỉ: 7 Dốc Mưa Bay, phường Xuân Hương – Đà Lạt, Lâm Đồng`;
+}
+function icsFor(bk) {
+  const [y, m, d] = bk.date.split('-').map(Number);
+  const start = new Date(Date.UTC(y, m - 1, d, 0, bk.time) - 7 * 3600e3), end = new Date(start.getTime() + 90 * 60e3);
+  const f = dt => dt.toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '');
+  const z = zoneById(bk.zone);
+  return ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Mua Da Lat//Dat ban//VI', 'CALSCALE:GREGORIAN', 'BEGIN:VEVENT',
+    `UID:${bk.code}-${bk.created}@mua-dalat.demo`, `DTSTAMP:${f(new Date())}`, `DTSTART:${f(start)}`, `DTEND:${f(end)}`,
+    `SUMMARY:Cà phê ở Mưa (${bk.party} người)`, 'LOCATION:7 Dốc Mưa Bay\\, phường Xuân Hương – Đà Lạt\\, Lâm Đồng',
+    `DESCRIPTION:Mã giữ bàn ${bk.code}. ${z.n}. Quán giữ bàn 15 phút sau giờ hẹn.`,
+    'BEGIN:VALARM', 'TRIGGER:-PT1H', 'ACTION:DISPLAY', 'DESCRIPTION:Một tiếng nữa tới giờ hẹn ở Mưa', 'END:VALARM',
+    'END:VEVENT', 'END:VCALENDAR'].join('\r\n');
+}
+function downloadIcs(bk) {
+  try {
+    const blob = new Blob([icsFor(bk)], { type: 'text/calendar;charset=utf-8' });
+    const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = `mua-${bk.code}.ics`;
+    document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 4000);
+    toast('Đã tạo tệp lịch. Mở tệp để thêm vào lịch của bạn.');
+  } catch (e) { toast('Không tạo được tệp lịch. Bạn dùng nút “Chép thông tin” nhé.'); }
+}
+function showForm() {
+  $('#confirm').hidden = true; form.hidden = false; $('.booking-grid').classList.remove('is-done'); renderSaved();
+  $('#submit-btn').removeAttribute('aria-busy'); renderSummary();
+}
+function showConfirm(bk) {
+  const n = now(); const z = zoneById(bk.zone);
+  const c = $('#confirm');
+  const tags = TAGS.filter(t => bk.tags.includes(t.id)).map(t => t.n);
+  c.innerHTML = `
+    <p class="eyebrow">Đã giữ bàn</p>
+    <h3 class="confirm-title">Hẹn gặp ${esc(bk.name)} ở Mưa.</h3>
+    <div class="c-ticket">
+      <div class="c-main">
+        <dl class="t-rows" style="margin:0">
+          <div class="t-row"><dt>Ngày</dt><dd>${esc(dateLong(bk.date, n.key))}</dd></div>
+          <div class="t-row"><dt>Giờ</dt><dd>${hhmm(bk.time)} <span style="color:var(--ink-3);font-weight:400">· giữ tới ${hhmm(bk.time + 15)}</span></dd></div>
+          <div class="t-row"><dt>Số người</dt><dd>${bk.party} người</dd></div>
+          <div class="t-row"><dt>Chỗ ngồi</dt><dd>${esc(z.n)}</dd></div>
+          ${tags.length ? `<div class="t-row"><dt>Ghi chú</dt><dd>${esc(tags.join(', '))}</dd></div>` : ''}
+          ${bk.note ? `<div class="t-row"><dt>Lời nhắn</dt><dd>${esc(bk.note)}</dd></div>` : ''}
+        </dl>
+      </div>
+      <div class="c-stub"><small>Mã giữ bàn</small><span class="c-code">${bk.code}</span><small style="text-transform:none;letter-spacing:0;font-weight:500">Đọc mã này ở quầy</small></div>
+    </div>
+    <div class="c-actions">
+      ${framed ? '' : `<button class="btn btn-primary" type="button" data-ics><svg aria-hidden="true"><use href="#i-cal"/></svg>Thêm vào lịch</button>`}
+      <button class="btn btn-quiet" type="button" data-copy-booking><svg aria-hidden="true"><use href="#i-copy"/></svg>Chép thông tin</button>
+      <a class="btn btn-quiet" href="#duong-den"><svg aria-hidden="true"><use href="#i-pin"/></svg>Xem đường đến</a>
+    </div>
+    <p class="c-fine">Nếu đây là quán thật, quán sẽ nhắn Zalo xác nhận trong 15 phút. Vì là bản demo nên sẽ không có tin nhắn nào cả, và phiếu này chỉ lưu trên trình duyệt của bạn.</p>
+    <p><button class="link-arrow" type="button" style="background:none;border-left:0;border-right:0;border-top:0;padding:0 0 2px;cursor:pointer" data-new-booking>Đặt thêm một bàn khác</button></p>`;
+  form.hidden = true; c.hidden = false; $('.booking-grid').classList.add('is-done'); $('#saved').hidden = true;
+  $('[data-ics]', c)?.addEventListener('click', () => downloadIcs(bk));
+  $('[data-copy-booking]', c).addEventListener('click', () => copyText(bookingText(bk), 'Đã chép thông tin giữ bàn'));
+  $('[data-new-booking]', c).addEventListener('click', () => { resetForm(); showForm(); $('#date-chips input:checked')?.focus(); });
+  const top = c.getBoundingClientRect().top + window.scrollY - 110;
+  window.scrollTo({ top, behavior: reduceMotion.matches ? 'auto' : 'smooth' });
+  setTimeout(() => c.focus({ preventScroll: true }), 50);
+}
+function resetForm() {
+  B.time = null; B.tags.clear(); B.zone = 'bat-ky'; B.party = 2; customDate = null; B.date = null;
+  form.reset(); renderAll();
+}
+function renderSaved() {
+  const bk = store.get('mua-booking'); const box = $('#saved');
+  const hdr = $('[data-header-cta]');
+  if (!bk || !bk.date || dayDiff(now().key, bk.date) < 0 || !zoneById(bk.zone)) { box.hidden = true; hdr.textContent = 'Giữ bàn'; return; }
+  const z = zoneById(bk.zone);
+  hdr.textContent = 'Phiếu của bạn';
+  box.hidden = !$('#confirm').hidden;
+  box.innerHTML = `<p><strong>Bạn đã giữ bàn ở Mưa:</strong> ${esc(dateLong(bk.date, now().key))} lúc ${hhmm(bk.time)}, ${bk.party} người, ${esc(z.n.toLowerCase())}. Mã <strong>${esc(bk.code)}</strong>.</p>
+    <div class="saved-actions" data-saved-actions>
+      <button class="btn btn-quiet btn-sm" type="button" data-show-saved>Xem phiếu</button>
+      <button class="btn btn-quiet btn-sm" type="button" data-cancel-saved>Huỷ hẹn</button>
+    </div>`;
+  $('[data-show-saved]', box).addEventListener('click', () => showConfirm(bk));
+  $('[data-cancel-saved]', box).addEventListener('click', () => {
+    const act = $('[data-saved-actions]', box);
+    act.innerHTML = `<span>Huỷ hẹn ${esc(bk.code)} thật nhé?</span><button class="btn btn-primary btn-sm" type="button" data-yes>Huỷ hẹn</button><button class="btn btn-quiet btn-sm" type="button" data-no>Giữ lại</button>`;
+    $('[data-yes]', act).addEventListener('click', () => { store.del('mua-booking'); renderSaved(); if (!$('#confirm').hidden) showForm(); toast('Đã huỷ hẹn. Hẹn bạn dịp khác nhé.'); });
+    $('[data-no]', act).addEventListener('click', renderSaved);
+    $('[data-yes]', act).focus();
+  });
+}
+function renderAll() { renderDates(); renderParty(); renderZones(); renderTimes(); renderTagChips(); smartHints(); renderSummary(); }
+
+/* =========================================================
+   Bản đồ: chọn điểm xuất phát, bản đồ “bay” tới tuyến đường
+   ========================================================= */
+const ROUTES = {
+  'tong-quan': { t: 'Quán ở đâu?', time: '', steps: ['Quán nằm trên Dốc Mưa Bay, một con dốc nhỏ rẽ từ đường Yersin, phía đông nam hồ Xuân Hương.', 'Từ bờ hồ đi bộ chừng 5 phút. Chọn điểm xuất phát ở trên để xem đường đi.'] },
+  'quang-truong': { t: 'Từ Quảng trường Lâm Viên', time: '6 phút đi bộ · 450 m', steps: ['Từ chân nụ hoa atisô, đi về phía ga theo Trần Quốc Toản.', 'Tới ngã ba Yersin, rẽ phải, đi lên chừng 150 m.', 'Thấy tiệm hoa có giỏ cẩm tú cầu thì rẽ trái lên Dốc Mưa Bay. Quán là căn nhà gỗ sơn xanh thứ ba.'], poi: 'quang-truong' },
+  'cho': { t: 'Từ Chợ Đà Lạt', time: '20 phút đi bộ · 5 phút xe máy · 1,6 km', steps: ['Đi xuống phía hồ, men theo bờ nam bằng đường Trần Quốc Toản.', 'Qua Quảng trường Lâm Viên một đoạn thì rẽ phải vào Yersin.', 'Đi lên chừng 150 m, rẽ trái lên Dốc Mưa Bay ngay sau tiệm hoa.'], poi: 'cho' },
+  'ga': { t: 'Từ Ga Đà Lạt', time: '9 phút đi bộ · 700 m', steps: ['Ra cổng ga, đi xuống dốc về phía hồ.', 'Tới ngã ba bờ hồ, rẽ trái theo Trần Quốc Toản, rồi rẽ trái lần nữa vào Yersin.', 'Đi lên chừng 150 m, rẽ trái lên Dốc Mưa Bay.'], poi: 'ga' }
+};
+const Map_ = (() => {
+  const svg = $('#map'); const box = $('.map-box');
+  let vb = [130, 110, 750, 420], anim = 0, cur = 'tong-quan';
+  function target(id) {
+    const r = box.clientWidth / Math.max(1, box.clientHeight);
+    let x, y, w, h;
+    if (id === 'tong-quan') [x, y, w, h] = r < 1.2 ? [185, 110, 705, 440] : [0, 110, 870, 410];
+    else {
+      const p = $(`.route[data-route="${id}"]`, svg).getBBox();
+      // Gộp cả ghim quán và nhãn của nó, chừa lề cho nhãn điểm xuất phát
+      const x0 = Math.min(p.x, 290) - 60, y0 = Math.min(p.y, 380) - 70;
+      const x1 = Math.max(p.x + p.width, 700) + 70, y1 = Math.max(p.y + p.height, 500) + 30;
+      x = x0; y = y0; w = x1 - x0; h = y1 - y0;
+    }
+    if (w / h > r) { const nh = w / r; y -= (nh - h) / 2; h = nh; } else { const nw = h * r; x -= (nw - w) / 2; w = nw; }
+    return [x, y, w, h];
+  }
+  function go(id, instant) {
+    cur = id; const to = target(id); const from = vb.slice(); const t0 = performance.now(); const dur = 750;
+    cancelAnimationFrame(anim);
+    const ease = p => p < .5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2;
+    const step = t => {
+      const p = instant || reduceMotion.matches ? 1 : Math.min(1, (t - t0) / dur);
+      vb = from.map((v, i) => v + (to[i] - v) * ease(p)); svg.setAttribute('viewBox', vb.map(v => v.toFixed(1)).join(' '));
+      if (p < 1) anim = requestAnimationFrame(step);
+    };
+    anim = requestAnimationFrame(step);
+    $$('.route', svg).forEach(r => r.classList.toggle('on', r.dataset.route === id));
+    $$('.poi', svg).forEach(p => p.classList.toggle('on', p.dataset.poi === ROUTES[id].poi));
+    $$('.route-tabs button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.route === id)));
+    const R = ROUTES[id];
+    $('#route-info').innerHTML = `<div class="ri-top"><h3>${esc(R.t)}</h3>${R.time ? `<span class="ri-time">${esc(R.time)}</span>` : ''}</div><ol class="route-steps">${R.steps.map(s => `<li><span>${esc(s)}</span></li>`).join('')}</ol>`;
+  }
+  $$('.route-tabs button').forEach(b => b.addEventListener('click', () => go(b.dataset.route)));
+  let rw = 0; new ResizeObserver(() => { if (Math.abs(box.clientWidth - rw) < 2) return; rw = box.clientWidth; go(cur, true); }).observe(box);
+  return { go };
+})();
+
+/* =========================================================
+   Header, điều hướng, thanh dưới
+   ========================================================= */
+const header = $('.site-header');
+const onScroll = () => header.classList.toggle('scrolled', window.scrollY > 8);
+window.addEventListener('scroll', onScroll, { passive: true }); onScroll();
+const navLinks = $$('.nav a');
+const secObs = new IntersectionObserver(es => {
+  es.forEach(e => { if (e.isIntersecting) navLinks.forEach(a => a.setAttribute('aria-current', String(a.getAttribute('href') === '#' + e.target.id))); });
+}, { rootMargin: '-45% 0px -50% 0px' });
+['thuc-don', 'khong-gian', 'dat-ban', 'duong-den', 'mot-ngay', 'so-luu-but', 'hoi-dap'].forEach(id => secObs.observe($('#' + id)));
+new IntersectionObserver(es => { if (es[0].isIntersecting) navLinks.forEach(a => a.setAttribute('aria-current', 'false')); }, { rootMargin: '-45% 0px -50% 0px' }).observe($('.hero'));
+const dock = $('#dock');
+new IntersectionObserver(es => { dock.classList.toggle('hide', es[0].isIntersecting); }, { rootMargin: '0px 0px -30% 0px' }).observe($('#dat-ban'));
+
+/* =========================================================
+   Khởi động
+   ========================================================= */
+syncThemeBtn();
+tick(); setInterval(tick, 20000);
+renderMenu();
+renderAll();
+renderSaved();
+loadWeather();
+// Cứ mỗi phút làm mới các khung giờ đã qua
+setInterval(() => { if (!form.hidden) { const err = validateTimeStillOk(); renderDates(); renderTimes(); if (err) $('#err-time').textContent = err; renderSummary(); } }, 60000);
+if (reduceMotion.matches) { const ly = $('#ly-mua'); if (ly && ly.pauseAnimations) ly.pauseAnimations(); }
+})();
+</script>
+</body>
+</html>

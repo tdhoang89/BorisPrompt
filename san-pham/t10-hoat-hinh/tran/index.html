@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Điểm Pickleball 30 giây</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="wrap">
+    <div class="stage" id="stage">
+      <header class="scorebar">
+        <div class="teams">
+          <span class="chip chip-a">Đội Xanh <b id="totalA">0</b></span>
+          <span class="chip chip-b">Đội Cam <b id="totalB">0</b></span>
+        </div>
+        <div class="call" id="call" aria-live="polite">
+          <div class="num" id="n0"><span class="d">0</span><small>Điểm đội giao</small></div>
+          <span class="dash">–</span>
+          <div class="num" id="n1"><span class="d">0</span><small>Điểm đội nhận</small></div>
+          <span class="dash">–</span>
+          <div class="num" id="n2"><span class="d">2</span><small>Người giao số</small></div>
+        </div>
+      </header>
+
+      <svg class="court" id="court" viewBox="0 0 880 440" role="img" aria-label="Sân pickleball nhìn từ trên xuống">
+        <rect x="0" y="0" width="880" height="440" class="surround"/>
+        <rect x="40" y="40" width="800" height="360" class="playfield"/>
+        <rect x="313" y="40" width="254" height="360" class="kitchen"/>
+        <g class="lines">
+          <rect x="40" y="40" width="800" height="360"/>
+          <line x1="313" y1="40" x2="313" y2="400"/>
+          <line x1="567" y1="40" x2="567" y2="400"/>
+          <line x1="40" y1="220" x2="313" y2="220"/>
+          <line x1="567" y1="220" x2="840" y2="220"/>
+        </g>
+        <text x="376" y="226" class="kitchen-label">BẾP</text>
+        <text x="504" y="226" class="kitchen-label">BẾP</text>
+        <g class="net">
+          <line x1="440" y1="26" x2="440" y2="414" class="net-shadow"/>
+          <line x1="440" y1="26" x2="440" y2="414" class="net-mesh"/>
+          <circle cx="440" cy="26" r="6"/>
+          <circle cx="440" cy="414" r="6"/>
+        </g>
+        <text x="40" y="28" class="team-label team-a">ĐỘI XANH</text>
+        <text x="840" y="28" class="team-label team-b" text-anchor="end">ĐỘI CAM</text>
+
+        <g id="players"></g>
+
+        <g id="ballGroup" class="ball-group">
+          <ellipse id="ballShadow" rx="7" ry="4" class="ball-shadow"/>
+          <g id="ball">
+            <circle r="8" class="ball-body"/>
+            <circle cx="-3" cy="-2" r="1.4" class="ball-hole"/>
+            <circle cx="3" cy="-1" r="1.4" class="ball-hole"/>
+            <circle cx="0" cy="3.5" r="1.4" class="ball-hole"/>
+          </g>
+        </g>
+
+        <g id="serverBadge" class="server-badge">
+          <rect x="-50" y="-15" width="100" height="26" rx="13"/>
+          <text y="4" text-anchor="middle" id="serverBadgeText">Người giao 2</text>
+          <path d="M-6 11 L0 18 L6 11 Z"/>
+        </g>
+
+        <g id="popups"></g>
+      </svg>
+
+      <div class="caption" id="caption"></div>
+
+      <div class="overlay title-card" id="titleCard">
+        <div class="title-inner">
+          <div class="emoji" aria-hidden="true">🏓</div>
+          <h1>Cách tính điểm Pickleball</h1>
+          <p>Hướng dẫn 30 giây cho người mới · Đánh đôi</p>
+        </div>
+      </div>
+
+      <div class="overlay recap" id="recap">
+        <div class="recap-card">
+          <h2>Ghi nhớ nhanh</h2>
+          <ul>
+            <li data-at="23.3"><span class="tick">✔</span> Chỉ <b>đội đang giao bóng</b> mới được ghi điểm</li>
+            <li data-at="24.2"><span class="tick">✔</span> Đội giao thắng pha bóng → <b>+1 điểm</b>, người giao đổi ô</li>
+            <li data-at="25.1"><span class="tick">✔</span> Đội giao thua → <b>người giao 2</b> giao tiếp, rồi mới <b>đổi giao</b></li>
+            <li data-at="26.0"><span class="tick">✔</span> Đọc tỉ số: <b>đội giao – đội nhận – người giao</b></li>
+          </ul>
+          <div class="win" data-at="27.0">
+            <div class="win-title">🏆 Chơi đến <b>11 điểm</b>, phải <b>hơn 2 điểm</b></div>
+            <div class="win-row">
+              <span class="ok">11 – 9 ✔ Thắng</span>
+              <span class="no">11 – 10 ✘ Chơi tiếp</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="overlay end-card" id="endCard">
+        <button class="big-replay" id="bigReplay" type="button">↻ Phát lại</button>
+      </div>
+    </div>
+
+    <div class="controls">
+      <button id="playBtn" type="button" aria-label="Tạm dừng">❚❚</button>
+      <button id="replayBtn" type="button">↻ Phát lại</button>
+      <input id="seek" type="range" min="0" max="30" step="0.01" value="0" aria-label="Thanh thời gian">
+      <span class="time" id="time">0:00 / 0:30</span>
+    </div>
+  </main>
+  <script src="script.js"></script>
+</body>
+</html>

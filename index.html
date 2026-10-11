@@ -1,0 +1,373 @@
+<!doctype html>
+<html lang="vi" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Prompt kiểu Boris — nói với AI như nói với đồng nghiệp</title>
+<meta name="description" content="Mẫu prompt kiểu Boris Cherny, vì sao nó hiệu quả, và 6 bài thử trên Claude Opus 5.5: prompt trần một câu so với prompt Boris, sản phẩm mở ra dùng thử được.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Prompt kiểu Boris — nói với AI như nói với đồng nghiệp">
+<meta property="og:description" content="Mẫu prompt kiểu Boris Cherny, vì sao nó hiệu quả, và 6 bài thử trên Claude Opus 5.5: prompt trần một câu so với prompt Boris, sản phẩm mở ra dùng thử được.">
+<meta property="og:image" content="assets/img/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#F5F1E8" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#111214" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M6 4h20a4 4 0 0 1 4 4v12a4 4 0 0 1-4 4H14l-6 5v-5H6a4 4 0 0 1-4-4V8a4 4 0 0 1 4-4z' fill='%2317171A'/%3E%3Crect x='7' y='9' width='11' height='2.6' rx='1.3' fill='%23F5F1E8'/%3E%3Crect x='7' y='14.2' width='18' height='2.6' rx='1.3' fill='%23E85A2A'/%3E%3Crect x='7' y='19.4' width='13' height='2.6' rx='1.3' fill='%23E85A2A' opacity='.6'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400..600;1,6..72,400..500&display=swap">
+<link rel="stylesheet" href="assets/css/site.css">
+<script>try{var t=localStorage.getItem('bp-theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}</script>
+</head>
+<body>
+<a class="sr" href="#noi-dung">Bỏ qua tới nội dung</a>
+
+<header class="topbar">
+  <div class="wrap">
+    <a class="brand" href="index.html"><svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true"><path d="M6 4h20a4 4 0 0 1 4 4v12a4 4 0 0 1-4 4H14l-6 5v-5H6a4 4 0 0 1-4-4V8a4 4 0 0 1 4-4z" fill="var(--ink)"/><rect x="7" y="9" width="11" height="2.6" rx="1.3" fill="var(--paper)"/><rect x="7" y="14.2" width="18" height="2.6" rx="1.3" fill="var(--boris)"/><rect x="7" y="19.4" width="13" height="2.6" rx="1.3" fill="var(--boris)" opacity=".6"/></svg><span>Prompt kiểu Boris <small>· thử nghiệm A/B</small></span></a>
+    <nav class="nav" aria-label="Mục chính">
+      <a class="hide-sm" href="#boris-noi-gi">Boris nói gì</a>
+      <a class="hide-sm" href="#mau-prompt">Mẫu prompt</a>
+      <a class="hide-sm" href="#vi-sao">Vì sao hiệu quả</a>
+      <a href="#bai-thu">6 bài thử</a>
+      <a class="hide-sm" href="#trang-nay">Trang này</a>
+    </nav>
+    <button class="icon-btn" type="button" data-theme-toggle aria-label="Đổi nền sáng / tối"><svg class="theme-ico-light" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M4.6 4.6l1.4 1.4M18 18l1.4 1.4M2.5 12h2M19.5 12h2M4.6 19.4L6 18M18 6l1.4-1.4"/></svg><svg class="theme-ico-dark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg></button>
+  </div>
+</header>
+
+<main id="noi-dung">
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <p class="kicker">Thử nghiệm A/B · Claude Opus 5.5 · 10/2026</p>
+      <h1 class="display">Nói với AI như nói với <span class="underline-draw"><em>đồng nghiệp</em><svg viewBox="0 0 300 20" preserveAspectRatio="none" aria-hidden="true"><path d="M3 14 C 60 4, 140 4, 200 10 S 280 16, 297 7"/></svg></span>.</h1>
+      <p class="lede">Boris Cherny, người tạo ra Claude Code, prompt bằng vài câu nói thường. Chúng tôi gói cách nói đó thành một mẫu 6 câu, rồi chạy 6 bài thử: cùng model, cùng đề bài, một bên prompt trần, một bên prompt kiểu Boris. Cả 12 sản phẩm ở đây, mở ra dùng thử được.</p>
+      <div class="hero-cta">
+        <a class="btn" href="#bai-thu">Xem 6 bài thử<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <a class="btn ghost" href="#mau-prompt">Lấy mẫu prompt</a>
+      </div>
+      <div class="hero-stats">
+        <div><b>6</b><span>bài thử</span></div>
+        <div><b>12</b><span>sản phẩm dùng thử được</span></div>
+        <div><b>+5</b><span>câu Boris thêm vào</span></div>
+        <div><b>1</b><span>model: Opus 5.5</span></div>
+      </div>
+    </div>
+    <div class="anatomy" aria-label="Giải phẫu mẫu prompt kiểu Boris">
+      <div class="bubble boris">
+        <div class="bubble-meta"><span class="arm boris">Mẫu prompt kiểu Boris</span><span class="wc">6 câu · 2 chỗ điền</span></div>
+        <p><span class="s base" data-k="1"><span class="n">1</span>Tôi muốn bạn làm <span class="fill">{cái gì}</span>.</span> <span class="s add-s" data-k="2"><span class="n">2</span>Làm cho đẹp và dễ dùng, tập trung vào <span class="fill">{điều quan trọng nhất}</span>.</span> <span class="s add-s" data-k="3"><span class="n">3</span>Làm thật tốt vào, dùng nhiều token và lặp lại cho đến khi bạn tự hào về nó.</span> <span class="s add-s" data-k="4"><span class="n">4</span>Thấy gì làm nó hay hơn thì cứ thêm, bạn tự quyết.</span> <span class="s add-s" data-k="5"><span class="n">5</span>Nhắm tới những thứ hay nhất cùng loại mà bạn từng thấy, nhưng tốt hơn.</span> <span class="s add-s" data-k="6"><span class="n">6</span>Trước khi nói xong, tự thử như một người dùng thật, rồi cho tôi biết bạn đã kiểm gì và chưa kiểm được gì.</span></p>
+      </div>
+      <ol class="notes"><li class="base" data-k="1"><span class="n">1</span><span><b>Muốn gì.</b> Chỗ này giống prompt trần: cùng đề bài, nói như với đồng nghiệp.</span></li><li class="" data-k="2"><span class="n">2</span><span><b>Điều quan trọng nhất.</b> Một tiêu chí để model ưu tiên khi phải đánh đổi.</span></li><li class="" data-k="3"><span class="n">3</span><span><b>Mức nỗ lực.</b> Điều 2 của Boris, nói bằng lời: đây không phải bản nháp.</span></li><li class="" data-k="4"><span class="n">4</span><span><b>Trao quyền gu.</b> Như chữ “Maybe” và “I think” trong prompt gốc của Boris.</span></li><li class="" data-k="5"><span class="n">5</span><span><b>Chuẩn so sánh.</b> Prompt gốc nhắm tới data viz của New Yorker, nytimes, “nhưng tốt hơn”.</span></li><li class="" data-k="6"><span class="n">6</span><span><b>Cách kiểm chứng.</b> Điều 3: một phương pháp cụ thể, không phải câu “kiểm tra lại hai lần”.</span></li></ol>
+    </div>
+  </div>
+</section>
+<section class="reel" aria-label="12 sản phẩm của 6 bài thử">
+  <div class="reel-track"><a class="reel-item" href="so-sanh/t2-game.html" tabindex="-1"><img src="assets/img/t2-tran-d.webp" alt="" loading="lazy"><span class="arm tran solid">T2 · Trần</span></a><a class="reel-item" href="so-sanh/t2-game.html" tabindex="-1"><img src="assets/img/t2-boris-d.webp" alt="" loading="lazy"><span class="arm boris solid">T2 · Boris</span></a><a class="reel-item" href="so-sanh/t4-landing.html" tabindex="-1"><img src="assets/img/t4-tran-d.webp" alt="" loading="lazy"><span class="arm tran solid">T4 · Trần</span></a><a class="reel-item" href="so-sanh/t4-landing.html" tabindex="-1"><img src="assets/img/t4-boris-d.webp" alt="" loading="lazy"><span class="arm boris solid">T4 · Boris</span></a><a class="reel-item" href="so-sanh/t6-he-mat-troi.html" tabindex="-1"><img src="assets/img/t6-tran-d.webp" alt="" loading="lazy"><span class="arm tran solid">T6 · Trần</span></a><a class="reel-item" href="so-sanh/t6-he-mat-troi.html" tabindex="-1"><img src="assets/img/t6-boris-d.webp" alt="" loading="lazy"><span class="arm boris solid">T6 · Boris</span></a><a class="reel-item" href="so-sanh/t10-hoat-hinh.html" tabindex="-1"><img src="assets/img/t10-tran-d.webp" alt="" loading="lazy"><span class="arm tran solid">T10 · Trần</span></a><a class="reel-item" href="so-sanh/t10-hoat-hinh.html" tabindex="-1"><img src="assets/img/t10-boris-d.webp" alt="" loading="lazy"><span class="arm boris solid">T10 · Boris</span></a><a class="reel-item" href="so-sanh/p1-dashboard-gia.html" tabindex="-1"><img src="assets/img/p1-tran-d.webp" alt="" loading="lazy"><span class="arm tran solid">+1 · Trần</span></a><a class="reel-item" href="so-sanh/p1-dashboard-gia.html" tabindex="-1"><img src="assets/img/p1-boris-d.webp" alt="" loading="lazy"><span class="arm boris solid">+1 · Boris</span></a><a class="reel-item portrait" href="so-sanh/p2-video-motion.html" tabindex="-1"><img src="assets/img/p2-tran-cover.webp" alt="" loading="lazy"><span class="arm tran solid">+2 · Trần</span></a><a class="reel-item portrait" href="so-sanh/p2-video-motion.html" tabindex="-1"><img src="assets/img/p2-boris-cover.webp" alt="" loading="lazy"><span class="arm boris solid">+2 · Boris</span></a><a aria-hidden="true" class="reel-item" href="so-sanh/t2-game.html" tabindex="-1"><img src="assets/img/t2-tran-d.webp" alt="" loading="lazy"><span class="arm tran solid">T2 · Trần</span></a><a aria-hidden="true" class="reel-item" href="so-sanh/t2-game.html" tabindex="-1"><img src="assets/img/t2-boris-d.webp" alt="" loading="lazy"><span class="arm boris solid">T2 · Boris</span></a><a aria-hidden="true" class="reel-item" href="so-sanh/t4-landing.html" tabindex="-1"><img src="assets/img/t4-tran-d.webp" alt="" loading="lazy"><span class="arm tran solid">T4 · Trần</span></a><a aria-hidden="true" class="reel-item" href="so-sanh/t4-landing.html" tabindex="-1"><img src="assets/img/t4-boris-d.webp" alt="" loading="lazy"><span class="arm boris solid">T4 · Boris</span></a><a aria-hidden="true" class="reel-item" href="so-sanh/t6-he-mat-troi.html" tabindex="-1"><img src="assets/img/t6-tran-d.webp" alt="" loading="lazy"><span class="arm tran solid">T6 · Trần</span></a><a aria-hidden="true" class="reel-item" href="so-sanh/t6-he-mat-troi.html" tabindex="-1"><img src="assets/img/t6-boris-d.webp" alt="" loading="lazy"><span class="arm boris solid">T6 · Boris</span></a><a aria-hidden="true" class="reel-item" href="so-sanh/t10-hoat-hinh.html" tabindex="-1"><img src="assets/img/t10-tran-d.webp" alt="" loading="lazy"><span class="arm tran solid">T10 · Trần</span></a><a aria-hidden="true" class="reel-item" href="so-sanh/t10-hoat-hinh.html" tabindex="-1"><img src="assets/img/t10-boris-d.webp" alt="" loading="lazy"><span class="arm boris solid">T10 · Boris</span></a><a aria-hidden="true" class="reel-item" href="so-sanh/p1-dashboard-gia.html" tabindex="-1"><img src="assets/img/p1-tran-d.webp" alt="" loading="lazy"><span class="arm tran solid">+1 · Trần</span></a><a aria-hidden="true" class="reel-item" href="so-sanh/p1-dashboard-gia.html" tabindex="-1"><img src="assets/img/p1-boris-d.webp" alt="" loading="lazy"><span class="arm boris solid">+1 · Boris</span></a><a aria-hidden="true" class="reel-item portrait" href="so-sanh/p2-video-motion.html" tabindex="-1"><img src="assets/img/p2-tran-cover.webp" alt="" loading="lazy"><span class="arm tran solid">+2 · Trần</span></a><a aria-hidden="true" class="reel-item portrait" href="so-sanh/p2-video-motion.html" tabindex="-1"><img src="assets/img/p2-boris-cover.webp" alt="" loading="lazy"><span class="arm boris solid">+2 · Boris</span></a></div>
+</section>
+
+<section class="block" id="boris-noi-gi">
+  <div class="wrap quote-grid">
+    <div class="reveal">
+      <p class="kicker">Boris nói gì</p>
+      <blockquote class="pull" style="margin-top:22px">“Talk to Claude the way you would a coworker.”</blockquote>
+      <p class="pull-cap">Boris Cherny, người tạo ra Claude Code, trên X ngày 6/10/2026. Dòng trạng thái vượt 1,2 triệu lượt xem sau hai ngày. <a href="https://www.businessinsider.com/claude-code-creator-boris-cherny-ai-prompt-advice-2026-10" rel="noopener">Business Insider</a></p>
+      <p class="lede" style="margin:30px 0 0">Thời Sonnet 3.5, câu chữ trong prompt quyết định nhiều. Theo Boris, với model bây giờ, quan trọng hơn nhiều là nói cho model ba điều. Không cần vai “chuyên gia 20 năm”, không cần chia bước.</p>
+    </div>
+    <ol class="three reveal">
+      <li><div><h3>Muốn nó làm gì</h3><p>Mục tiêu, cho ai, chuẩn so sánh. Prompt của Boris không có bước, thứ tự hay định dạng đầu ra nào.</p></div></li>
+      <li><div><h3>Bỏ ra bao nhiêu công sức</h3><p>Bản nháp năm phút hay bản gửi khách hàng. Trong prompt gốc, Boris viết: <span class="inline-q">“make it really good, use lots of tokens and iterate till you're proud of it”</span>.</p></div></li>
+      <li><div><h3>Kiểm chứng thế nào</h3><p>Model dừng khi việc <i>trông</i> như đã xong. Một phép kiểm cụ thể khép vòng lặp: làm, thử, sửa, rồi báo đã kiểm gì.</p></div></li>
+    </ol>
+  </div>
+</section>
+
+<section class="block" id="mau-prompt">
+  <div class="wrap">
+    <div class="block-head reveal">
+      <p class="kicker">Mẫu prompt</p>
+      <h2 class="h2">Hai chỗ điền, <em>năm câu giữ nguyên</em>.</h2>
+      <p class="lede">Điền thứ cần làm và một điều quan trọng nhất. Phần còn lại không đổi giữa các việc. Đây đúng là mẫu dùng trong cả 6 bài thử.</p>
+    </div>
+    <div class="builder reveal" data-builder data-examples='[{&quot;what&quot;: &quot;một trò chơi trình duyệt nhỏ do bạn tự nghĩ ra, chơi được bằng bàn phím và cảm ứng, có điểm, màn khó dần, một ván kéo dài khoảng một phút&quot;, &quot;focus&quot;: &quot;cảm giác chơi mượt và muốn chơi lại ngay&quot;, &quot;what_en&quot;: &quot;a small browser game of your own invention, playable with keyboard and touch, with a score, levels that get harder, and a round that lasts about a minute&quot;, &quot;focus_en&quot;: &quot;smooth gameplay that makes you want to play again right away&quot;}, {&quot;what&quot;: &quot;trang landing cho một quán cà phê hư cấu tên “Mưa” ở Đà Lạt, có thực đơn, form đặt bàn giả lập và bản đồ&quot;, &quot;focus&quot;: &quot;nhìn trang là muốn đến quán ngay&quot;, &quot;what_en&quot;: &quot;a landing page for a fictional café called “Mưa” in Da Lat, with a menu, a mock table-booking form and a map&quot;, &quot;focus_en&quot;: &quot;making people want to visit the café the moment they see the page&quot;}, {&quot;what&quot;: &quot;một mô phỏng hệ Mặt Trời 3D chạy trong trình duyệt, xoay và phóng to được bằng chuột và cảm ứng, bấm vào hành tinh để xem thông tin&quot;, &quot;focus&quot;: &quot;đẹp như một gian triển lãm khoa học và số liệu hành tinh đúng&quot;, &quot;what_en&quot;: &quot;a 3D solar system simulation that runs in the browser, rotates and zooms with mouse and touch, with planet info on click&quot;, &quot;focus_en&quot;: &quot;looking as good as a science museum exhibit, with correct planet data&quot;}, {&quot;what&quot;: &quot;một hoạt hình 30 giây bằng HTML, CSS và JavaScript giải thích cách tính điểm trong pickleball cho người mới, có nút phát lại, dựa trên bản tóm tắt luật đính kèm&quot;, &quot;focus&quot;: &quot;xem một lần là hiểu, và luật nói đúng&quot;, &quot;what_en&quot;: &quot;a 30-second animation in HTML, CSS and JavaScript explaining how pickleball scoring works for beginners, with a replay button, based on the attached rules summary&quot;, &quot;focus_en&quot;: &quot;understanding it after one viewing, with the rules stated correctly&quot;}, {&quot;what&quot;: &quot;một dashboard so sánh giá cả tại TP. Hồ Chí Minh năm 2000 và năm 2026 cho khoảng 20 mặt hàng và dịch vụ quen thuộc, tự tìm số liệu trên web và ghi nguồn cho từng con số, bàn giao thành một file HTML duy nhất&quot;, &quot;focus&quot;: &quot;mọi con số có nguồn mở được, và người xem thấy ngay thứ gì đắt lên nhiều nhất trong 26 năm&quot;, &quot;what_en&quot;: &quot;a dashboard comparing prices in Ho Chi Minh City in 2000 and 2026 for about 20 everyday goods and services, finding the figures on the web yourself and citing a source for every number, delivered as a single HTML file&quot;, &quot;focus_en&quot;: &quot;every number having a source that opens, and the viewer seeing right away what got most expensive over 26 years&quot;}, {&quot;what&quot;: &quot;một video motion graphics 20 giây, khổ dọc 1080×1920, xuất MP4 kèm nhạc nền tự viết bằng code, để tôi đăng TikTok như showreel của một motion designer đỉnh cao&quot;, &quot;focus&quot;: &quot;chuyển động mượt chảy liền từ cảnh này sang cảnh kia, nhiều hành động, hoành tráng và vui mắt&quot;, &quot;what_en&quot;: &quot;a 20-second vertical 1080×1920 motion graphics video, exported as MP4 with background music written in code, for me to post on TikTok as a top motion designer&#x27;s showreel&quot;, &quot;focus_en&quot;: &quot;smooth motion flowing from scene to scene, lots of action, epic and fun to watch&quot;}]'>
+      <div class="builder-form">
+        <div class="field">
+          <label for="f-what">Cái gì <span class="slot">{CÁI GÌ}</span></label>
+          <textarea id="f-what" rows="3" placeholder="vd. một trang so sánh 3 gói bảo hiểm cho khách hàng"></textarea>
+        </div>
+        <div class="field">
+          <label for="f-focus">Điều quan trọng nhất <span class="slot">{ĐIỀU QUAN TRỌNG NHẤT}</span></label>
+          <textarea id="f-focus" rows="2" placeholder="vd. con số nào cũng đúng với tài liệu gốc"></textarea>
+        </div>
+        <div>
+          <p class="small muted" style="margin:0 0 8px">Hoặc lấy đề của một bài thử:</p>
+          <div class="chips"><button class="chip" type="button" data-ex="0" aria-pressed="false">Game</button><button class="chip" type="button" data-ex="1" aria-pressed="false">Landing page</button><button class="chip" type="button" data-ex="2" aria-pressed="false">Hệ Mặt Trời</button><button class="chip" type="button" data-ex="3" aria-pressed="false">Hoạt hình</button><button class="chip" type="button" data-ex="4" aria-pressed="false">Dashboard giá</button><button class="chip" type="button" data-ex="5" aria-pressed="false">Video</button></div>
+        </div>
+      </div>
+      <div class="builder-out">
+        <div class="out-tools">
+          <div class="seg" role="group" aria-label="Ngôn ngữ">
+            <button type="button" data-lang="vi" aria-pressed="true">Tiếng Việt</button>
+            <button type="button" data-lang="en" aria-pressed="false">English</button>
+          </div>
+          <button class="btn-sm" type="button" data-copy-from="b-out"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a1 1 0 0 1 1-1h10"/></svg><span data-label>Sao chép prompt</span></button>
+        </div>
+        <div class="bubble boris">
+          <div class="bubble-meta"><span class="arm boris">Prompt kiểu Boris</span><span class="wc" id="b-wc"></span></div>
+          <p id="b-out"></p>
+        </div>
+        <div class="bubble tran">
+          <div class="bubble-meta"><span class="arm tran">Prompt trần tương ứng</span><span class="wc" id="b-wc-tran"></span></div>
+          <p id="b-tran"></p>
+        </div>
+        <div class="vs-line">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" width="20" height="20" style="color:var(--part);margin-top:2px"><path d="M12 3.5l9 16H3z"/><path d="M12 10v4M12 17v.3"/></svg>
+          <div><p>Thứ không có trong mẫu, cố ý:</p>
+          <div class="strike-list"><span>Bạn là chuyên gia 20 năm kinh nghiệm</span><span>QUAN TRỌNG, BẮT BUỘC</span><span>Bước 1 … Bước 5</span><span>Kiểm tra lại hai lần</span><span>KHÔNG được mắc lỗi</span><span>Suy nghĩ từng bước trong &lt;scratchpad&gt;</span></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="vi-sao">
+  <div class="wrap">
+    <div class="block-head reveal">
+      <p class="kicker">Vì sao hiệu quả</p>
+      <h2 class="h2">Model mạnh làm <em>đúng từng chữ</em> bạn viết.</h2>
+      <p class="lede">Chỉ dẫn thừa không còn vô hại: model thế hệ mới làm theo nghĩa đen, nên dòng thừa thành việc thừa. Mẫu Boris bỏ phần thừa và giữ ba thứ model không tự biết.</p>
+    </div>
+    <div class="why-grid">
+      <article class="why reveal"><div class="big">9<small>%</small></div><h3>Dọn chỉ dẫn cũ, rẻ hơn và đúng hơn</h3><p>Anthropic cấy 6 kiểu chỉ dẫn cũ vào một prompt sạch rồi dọn đi: chi phí giảm thêm 9%, độ chính xác tăng khoảng 2 điểm. Câu “verify twice” khiến model tra cứu đơn hàng hai lần ở mọi yêu cầu hoàn tiền.</p><p class="src">Lance Martin, <a href="https://claude.com/blog/reducing-cost-and-improving-performance-with-claude-platform" rel="noopener">Claude Blog</a>, 9/2026</p></article>
+      <article class="why reveal"><div class="big">80<small>%</small></div><h3>Bỏ giàn giáo, model không kém đi</h3><p>Khi Opus 5 ra, nhóm Claude Code xóa hơn 80% system prompt của chính sản phẩm; theo các tường thuật, bài kiểm tra lập trình không ghi nhận suy giảm. Cách làm: xóa hết, thêm lại từng dòng và đo.</p><p class="src">Boris Cherny, <a href="https://www.youtube.com/watch?v=qyPCVqFUyDo" rel="noopener">YC Startup Podcast</a>, 7/2026</p></article>
+      <article class="why reveal"><div class="big">1<small> câu</small></div><h3>Mức nỗ lực phải được nói ra</h3><p>Model không biết việc quan trọng đến đâu. Theo Thariq Shihipar của nhóm Claude Code, mức nỗ lực điều chỉnh việc model tự kiểm bao nhiêu, thử bao nhiêu trường hợp biên, tự quyết thay bạn bao nhiêu. Câu số 3 nói điều đó bằng lời.</p><p class="src">Thariq Shihipar, <a href="https://claude.dev/blog/spending-your-effort/" rel="noopener">Spending your effort</a>, 9/2026</p></article>
+      <article class="why reveal"><div class="big">≈0</div><h3>Kiểm chứng là phương pháp, không phải nghi thức</h3><p>Yêu cầu model đối chiếu từng khẳng định với kết quả công cụ và nói rõ điều chưa kiểm gần như loại bỏ báo cáo tiến độ bịa trong thử nghiệm của Anthropic. Câu số 6 là bản ngắn của chỉ dẫn đó.</p><p class="src">Anthropic, <a href="https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-fable-5" rel="noopener">Prompting Claude Fable 5</a></p></article>
+    </div>
+    <div class="limits reveal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3.5l9 16H3z"/><path d="M12 10v4M12 17v.3"/></svg><p><b>Giới hạn.</b> Lời khuyên này dành cho model mạnh; với model nhỏ, giàn giáo vẫn giữ chất lượng. “Tự hào” không phải bằng chứng cho số liệu hay trích dẫn pháp lý: ở đó, phép kiểm phải neo vào nguồn bên ngoài như văn bản luật, báo cáo, bộ test.</p></div>
+  </div>
+</section>
+
+<section class="block" id="bai-thu">
+  <div class="wrap">
+    <div class="block-head reveal">
+      <p class="kicker">6 bài thử</p>
+      <h2 class="h2">Cùng đề bài, <em>hai cách giao việc</em>.</h2>
+      <p class="lede">Mỗi bài chạy hai lượt trên Claude Opus 5.5, effort High: một lượt với prompt trần, một lượt với prompt kiểu Boris. Bốn bài lấy từ bộ 16 bài của kế hoạch thử nghiệm (T2, T4, T6, T10), hai bài thêm (+1, +2). Không chấm mù: nhãn ghi rõ bản nào của prompt nào.</p>
+      <div class="method">
+        <span class="badge"><i style="width:9px;height:9px;border-radius:50%;background:var(--tran);display:inline-block"></i>Prompt trần: “Làm cho tôi {cái gì}.”</span>
+        <span class="badge"><i style="width:9px;height:9px;border-radius:50%;background:var(--boris);display:inline-block"></i>Prompt Boris: cùng câu đó + 5 câu cố định</span>
+        <span class="badge">5 bài Claude Code · 1 bài Claude Cowork</span>
+      </div>
+    </div>
+    <div class="tests">
+    <a class="tcard reveal" href="so-sanh/t2-game.html" aria-label="So sánh bài T2: Game trình duyệt tự nghĩ">
+      <div class="tcard-shots"><figure><img src="assets/img/t2-tran-d.webp" alt="" loading="lazy" style="object-position:center 30%"><span class="arm tran solid">Trần</span></figure><figure><img src="assets/img/t2-boris-d.webp" alt="" loading="lazy" style="object-position:center 40%"><span class="arm boris solid">Boris</span></figure></div>
+      <div class="tcard-body">
+        <div class="tcard-top"><span class="tcard-id">BÀI T2</span><span class="badge">Claude Code</span></div>
+        <h3>Game trình duyệt tự nghĩ</h3>
+        <p class="tcard-ask">“Làm cho tôi một trò chơi trình duyệt nhỏ do bạn tự nghĩ ra, chơi được bằng bàn phím và cảm ứng, có điểm, màn khó dần, một ván kéo dài khoảng một phút.”</p>
+        <div class="tcard-pair"><p>Ếch nhảy giữa bốn lá sen đớp chuồn chuồn, né ong. Ván 60 giây, sáu cấp tăng tốc.</p><p>Xoay quanh lõi sao, luồn qua khe vòng sáng theo nhạc. Ván 60 giây, năm màn, ba khiên, xếp hạng S–D.</p></div>
+        <div class="tcard-foot"><span class="stat">Mã nguồn: <b>35 → 87 KB</b> (×2,5)</span><span class="tcard-go">So sánh<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
+      </div>
+    </a>
+    <a class="tcard reveal" href="so-sanh/t4-landing.html" aria-label="So sánh bài T4: Landing page quán cà phê hư cấu">
+      <div class="tcard-shots"><figure><img src="assets/img/t4-tran-d.webp" alt="" loading="lazy" style="object-position:12% 20%"><span class="arm tran solid">Trần</span></figure><figure><img src="assets/img/t4-boris-d.webp" alt="" loading="lazy" style="object-position:8% 30%"><span class="arm boris solid">Boris</span></figure></div>
+      <div class="tcard-body">
+        <div class="tcard-top"><span class="tcard-id">BÀI T4</span><span class="badge">Claude Code</span></div>
+        <h3>Landing page quán cà phê hư cấu</h3>
+        <p class="tcard-ask">“Làm cho tôi trang landing cho một quán cà phê hư cấu tên “Mưa” ở Đà Lạt, có thực đơn, form đặt bàn giả lập và bản đồ.”</p>
+        <div class="tcard-pair"><p>Mưa rơi trên đồi thông, nút nghe mưa, 16 món, form đặt bàn có kiểm lỗi, bản đồ vẽ tay.</p><p>Ô kính mờ lau được, thời tiết Đà Lạt thật, 23 món, đặt bàn 5 bước, bản đồ chọn tuyến.</p></div>
+        <div class="tcard-foot"><span class="stat">Mã nguồn: <b>45 → 172 KB</b> (×3,8)</span><span class="tcard-go">So sánh<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
+      </div>
+    </a>
+    <a class="tcard reveal" href="so-sanh/t6-he-mat-troi.html" aria-label="So sánh bài T6: Hệ Mặt Trời 3D">
+      <div class="tcard-shots"><figure><img src="assets/img/t6-tran-d.webp" alt="" loading="lazy" style="object-position:38% 45%"><span class="arm tran solid">Trần</span></figure><figure><img src="assets/img/t6-boris-d.webp" alt="" loading="lazy" style="object-position:18% 40%"><span class="arm boris solid">Boris</span></figure></div>
+      <div class="tcard-body">
+        <div class="tcard-top"><span class="tcard-id">BÀI T6</span><span class="badge">Claude Code</span></div>
+        <h3>Hệ Mặt Trời 3D</h3>
+        <p class="tcard-ask">“Làm cho tôi một mô phỏng hệ Mặt Trời 3D chạy trong trình duyệt, xoay và phóng to được bằng chuột và cảm ứng, bấm vào hành tinh để xem thông tin.”</p>
+        <div class="tcard-pair"><p>Một file HTML: 8 hành tinh và Mặt Trăng trên quỹ đạo tròn, chỉnh tốc độ thời gian, bảng số liệu.</p><p>25 thiên thể theo quỹ đạo JPL, tỉ lệ thật, 5.044 ngôi sao thật, tua thời gian, tham quan tự động.</p></div>
+        <div class="tcard-foot"><span class="stat">Mã nguồn: <b>50 → 229 KB</b> (×4,6)</span><span class="tcard-go">So sánh<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
+      </div>
+    </a>
+    <a class="tcard reveal" href="so-sanh/t10-hoat-hinh.html" aria-label="So sánh bài T10: Hoạt hình giải thích 30 giây">
+      <div class="tcard-shots"><figure><img src="assets/img/t10-tran-d.webp" alt="" loading="lazy" style="object-position:center 20%"><span class="arm tran solid">Trần</span></figure><figure><img src="assets/img/t10-boris-d.webp" alt="" loading="lazy" style="object-position:center 30%"><span class="arm boris solid">Boris</span></figure></div>
+      <div class="tcard-body">
+        <div class="tcard-top"><span class="tcard-id">BÀI T10</span><span class="badge">Claude Code</span></div>
+        <h3>Hoạt hình giải thích 30 giây</h3>
+        <p class="tcard-ask">“Làm cho tôi một hoạt hình 30 giây bằng HTML, CSS và JavaScript giải thích cách tính điểm trong pickleball cho người mới, có nút phát lại, dựa trên bản tóm tắt luật đính kèm.”</p>
+        <div class="tcard-pair"><p>Tự phát 30 giây: ba pha bóng, bảng điểm 3 số, màn tóm tắt, nút phát lại.</p><p>Trình phát 30,5 giây: bốn pha bóng, tua tới điểm thắng ván, chia chương, chỉnh tốc độ, có âm thanh.</p></div>
+        <div class="tcard-foot"><span class="stat">Mã nguồn: <b>26 → 58 KB</b> (×2,2)</span><span class="tcard-go">So sánh<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
+      </div>
+    </a>
+    <a class="tcard reveal" href="so-sanh/p1-dashboard-gia.html" aria-label="So sánh bài +1: Nghiên cứu web và dashboard giá cả">
+      <div class="tcard-shots"><figure><img src="assets/img/p1-tran-d.webp" alt="" loading="lazy" style="object-position:6% top"><span class="arm tran solid">Trần</span></figure><figure><img src="assets/img/p1-boris-d.webp" alt="" loading="lazy" style="object-position:6% top"><span class="arm boris solid">Boris</span></figure></div>
+      <div class="tcard-body">
+        <div class="tcard-top"><span class="tcard-id">BÀI +1</span><span class="badge">Claude Cowork</span></div>
+        <h3>Nghiên cứu web và dashboard giá cả</h3>
+        <p class="tcard-ask">“Làm cho tôi một dashboard so sánh giá cả tại TP. Hồ Chí Minh năm 2000 và năm 2026 cho khoảng 20 mặt hàng và dịch vụ quen thuộc, tự tìm số liệu trên web và ghi nguồn cho từng con số, bàn giao thành một file HTML duy nhất.”</p>
+        <div class="tcard-pair"><p>18 mục giá 2000–2026, 36 con số có link và câu trích, chấm độ tin cậy cho số liệu năm 2000.</p><p>17 món xếp hạng, món tăng nhiều nhất đặt đầu trang, 57 nguồn có trích dẫn, tìm kiếm, tải CSV.</p></div>
+        <div class="tcard-foot"><span class="stat">Mã nguồn: <b>48 → 90 KB</b> (×1,9)</span><span class="tcard-go">So sánh<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
+      </div>
+    </a>
+    <a class="tcard reveal" href="so-sanh/p2-video-motion.html" aria-label="So sánh bài +2: Video motion graphics 20 giây">
+      <div class="tcard-shots"><figure><img src="assets/img/p2-tran-cover.webp" alt="" loading="lazy" style="object-position:center 42%"><span class="arm tran solid">Trần</span></figure><figure><img src="assets/img/p2-boris-cover.webp" alt="" loading="lazy" style="object-position:center 38%"><span class="arm boris solid">Boris</span></figure></div>
+      <div class="tcard-body">
+        <div class="tcard-top"><span class="tcard-id">BÀI +2</span><span class="badge">Claude Code</span></div>
+        <h3>Video motion graphics 20 giây</h3>
+        <p class="tcard-ask">“Làm cho tôi một video motion graphics 20 giây, khổ dọc 1080×1920, xuất MP4 kèm nhạc nền tự viết bằng code, để tôi đăng TikTok như showreel của một motion designer đỉnh cao.”</p>
+        <div class="tcard-pair"><p>Nền tối, chữ condensed, khung HUD máy quay; sáu khối cảnh cắt theo nhịp 120 BPM.</p><p>Nền đổi màu theo cảnh, khoảng 17 cảnh nối bằng zoom và whip pan; kết bằng tên, nút CTA, lặp về khung đầu.</p></div>
+        <div class="tcard-foot"><span class="stat">Mã nguồn: <b>44 → 124 KB</b> (×2,8)</span><span class="tcard-go">So sánh<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
+      </div>
+    </a>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="phat-hien">
+  <div class="wrap">
+    <div class="block-head reveal">
+      <p class="kicker">Chúng tôi thấy gì</p>
+      <h2 class="h2">Không phải đúng hơn. <em>Sâu hơn.</em></h2>
+      <p class="lede">Sáu bài, mỗi prompt một lượt, nên đây là quan sát, không phải kết luận thống kê. Nhưng có vài điều lặp lại ở cả sáu bài.</p>
+    </div>
+    <div class="findings">
+      <article class="finding reveal">
+        <span class="fnum">01</span>
+        <h3>Prompt trần cũng làm đúng đề.</h3>
+        <p>Đếm theo từng yêu cầu ghi trong đề bài chung: bản trần đạt trọn <b>23/24</b>, bản Boris <b>24/24</b>. Chỗ hụt duy nhất của bản trần: vài số phụ ở dashboard chỉ ghi tên nguồn, không có link.</p>
+        <p>Với Opus 5.5, một câu nói thường đã đủ để ra sản phẩm chạy được. Khác biệt nằm ở chỗ khác.</p>
+      </article>
+      <article class="finding reveal">
+        <span class="fnum">02</span>
+        <h3>Khác ở những chỗ người dùng thật sẽ vấp.</h3>
+        <p>Kế hoạch thử nghiệm ghi sẵn phép kiểm “Đúng” cho 5 trong 6 bài, từ trước khi chạy. Trên <b>13</b> phép kiểm đó, bản Boris đạt trọn <b>12</b>, bản trần <b>8</b>; còn lại là “một phần” hoặc “chưa kiểm hết”.</p>
+        <p>Ví dụ rõ nhất: landing page của prompt trần có hiệu ứng mưa không chạy khi mới mở trang; hệ Mặt Trời của prompt trần dùng đường kính trung bình thay vì số của bảng NASA. Một lượt tự thử, tự đối chiếu sẽ thấy.</p>
+      </article>
+      <article class="finding wide reveal">
+        <span class="fnum">03</span>
+        <h3>“Dùng nhiều token” ra nhiều mã hơn: gấp 1,9 đến 4,6 lần.</h3>
+        <p>Dung lượng mã nguồn mỗi bản, thang logarit. Rê chuột vào chấm để xem số file và số dòng. Nhiều mã hơn không có nghĩa là tốt hơn; nó cho thấy model đã nghe câu số 3.</p>
+        <div class="dumb" data-dumbbell='[{&quot;name&quot;: &quot;T2 · Game&quot;, &quot;sub&quot;: &quot;Claude Code&quot;, &quot;t&quot;: 35.4, &quot;b&quot;: 87.0, &quot;tf&quot;: &quot;1 file, 860 dòng&quot;, &quot;bf&quot;: &quot;1 file, 1.644 dòng&quot;}, {&quot;name&quot;: &quot;T4 · Landing page&quot;, &quot;sub&quot;: &quot;Claude Code&quot;, &quot;t&quot;: 44.9, &quot;b&quot;: 171.8, &quot;tf&quot;: &quot;1 file, 750 dòng&quot;, &quot;bf&quot;: &quot;1 file, 2.259 dòng&quot;}, {&quot;name&quot;: &quot;T6 · Hệ Mặt Trời&quot;, &quot;sub&quot;: &quot;Claude Code&quot;, &quot;t&quot;: 50.2, &quot;b&quot;: 229.3, &quot;tf&quot;: &quot;1 file, 979 dòng&quot;, &quot;bf&quot;: &quot;4 file, 4.106 dòng&quot;}, {&quot;name&quot;: &quot;T10 · Hoạt hình&quot;, &quot;sub&quot;: &quot;Claude Code&quot;, &quot;t&quot;: 26.4, &quot;b&quot;: 57.5, &quot;tf&quot;: &quot;3 file, 746 dòng&quot;, &quot;bf&quot;: &quot;1 file, 975 dòng&quot;}, {&quot;name&quot;: &quot;+1 · Dashboard giá&quot;, &quot;sub&quot;: &quot;Claude Cowork&quot;, &quot;t&quot;: 48.5, &quot;b&quot;: 90.1, &quot;tf&quot;: &quot;1 file, 576 dòng&quot;, &quot;bf&quot;: &quot;1 file, 1.034 dòng&quot;}, {&quot;name&quot;: &quot;+2 · Video&quot;, &quot;sub&quot;: &quot;Claude Code&quot;, &quot;t&quot;: 44.4, &quot;b&quot;: 123.7, &quot;tf&quot;: &quot;2 file, 1.387 dòng&quot;, &quot;bf&quot;: &quot;11 file, 3.623 dòng&quot;}]'>
+          <div class="dumb-legend"><span><i style="background:var(--tran)"></i>Prompt trần</span><span><i style="background:var(--boris)"></i>Prompt Boris</span><span class="muted">Cột phải: Boris gấp bao nhiêu lần</span></div>
+          <div class="dumb-plot" role="img" aria-label="Biểu đồ dung lượng mã nguồn của prompt trần và prompt Boris ở 6 bài thử; bảng số ở ngay bên dưới."></div>
+          <button class="btn-sm table-toggle" type="button" data-table-toggle aria-expanded="false" style="margin-top:10px"><span data-label>Xem bảng số</span></button>
+          <table class="data-table" hidden><thead><tr><th>Bài</th><th class="num">Trần (KB)</th><th class="num">Boris (KB)</th><th class="num">Gấp</th></tr></thead><tbody><tr><td>T2 · Game trình duyệt tự nghĩ</td><td class="num">35,4</td><td class="num">87</td><td class="num">×2,5</td></tr><tr><td>T4 · Landing page quán cà phê hư cấu</td><td class="num">44,9</td><td class="num">171,8</td><td class="num">×3,8</td></tr><tr><td>T6 · Hệ Mặt Trời 3D</td><td class="num">50,2</td><td class="num">229,3</td><td class="num">×4,6</td></tr><tr><td>T10 · Hoạt hình giải thích 30 giây</td><td class="num">26,4</td><td class="num">57,5</td><td class="num">×2,2</td></tr><tr><td>+1 · Nghiên cứu web và dashboard giá cả</td><td class="num">48,5</td><td class="num">90,1</td><td class="num">×1,9</td></tr><tr><td>+2 · Video motion graphics 20 giây</td><td class="num">44,4</td><td class="num">123,7</td><td class="num">×2,8</td></tr></tbody></table>
+        </div>
+      </article>
+      <article class="finding reveal">
+        <span class="fnum">04</span>
+        <h3>Bản Boris tự thêm thứ không ai yêu cầu.</h3>
+        <ul>
+          <li><b>Landing page</b> lấy thời tiết thật của Đà Lạt để đổi thực đơn.</li>
+          <li><b>Hệ Mặt Trời</b> có 5.044 ngôi sao thật, quỹ đạo JPL, chế độ tỉ lệ thật.</li>
+          <li><b>Game</b> có nhạc nền theo phách và so kỷ lục từng giây.</li>
+          <li><b>Dashboard</b> có tìm kiếm không dấu, tải CSV, máy đổi tiền.</li>
+          <li><b>Video</b> có README và file cấu hình để đổi tên trước khi đăng.</li>
+        </ul>
+        <p>Đó là câu số 4: “thấy gì hay thì cứ thêm, bạn tự quyết”. Mặt trái: bản Boris nặng hơn, và mỗi thứ thêm vào là một chỗ có thể lỗi.</p>
+      </article>
+      <article class="finding reveal">
+        <span class="fnum">05</span>
+        <h3>Bản Boris để lại dấu vết tự kiểm.</h3>
+        <p>Rõ nhất ở bài video: model để lại thư mục <code>_debug</code> với contact sheet, ảnh vùng an toàn TikTok, ảnh chuyển cảnh, phân tích âm thanh, và một lần render thử với tên có dấu. Bản trần không để lại ảnh kiểm nào.</p>
+        <div class="check-gallery" style="grid-template-columns:1fr">
+          <figure><a href="so-sanh/p2-video-motion.html"><img src="assets/img/p2-boris-check-safezones.webp" alt="9 khung hình của video bản Boris phủ lớp tô vùng giao diện TikTok" loading="lazy"></a><figcaption>Ảnh model tự xuất để kiểm vùng an toàn TikTok.</figcaption></figure>
+        </div>
+      </article>
+      <article class="finding reveal">
+        <span class="fnum">06</span>
+        <h3>Không phải chỗ nào bản Boris cũng hơn.</h3>
+        <ul>
+          <li>Hoạt hình của prompt trần đúng 30,0 giây và tự phát; bản Boris 30,5 giây.</li>
+          <li>Hệ Mặt Trời của prompt trần nhẹ gấp 9 lần, vào ngay, chạy cả trên máy cũ.</li>
+          <li>Dashboard của prompt trần chấm độ tin cậy cho từng số năm 2000.</li>
+          <li>Bản đồ landing page của prompt Boris ghi “rẽ trái” ở chỗ hình vẽ là rẽ phải.</li>
+        </ul>
+        <p>Mỗi trang so sánh có mục “Công bằng mà nói” liệt kê lỗi của cả hai bên.</p>
+      </article>
+      <article class="finding reveal">
+        <span class="fnum">07</span>
+        <h3>Thứ chưa đo.</h3>
+        <ul>
+          <li><b>Thời gian và token:</b> chưa ghi lại. “Dùng nhiều token” là một quyết định chi tiêu, và bản Boris gần như chắc chắn tốn hơn.</li>
+          <li><b>Độ ổn định:</b> mỗi prompt một lượt; kế hoạch gốc cần hai lượt mỗi nhánh.</li>
+          <li><b>Chấm mù:</b> không làm; bạn đang thấy nhãn trước khi thấy sản phẩm.</li>
+          <li><b>Nhánh A</b> (vai, 5 bước, in hoa) của kế hoạch chưa chạy.</li>
+        </ul>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="block meta-section" id="trang-nay">
+  <div class="wrap">
+    <div class="block-head reveal">
+      <p class="kicker">Chính trang này</p>
+      <h2 class="h2">Trang bạn đang đọc cũng là <em>một bài thử kiểu Boris</em>.</h2>
+      <p class="lede">Claude Opus 5.5 làm website này trong Claude Code. Đề bài của tác giả được viết lại theo đúng mẫu ở trên. Câu cuối của mẫu đòi một báo cáo “đã kiểm gì, chưa kiểm được gì”; báo cáo đó ở bên phải.</p>
+    </div>
+    <div class="meta-grid">
+      <div class="reveal">
+        <div class="bubble boris">
+          <div class="bubble-meta"><span class="arm boris solid">Đề bài cho trang này</span><span class="wc">160 từ</span></div>
+          <p id="p-site">Tôi muốn bạn làm <span class="fill">một website giới thiệu thật gọn cách prompt kiểu Boris, vì sao nó hiệu quả và mẫu prompt, rồi trình bày 6 bài thử giữa prompt trần và prompt Boris, mỗi bài bấm vào được để so sánh hai sản phẩm, nói rõ sản phẩm nào của prompt nào, toàn bộ trong một thư mục để đăng lên GitHub Pages</span>. <span class="add">Làm cho đẹp và dễ dùng, tập trung vào <span class="fill">người xem so sánh hai bản thật dễ, và trang phải thật ấn tượng mà vẫn dễ nhìn</span>.</span> <span class="add">Làm thật tốt vào, dùng nhiều token và lặp lại cho đến khi bạn tự hào về nó.</span> <span class="add">Thấy gì làm nó hay hơn thì cứ thêm, bạn tự quyết.</span> <span class="add">Nhắm tới những thứ hay nhất cùng loại mà bạn từng thấy, nhưng tốt hơn.</span> <span class="add">Trước khi nói xong, tự thử như một người dùng thật, rồi cho tôi biết bạn đã kiểm gì và chưa kiểm được gì.</span></p>
+        </div>
+        <div style="margin-top:14px"><button class="btn-sm" type="button" data-copy-from="p-site"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a1 1 0 0 1 1-1h10"/></svg><span data-label>Chép đề bài</span></button></div>
+      </div>
+      <div class="report reveal">
+        <div>
+          <h3>Đã kiểm</h3>
+          <ul class="yes">
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>Mở cả 12 sản phẩm ở khổ máy tính 1440 px và điện thoại 390 px; ảnh chờ trên trang là ảnh chụp từ những lần mở đó.</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>Đọc mã nguồn cả 12 bản để lập bảng “Có làm đúng đề không”; dòng nào cũng có căn cứ trong mã hoặc từ một lần chạy thử.</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>Chơi thử: game bản trần trọn 1 ván 60 giây, game bản Boris 23 ván, và chạy bot có sẵn của bản Boris 30 lượt. Không lỗi console.</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>Gửi form đặt bàn trống ở cả hai landing page; chạy lại 3 lần lỗi mưa của bản trần; tính lại tọa độ bản đồ để xác nhận lỗi “rẽ trái” của bản Boris.</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>Đối chiếu 5 số liệu hành tinh với bảng NASA, từng câu luật pickleball, và mở thử 8 link nguồn của hai dashboard.</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>Đo hai video bằng ffmpeg, xem 20 khung mỗi video, nén lại cùng thông số; khi “Phát cả hai”, hai video lệch nhau dưới 0,05 giây.</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>Website: 7 trang ở 1440 px và 390 px, nền sáng và tối; không thanh cuộn ngang, không lỗi JavaScript; 209 đường dẫn nội bộ đều tồn tại; bấm thử mọi nút xem, tạo prompt, sao chép, đổi nền.</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span>Màu xanh của bản trần và đỏ son của bản Boris qua bộ kiểm mù màu ở cả nền sáng lẫn nền tối.</span></li>
+          </ul>
+        </div>
+        <div>
+          <h3>Chưa kiểm được</h3>
+          <ul class="not">
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 8v5M12 16v.3"/></svg><span>Chưa chạy trên GitHub Pages thật, mới chạy bằng máy chủ cục bộ. Ảnh xem trước khi chia sẻ cần sửa thành đường dẫn tuyệt đối sau khi có địa chỉ trang.</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 8v5M12 16v.3"/></svg><span>Chưa thử trên điện thoại thật và Safari; khổ 390 px là giả lập trên Chrome.</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 8v5M12 16v.3"/></svg><span>Chưa đối chiếu hết từng con số của hai dashboard với nguồn; mới thử 8 link.</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 8v5M12 16v.3"/></svg><span>Không có transcript, thời gian chạy hay số token của 12 lượt gốc, nên trang không so được chi phí và không trích được báo cáo cuối của từng lượt.</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 8v5M12 16v.3"/></svg><span>Chưa nghe nhạc hai video bằng tai; chỉ đo độ to và xem phổ.</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 8v5M12 16v.3"/></svg><span>Không biết lượt chạy bài hoạt hình có đính kèm bản tóm tắt luật hay không: thư mục kết quả không có file luật.</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 8v5M12 16v.3"/></svg><span>Bản nào đẹp hơn: trang không chấm. Phần đó để bạn tự xem.</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+<footer class="foot">
+  <div class="wrap foot-grid">
+    <div>
+      <h4>Nguồn</h4>
+      <ol>
+        <li>Boris Cherny, dòng trạng thái trên X, 6/10/2026. <a href="https://x.com/bcherny/status/2107565388250874193" rel="noopener">x.com/bcherny</a></li>
+        <li>Henry Chandonnet, “The creator of Claude Code's prompting advice? Talk to your AI like a coworker”, <i>Business Insider</i>, 7/10/2026. <a href="https://www.businessinsider.com/claude-code-creator-boris-cherny-ai-prompt-advice-2026-10" rel="noopener">businessinsider.com</a></li>
+        <li>Lance Martin, “Reducing cost and improving performance with Claude Platform”, <i>Claude Blog</i>, 9/2026. <a href="https://claude.com/blog/reducing-cost-and-improving-performance-with-claude-platform" rel="noopener">claude.com/blog</a></li>
+        <li>Y Combinator Startup Podcast, Diana Hu phỏng vấn Boris Cherny, 28/7/2026. <a href="https://www.youtube.com/watch?v=qyPCVqFUyDo" rel="noopener">youtube.com</a></li>
+        <li>Thariq Shihipar, “Using Claude Code: Spending your effort”, 25/9/2026. <a href="https://claude.dev/blog/spending-your-effort/" rel="noopener">claude.dev</a></li>
+        <li>Anthropic, “Prompting Claude Fable 5” và “Best practices for Claude Code”. <a href="https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-fable-5" rel="noopener">platform.claude.com</a> · <a href="https://code.claude.com/docs/en/best-practices" rel="noopener">code.claude.com</a></li>
+      </ol>
+    </div>
+    <div>
+      <h4>Về trang này</h4>
+      <p>Sản phẩm của 12 lượt chạy được đăng nguyên trạng để ai cũng mở và tự so được. Ngoại lệ duy nhất: 3 dòng khai báo thêm vào 2 file của prompt trần (xem trang T2, T4), và hai video được nén lại cùng một thông số cho nhẹ.</p>
+      <p>Website do Claude Opus 5.5 làm trong Claude Code, theo chính mẫu prompt kiểu Boris. <a href="index.html#trang-nay">Xem đề bài và báo cáo tự kiểm</a>.</p>
+      <p>Các tên quán, nhân vật, số điện thoại trong sản phẩm đều là hư cấu do model tạo ra.</p>
+    </div>
+  </div>
+</footer>
+<script src="assets/js/site.js" defer></script>
+</body>
+</html>

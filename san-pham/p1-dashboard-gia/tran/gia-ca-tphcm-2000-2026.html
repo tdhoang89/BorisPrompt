@@ -1,0 +1,576 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Giá cả TP.HCM 2000–2026</title>
+<style>
+:root{
+  color-scheme: light;
+  --page:#f9f9f7; --surface:#fcfcfb; --surface-2:#f3f2ee;
+  --ink:#0b0b0b; --ink-2:#52514e; --muted:#6f6e69;
+  --grid:#e1e0d9; --axis:#c3c2b7; --border:rgba(11,11,11,.10);
+  --up:#eb6834; --down:#2a78d6; --ref:#0b0b0b;
+  --chip:#ffffff; --chip-on:#0b0b0b; --chip-on-ink:#ffffff;
+  --link:#1c5cab; --warn-bg:#fff6e5; --warn-border:#f0d9a8;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme: dark;
+    --page:#0d0d0d; --surface:#1a1a19; --surface-2:#232321;
+    --ink:#f0efec; --ink-2:#c3c2b7; --muted:#9a998f;
+    --grid:#2c2c2a; --axis:#383835; --border:rgba(255,255,255,.10);
+    --up:#d95926; --down:#3987e5; --ref:#f0efec;
+    --chip:#1a1a19; --chip-on:#f0efec; --chip-on-ink:#0d0d0d;
+    --link:#86b6ef; --warn-bg:#2a2416; --warn-border:#5a4a25;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme: dark;
+  --page:#0d0d0d; --surface:#1a1a19; --surface-2:#232321;
+  --ink:#f0efec; --ink-2:#c3c2b7; --muted:#9a998f;
+  --grid:#2c2c2a; --axis:#383835; --border:rgba(255,255,255,.10);
+  --up:#d95926; --down:#3987e5; --ref:#f0efec;
+  --chip:#1a1a19; --chip-on:#f0efec; --chip-on-ink:#0d0d0d;
+  --link:#86b6ef; --warn-bg:#2a2416; --warn-border:#5a4a25;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--page);color:var(--ink);font:15px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:var(--link)}
+.wrap{max-width:1180px;margin:0 auto;padding:28px 16px 64px}
+header{display:flex;justify-content:space-between;gap:16px;align-items:flex-start;flex-wrap:wrap}
+h1{font-size:28px;line-height:1.2;margin:0 0 6px;letter-spacing:-.01em}
+h2{font-size:19px;margin:0 0 4px}
+.sub{color:var(--ink-2);margin:0;max-width:760px}
+.meta{color:var(--muted);font-size:13px;margin-top:8px}
+.theme-btn{border:1px solid var(--border);background:var(--surface);color:var(--ink);border-radius:8px;padding:6px 10px;font:inherit;font-size:13px;cursor:pointer}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px}
+section{margin-top:20px}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(165px,1fr));gap:12px;margin-top:22px}
+.kpi .lbl{font-size:13px;color:var(--ink-2)}
+.kpi .val{font-size:30px;font-weight:650;letter-spacing:-.01em;margin:2px 0}
+.kpi .ctx{font-size:12.5px;color:var(--muted)}
+.insights{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
+.insight{border-left:3px solid var(--axis);padding:2px 0 2px 12px}
+.insight b{display:block;margin-bottom:2px}
+.insight p{margin:0;color:var(--ink-2);font-size:14px}
+.controls{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:14px 0 6px}
+.chip{border:1px solid var(--border);background:var(--chip);color:var(--ink);border-radius:999px;padding:5px 12px;font:inherit;font-size:13px;cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--chip-on);color:var(--chip-on-ink);border-color:var(--chip-on)}
+.seg{display:inline-flex;border:1px solid var(--border);border-radius:8px;overflow:hidden;margin-left:auto}
+.seg button{border:0;background:var(--chip);color:var(--ink);font:inherit;font-size:13px;padding:6px 12px;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--chip-on);color:var(--chip-on-ink)}
+.legend{display:flex;flex-wrap:wrap;gap:16px;font-size:13px;color:var(--ink-2);margin:4px 0 8px}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.sw{width:12px;height:12px;border-radius:3px;display:inline-block}
+.chart-box{position:relative;width:100%}
+svg text{font-family:inherit}
+.tip{position:absolute;pointer-events:none;background:var(--surface);color:var(--ink);border:1px solid var(--border);border-radius:8px;padding:8px 10px;font-size:13px;box-shadow:0 6px 20px rgba(0,0,0,.14);opacity:0;transition:opacity .08s;max-width:280px;z-index:5}
+.tip .t{font-weight:600;margin-bottom:2px}
+.tip .r{color:var(--ink-2)}
+.pp{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px;margin-top:12px}
+.pp .box{background:var(--surface-2);border-radius:10px;padding:12px}
+.pp .nm{font-size:13px;color:var(--ink-2)}
+.pp .nums{font-size:20px;font-weight:650;margin-top:2px;font-variant-numeric:tabular-nums}
+.pp .nums small{font-size:13px;font-weight:400;color:var(--muted)}
+.pp .x{font-size:12.5px;color:var(--muted)}
+.note{background:var(--warn-bg);border:1px solid var(--warn-border);border-radius:10px;padding:10px 12px;font-size:13.5px;color:var(--ink-2);margin-top:12px}
+.tbl-wrap{overflow-x:auto;margin-top:10px;border:1px solid var(--border);border-radius:10px}
+table{border-collapse:collapse;width:100%;font-size:14px;min-width:860px}
+th,td{padding:9px 10px;text-align:left;border-bottom:1px solid var(--grid);vertical-align:top}
+th{font-size:12.5px;color:var(--ink-2);font-weight:600;background:var(--surface-2);position:sticky;top:0;cursor:pointer;user-select:none;white-space:nowrap}
+th[data-k]::after{content:" ↕";color:var(--muted);font-weight:400}
+th.sorted-desc::after{content:" ↓";color:var(--ink)}
+th.sorted-asc::after{content:" ↑";color:var(--ink)}
+td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+tr.main{cursor:pointer}
+tr.main:hover td{background:var(--surface-2)}
+.grp{font-size:12px;color:var(--muted)}
+.conf{white-space:nowrap;font-size:13px}
+.dots{letter-spacing:1px}
+.yr{font-size:12px;color:var(--muted)}
+tr.detail td{background:var(--surface-2);font-size:13.5px}
+.dgrid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.dgrid h4{margin:0 0 4px;font-size:13px}
+blockquote{margin:6px 0;padding:4px 0 4px 10px;border-left:3px solid var(--axis);color:var(--ink-2);font-style:italic}
+.src{font-size:13px}
+.caveat{margin-top:8px;color:var(--ink-2)}
+.only26{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:10px;margin-top:12px}
+.only26 .box{border:1px solid var(--border);border-radius:10px;padding:12px;background:var(--surface)}
+.only26 .nm{font-weight:600}
+.only26 .v{font-size:18px;font-weight:650;margin:2px 0}
+.only26 .s{font-size:12.5px;color:var(--ink-2)}
+.method li{margin-bottom:6px;color:var(--ink-2)}
+footer{margin-top:28px;color:var(--muted);font-size:12.5px}
+@media (max-width:700px){
+  h1{font-size:23px}
+  .seg{margin-left:0}
+  .dgrid{grid-template-columns:1fr}
+  .kpi .val{font-size:26px}
+}
+@media print{ .controls,.theme-btn{display:none} .card{break-inside:avoid} }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div>
+    <h1>Giá cả TP.HCM: năm 2000 và năm 2026</h1>
+    <p class="sub">Giá của 18 mặt hàng và dịch vụ quen thuộc ở hai thời điểm cách nhau 26 năm, đặt cạnh lạm phát, lương tối thiểu và GDP đầu người. Mỗi con số đều có nguồn kèm trích dẫn nguyên văn. Bấm vào một dòng trong bảng để xem chi tiết.</p>
+    <div class="meta">Số liệu 2026 cập nhật đến 10/10/2026 · Đơn vị: đồng (VND), trừ khi ghi khác</div>
+  </div>
+  <button class="theme-btn" id="themeBtn" type="button">Giao diện: Tự động</button>
+</header>
+
+<div class="kpis" id="kpis"></div>
+
+<section class="card">
+  <h2>Những điều đáng chú ý</h2>
+  <div class="insights" style="margin-top:12px">
+    <div class="insight"><b>Đồ thiết yếu tăng gần sát lạm phát</b><p>Gạo, điện, nước, xăng, đường, bia đều tăng khoảng ×4–×5. Lạm phát chung (CPI) cùng giai đoạn là ≈×4,3. Tính theo giá thực, những thứ này gần như không đắt lên.</p></div>
+    <div class="insight"><b>Đồ ăn đường phố tăng nhanh hơn</b><p>Bánh mì ×10, cơm tấm ×7. Tuy vậy, giá năm 2000 của các món này chỉ lấy được từ hồi ức trên diễn đàn, nên chỉ nên đọc như xu hướng.</p></div>
+    <div class="insight"><b>Xe máy và đô la rẻ đi</b><p>Xe số Honda chỉ tăng ×1,25 trong khi giá chung tăng ×4,3, tức rẻ đi khoảng 70% theo giá thực. Tỷ giá USD tăng ×1,85, thấp hơn nhiều so với lạm phát trong nước.</p></div>
+    <div class="insight"><b>Vàng và lương tối thiểu cùng tăng khoảng ×30</b><p>Một tháng lương tối thiểu mua được khoảng 0,4 chỉ vàng ở cả hai năm, nhưng mua được nhiều phở, gạo, xăng hơn gấp 6–7 lần. (Lưu ý: hai mức lương này khác nhau về bản chất, xem phần Phương pháp.)</p></div>
+  </div>
+</section>
+
+<section class="card" id="chartCard">
+  <h2 id="chartTitle">Giá năm 2026 gấp bao nhiêu lần năm 2000</h2>
+  <p class="sub" id="chartSub" style="font-size:14px">Trục ngang theo thang log, để ×2 và ×20 cách đều nhau. Vạch đứng là mức lạm phát chung.</p>
+  <div class="controls" id="groupChips" role="group" aria-label="Lọc theo nhóm"></div>
+  <div class="controls" style="margin-top:0">
+    <div class="seg" role="group" aria-label="Cách tính">
+      <button type="button" id="modeNominal" aria-pressed="true">Danh nghĩa</button>
+      <button type="button" id="modeReal" aria-pressed="false">Sau khi trừ lạm phát</button>
+    </div>
+  </div>
+  <div class="legend" id="legend"></div>
+  <div class="chart-box" id="chartBox"><div class="tip" id="tip"></div></div>
+</section>
+
+<section class="card">
+  <h2>Một tháng lương tối thiểu mua được bao nhiêu?</h2>
+  <p class="sub" style="font-size:14px">Năm 2000: 180.000đ (lương tối thiểu chung, NĐ 10/2000). Năm 2026: 5.310.000đ (lương tối thiểu vùng I, NĐ 293/2025).</p>
+  <div class="pp" id="pp"></div>
+  <div class="note"><b>Đọc cẩn thận:</b> Mức 180.000đ năm 2000 là lương tối thiểu chung, dùng làm căn cứ tính lương. Doanh nghiệp FDI khi đó áp dụng một mức riêng, cao hơn, và lương thực trả thường cao hơn mức tối thiểu. Vì vậy phần này cho thấy hướng thay đổi, không đo chính xác mức sống.</div>
+</section>
+
+<section class="card">
+  <h2>Bảng số liệu và nguồn</h2>
+  <p class="sub" style="font-size:14px">Bấm tiêu đề cột để sắp xếp. Bấm một dòng để xem trích dẫn nguyên văn, đường dẫn và lưu ý so sánh. Độ tin cậy được chấm cho số liệu năm 2000, vì đây là phía khó tìm nguồn.</p>
+  <div class="tbl-wrap"><table id="tbl"><thead><tr>
+    <th data-k="name">Mặt hàng / dịch vụ</th>
+    <th data-k="v0">Năm 2000</th>
+    <th data-k="v1">Năm 2026</th>
+    <th data-k="mult">Gấp</th>
+    <th data-k="real">Sau lạm phát</th>
+    <th data-k="conf">Tin cậy (2000)</th>
+    <th>Nguồn</th>
+  </tr></thead><tbody></tbody></table></div>
+</section>
+
+<section class="card">
+  <h2>Có giá 2026 nhưng chưa tìm được giá 2000 có nguồn</h2>
+  <p class="sub" style="font-size:14px">Những mục dưới đây không đưa vào phần so sánh. Không có con số nào được điền từ trí nhớ hay ước đoán.</p>
+  <div class="only26" id="only26"></div>
+</section>
+
+<section class="card method">
+  <h2>Phương pháp và lưu ý</h2>
+  <ul>
+    <li><b>Giá trị dùng để tính:</b> Khi nguồn đưa ra một khoảng giá (ví dụ 45.000–60.000đ), dashboard lấy điểm giữa và vẫn hiển thị nguyên khoảng giá.</li>
+    <li><b>Hệ số lạm phát:</b> Theo CPI của World Bank (2010 = 100), chỉ số năm 2000 là 48,09 và năm 2025 là 195,98, tức ×4,08. Để quy về năm 2026, dashboard nhân thêm mức tăng CPI bình quân 9 tháng đầu 2026 so với cùng kỳ (+4,52%, VietnamPlus 3/10/2026), được ≈×4,26. Đây là ước tính của dashboard, không phải số liệu công bố.</li>
+    <li><b>“Sau lạm phát”</b> = hệ số tăng giá ÷ 4,26. Kết quả trên 1 nghĩa là món đó đắt lên so với mặt bằng giá chung; dưới 1 là rẻ đi.</li>
+    <li><b>Độ tin cậy của số liệu năm 2000:</b> ●●● Cao là văn bản pháp luật, thống kê chính thức hoặc World Bank. ●●○ Trung bình là báo chí viết lại về sau, số của năm 2001–2002, hoặc thống kê không ghi rõ chủng loại. ●○○ Thấp là hồi ức trên diễn đàn (VOZ, Otofun). Các mục ●○○ chỉ cho thấy xu hướng.</li>
+    <li><b>Năm 2000 không phải lúc nào cũng đúng năm 2000:</b> Gạo, thịt heo và xe máy dùng số của năm 2001; vé xe buýt dùng số năm 2002; cà phê là hồi ức về năm 1997–98. Từng mục đều ghi rõ năm thực tế.</li>
+    <li><b>Phạm vi địa lý:</b> Xăng, điện, vàng, tỷ giá, lương và học phí là giá áp dụng toàn quốc. Gạo, đường, bia, thịt lấy từ thống kê giá bán lẻ TP.HCM (năm 2000) và báo chí, siêu thị ở TP.HCM (năm 2026).</li>
+    <li><b>Giới hạn của lần tìm kiếm này:</b> Hiện chưa tìm được bản in báo năm 2000 (Tuổi Trẻ, SGGP) và niên giám thống kê TP.HCM năm 2000 để thay các số liệu từ diễn đàn. Hai nguồn này là bước bổ sung có giá trị nhất nếu cần nâng độ tin cậy.</li>
+  </ul>
+</section>
+
+<footer>Tổng hợp ngày 10/10/2026. Số liệu thống kê TP.HCM giai đoạn 2000–2001 lấy từ Cục Thống kê TP.HCM qua CEIC. CPI, tỷ giá năm 2000 và GDP đầu người lấy từ World Bank (cập nhật 8/10/2026).</footer>
+</div>
+
+<script>
+const CPI = 4.26; // 2000→2026 (ước tính): 195.982/48.088 × 1.0452
+const CEIC_URL = "https://www.ceicdata.com/en/vietnam/average-retail-price-ho-chi-minh-city";
+const CEIC_TITLE = "Vietnam Average Retail Price: Ho Chi Minh City (nguồn gốc: Cục Thống kê TP.HCM)";
+
+const GROUPS = ["Ăn uống","Chợ & siêu thị","Điện, nước, xăng","Đi lại","Tài sản & tiền tệ","Thu nhập & học phí"];
+
+const ITEMS = [
+ {id:"pho", g:"Ăn uống", name:"Tô phở bò bình dân", unit:"đ/tô",
+  a:{v:11000, show:"10.000–12.000", yr:"2000", conf:1,
+     src:[{t:"“50.000đ hồi năm 2000 lớn thật” (bài của mr_sat_thu)", p:"Diễn đàn VOZ", d:"6/9/2022", u:"https://voz.vn/t/50-000%C4%91-hoi-nam-2000-lon-that.619308/page-3", q:"phở bình dân Chợ Lớn 10 ~ 12k/tô, bánh mì thịt 3k/ổ"},
+          {t:"“Bức tranh trượt giá xưa và nay…” (bài #13, Vulcan V70)", p:"Diễn đàn Otofun", d:"15/5/2019", u:"https://www.otofun.net.vn/threads/buc-tranh-truot-gia-xua-va-nay-co-ai-nho-gia-sinh-hoat-phi-nhung-nam-1997-2001.1514918/", q:"97-98 phở ở SG khoảng 10k."}]},
+  b:{v:52500, show:"45.000–60.000", yr:"7/2026",
+     src:[{t:"Tô phở ‘cố thủ’ giá 50.000 đồng, giá xăng thực sự chiếm bao nhiêu", p:"Znews", d:"2/7/2026", u:"https://znews.vn/to-pho-co-thu-gia-50000-dong-gia-xang-thuc-su-chiem-bao-nhieu-post1665486.html", q:"với 1 tô phở, người tiêu dùng vẫn phải trả 45.000-60.000 đồng như nhiều tháng trước."}]},
+  cav:"Năm 2000 chỉ có hồi ức trên diễn đàn. Một bài của Infonet viết lại về sau cho giá phở vỉa hè ở Hà Nội giai đoạn 2000–2005 là 5.000–7.000đ/tô, thấp hơn mức ở Sài Gòn."},
+
+ {id:"bm", g:"Ăn uống", name:"Ổ bánh mì thịt", unit:"đ/ổ",
+  a:{v:3000, show:"3.000", yr:"2000", conf:1,
+     src:[{t:"“50.000đ hồi năm 2000 lớn thật” (bài của mr_sat_thu)", p:"Diễn đàn VOZ", d:"6/9/2022", u:"https://voz.vn/t/50-000%C4%91-hoi-nam-2000-lon-that.619308/page-3", q:"phở bình dân Chợ Lớn 10 ~ 12k/tô, bánh mì thịt 3k/ổ"}]},
+  b:{v:30000, show:"25.000–35.000", yr:"10/2026",
+     src:[{t:"20.000 – 30.000 đồng chỉ đủ xôi, bánh mì: bữa sáng ở TP.HCM ngày càng đắt đỏ", p:"Soha", d:"7/10/2026", u:"https://soha.vn/20000-30000-dong-chi-du-xoi-banh-mi-bua-sang-o-tphcm-ngay-cang-dat-do-19826100709203392.htm", q:"Một ổ bánh mì hiện có giá khoảng 25.000-35.000 đồng."}]},
+  cav:"Giá năm 2000 lấy từ hồi ức của một người trên diễn đàn."},
+
+ {id:"ct", g:"Ăn uống", name:"Dĩa cơm tấm sườn chả", unit:"đ/dĩa",
+  a:{v:5000, show:"5.000", yr:"2000", conf:1,
+     src:[{t:"“50.000đ hồi năm 2000 lớn thật” (bài của quochuy97)", p:"Diễn đàn VOZ", d:"6/9/2022", u:"https://voz.vn/t/50-000%C4%91-hoi-nam-2000-lon-that.619308/page-3", q:"năm 2000 thì dĩa cơm tấm sườn chả ở SG là 5k"}]},
+  b:{v:35000, show:"35.000", yr:"9/2026",
+     src:[{t:"Vì sao ổ bánh mì, tô hủ tiếu, dĩa cơm tấm có giá 100.000 đồng ở TP.HCM", p:"Cafebiz", d:"21/9/2026", u:"https://cafebiz.vn/vi-sao-o-banh-mi-to-hu-tieu-dia-com-tam-co-gia-100000-dong-o-tphcm-176260921151831625.chn", q:"giá đĩa cơm sườn chả tại quán chỉ 35.000 đồng"}]},
+  cav:"Giá 2026 là của một quán cụ thể. Các báo khác ghi 29.000đ (Thanh Niên, Dĩ An, 7/5/2026) và 40.000đ (Znews, 7/9/2026)."},
+
+ {id:"cf", g:"Ăn uống", name:"Ly cà phê đá (quán bình dân)", unit:"đ/ly",
+  a:{v:4000, show:"4.000", yr:"1997–98", conf:1,
+     src:[{t:"“Bức tranh trượt giá xưa và nay…” (bài #13, Vulcan V70)", p:"Diễn đàn Otofun", d:"15/5/2019", u:"https://www.otofun.net.vn/threads/buc-tranh-truot-gia-xua-va-nay-co-ai-nho-gia-sinh-hoat-phi-nhung-nam-1997-2001.1514918/", q:"Cà phê đá quán vừa vừa bậc trung 4k/ ly."}]},
+  b:{v:20000, show:"15.000–25.000", yr:"10/2026",
+     src:[{t:"Ly cà phê giá 100.000 đồng trở nên bình thường từ khi nào", p:"Znews", d:"8/10/2026", u:"https://znews.vn/ly-ca-phe-gia-100000-dong-tro-nen-binh-thuong-tu-khi-nao-post1687716.html", q:"Một ly cà phê vỉa hè có thể chỉ 15.000-25.000 đồng"}]},
+  cav:"Năm 2000 không có số liệu. Mốc gần nhất là hồi ức về năm 1997–98, nên hệ số tăng có thể bị phóng đại đôi chút. Giá 2026 là cà phê vỉa hè nói chung, không riêng cà phê sữa đá."},
+
+ {id:"bia", g:"Ăn uống", name:"Chai bia Sài Gòn", unit:"đ/chai",
+  a:{v:4792, show:"4.792", yr:"2000 (bình quân)", conf:2,
+     src:[{t:CEIC_TITLE, p:"CEIC Data", d:"chuỗi 2000–2017", u:CEIC_URL, q:"Saigon Beer (VND/Bottle) … record low of 4,792.000 VND/Bottle in 2000"}]},
+  b:{v:23000, show:"21.000–25.000", yr:"5/2026",
+     src:[{t:"Giá bia Sài Gòn hôm nay", p:"AEON eShop Blog", d:"10/5/2026", u:"https://blog.aeoneshop.com/gia-bia-sai-gon-hom-nay", q:"Sài Gòn Lager | Chai 450ml | 21.000 – 25.000 … Két 20 chai 450ml | 430.000 – 450.000"}]},
+  cav:"Số liệu năm 2000 là giá bình quân của Cục Thống kê TP.HCM nhưng không ghi rõ dòng bia. Giá 2026 là Sài Gòn Lager chai 450ml, lấy từ blog của một nhà bán lẻ."},
+
+ {id:"gao", g:"Chợ & siêu thị", name:"Gạo thường", unit:"đ/kg",
+  a:{v:3411, show:"3.411", yr:"2001 (bình quân)", conf:2,
+     src:[{t:CEIC_TITLE, p:"CEIC Data", d:"chuỗi 2001–2017", u:CEIC_URL, q:"Rice … record low of 3,411.000 VND/kg in 2001"}]},
+  b:{v:14500, show:"14.000–15.000", yr:"10/2026",
+     src:[{t:"Giá lúa gạo hôm nay 8.10.2026", p:"Báo Văn Hóa", d:"8/10/2026", u:"https://baovanhoa.vn/kinh-te/gia-lua-gao-hom-nay-8102026-lua-tang-gao-nguyen-lieu-giam-nhe-272292.html", q:"Gạo thường | 14.000 - 15.000 đồng/kg"}]},
+  cav:"Chuỗi thống kê bắt đầu từ năm 2001. Giá 2026 là giá bán lẻ trên thị trường, bài báo không ghi rõ địa phương."},
+
+ {id:"heo", g:"Chợ & siêu thị", name:"Thịt heo", unit:"đ/kg",
+  a:{v:27027, show:"27.027", yr:"2001 (bình quân)", conf:2,
+     src:[{t:CEIC_TITLE, p:"CEIC Data", d:"chuỗi 2001–2017", u:CEIC_URL, q:"Pork … record low of 27,027.000 VND/kg in 2001"}]},
+  b:{v:155000, show:"155.000", yr:"9/2026",
+     src:[{t:"Giá heo hơi hôm nay 29.9.2026: chưa có điểm dừng", p:"Thanh Niên", d:"29/9/2026", u:"https://thanhnien.vn/gia-heo-hoi-hom-nay-2992026-chua-co-diem-dung-185260929070159297.htm", q:"ba rọi 155.000 đồng/kg"}]},
+  cav:"Số liệu năm 2001 không ghi rõ phần thịt, còn giá 2026 là thịt ba rọi. Hai con số vì vậy không hoàn toàn cùng loại."},
+
+ {id:"bo", g:"Chợ & siêu thị", name:"Thịt bò", unit:"đ/kg",
+  a:{v:45333, show:"45.333", yr:"2000 (bình quân)", conf:2,
+     src:[{t:CEIC_TITLE, p:"CEIC Data", d:"chuỗi 2000–2017", u:CEIC_URL, q:"Beef (VND/kg) … record low of 45,333.000 VND/kg in 2000"}]},
+  b:{v:269000, show:"269.000", yr:"10/2026",
+     src:[{t:"Thịt bò – trang danh mục", p:"Bách Hóa Xanh", d:"truy cập 10/10/2026", u:"https://www.bachhoaxanh.com/thit-bo", q:"Bắp bò: 53.800đ /200g … 269.000đ/kg"}]},
+  cav:"Năm 2000 không ghi rõ phần thịt; năm 2026 là bắp bò, giá niêm yết trên trang web của chuỗi siêu thị."},
+
+ {id:"duong", g:"Chợ & siêu thị", name:"Đường cát trắng", unit:"đ/kg",
+  a:{v:5283, show:"5.283", yr:"2000 (bình quân)", conf:3,
+     src:[{t:CEIC_TITLE, p:"CEIC Data", d:"chuỗi 2000–2017", u:CEIC_URL, q:"Local White Sugar (VND/kg) … record low of 5,283.000 VND/kg in 2000"}]},
+  b:{v:27000, show:"27.000", yr:"10/2026",
+     src:[{t:"Đường – trang danh mục (đường An Khê túi 1kg)", p:"Bách Hóa Xanh", d:"truy cập 10/10/2026", u:"https://www.bachhoaxanh.com/duong", q:"27.000đ (giá gốc 29.000đ, −7%)"}]},
+  cav:"Giá 2026 đang được giảm. Nếu tính theo giá gốc 29.000đ thì đường tăng ×5,5."},
+
+ {id:"xang", g:"Điện, nước, xăng", name:"Xăng 92", unit:"đ/lít",
+  a:{v:5400, show:"5.400", yr:"từ 21/9/2000", conf:3,
+     src:[{t:"Quyết định 76/2000/QĐ-BVGCP về giá giới hạn tối đa xăng dầu", p:"Ban Vật giá Chính phủ (Thư Viện Pháp Luật)", d:"20/9/2000", u:"https://thuvienphapluat.vn/van-ban/Thuong-mai/Quyet-dinh-76-2000-QD-BVGCP-gia-gioi-han-toi-da-xang-dau-46771.aspx", q:"Xăng chất lượng cao (xăng chì 92) … 5.400"}]},
+  b:{v:27700, show:"27.700", yr:"từ 15h 8/10/2026",
+     src:[{t:"Từ 15h ngày 8-10: Xăng E10 RON95-V trên 29.000 đồng/lít…", p:"Tuổi Trẻ", d:"8/10/2026", u:"https://tuoitre.vn/tu-15h-ngay-8-10-xang-e10ron95-v-tren-29000-dong-lit-dau-diesel-tieu-chuan-cao-tren-30500-dong-lit-100261008143352586.htm", q:"xăng E5 RON92 mức 2 là 27.700 đồng/lít, xăng E10 RON95 mức 3 có giá 28.250 đồng/lít"}]},
+  cav:"Năm 2000 là xăng pha chì 92, năm 2026 là xăng E5 RON92. Giá bình quân cả năm 2000 ở TP.HCM theo Cục Thống kê là 4.800đ/lít; nếu dùng số này thì xăng tăng ×5,8."},
+
+ {id:"dien", g:"Điện, nước, xăng", name:"Điện sinh hoạt (bậc 1)", unit:"đ/kWh",
+  a:{v:500, show:"500", yr:"1/10/1999–2002", conf:3,
+     src:[{t:"Quyết định 193/1999/QĐ-TTg về giá bán điện năng", p:"Thủ tướng Chính phủ (Thư Viện Pháp Luật)", d:"22/9/1999", u:"https://thuvienphapluat.vn/van-ban/Thuong-mai/Quyet-dinh-193-1999-QD-TTg-gia-ban-dien-nang-45798.aspx", q:"Giá điện cho 100 kWh đầu tiên: 500 đồng/kWh"}]},
+  b:{v:1984, show:"1.984", yr:"từ 10/5/2025, vẫn áp dụng năm 2026",
+     src:[{t:"Chi tiết bảng giá điện sinh hoạt 2026", p:"CafeF", d:"5/6/2026", u:"https://cafef.vn/chi-tiet-bang-gia-dien-sinh-hoat-2026-cach-tinh-gia-dien-thang-6-2026-188260605065315468.chn", q:"Bậc 1 (0–50 kWh): 1.984 đồng/kWh (Quyết định 1279/QĐ-BCT; chưa gồm VAT)"}]},
+  cav:"Bậc 1 năm 2000 áp dụng cho 0–100 kWh, năm 2026 chỉ cho 0–50 kWh. Giá năm 2026 chưa gồm VAT."},
+
+ {id:"nuoc", g:"Điện, nước, xăng", name:"Nước sinh hoạt (trong định mức)", unit:"đ/m³",
+  a:{v:1700, show:"1.700", yr:"từ 1/3/2000", conf:3,
+     src:[{t:"Quyết định 10/2000/QĐ-UB-ĐT điều chỉnh giá nước", p:"UBND TP.HCM (Caselaw.vn)", d:"29/2/2000", u:"https://caselaw.vn/van-ban-phap-luat/239056-quyet-dinh-so-10-2000-qd-ub-dt-ngay-29-02-2000-dieu-chinh-gia-nuoc-sinh-hoat-san-xuat-kinh-doanh-dich-vu-do-uy-ban-nhan-dan-thanh-pho-ho-chi-minh-ban-hanh-van-ban-het-hieu-luc", q:"Trong định mức từ 4m3 đầu/người/tháng trở xuống … 1.700 đ/m3"}]},
+  b:{v:6700, show:"6.700", yr:"năm 2026",
+     src:[{t:"Bảng giá nước sinh hoạt ở TP.HCM 2026 mới nhất", p:"Thư Viện Pháp Luật", d:"28/4/2026", u:"https://thuvienphapluat.vn/phap-luat/bang-gia-nuoc-sinh-hoat-o-tphcm-2026-moi-nhat-chi-tiet-bang-gia-nuoc-sinh-hoat-o-tphcm-cap-nhat-nam-252032-266396.html", q:"Nước sạch: 6.700 đồng/m³… Tổng cộng: 9.206"}]},
+  cav:"Cả hai năm đều tính cho phần trong định mức 4 m³/người/tháng. Giá năm 2026 chưa gồm 5% VAT và phí thoát nước; nếu tính đủ thì là 9.206đ/m³."},
+
+ {id:"bus", g:"Đi lại", name:"Vé xe buýt (1 lượt)", unit:"đ/lượt",
+  a:{v:1000, show:"1.000", yr:"2002", conf:2,
+     src:[{t:"Đưa xe buýt về ‘thời hoàng kim’", p:"Thanh Niên", d:"26/10/2019", u:"https://thanhnien.vn/dua-xe-buyt-ve-thoi-hoang-kim-185895191.htm", q:"Do được trợ giá, tiền vé đồng hạng 1.000 đồng/lượt trên tất cả các tuyến"}]},
+  b:{v:6000, show:"5.000–7.000", yr:"đầu 2026",
+     src:[{t:"TP.HCM miễn vé xe buýt toàn dân thế nào", p:"VnExpress", d:"3/4/2026", u:"https://vnexpress.net/tp-hcm-mien-ve-xe-buyt-toan-dan-the-nao-5057859.html", q:"giá vé phổ thông… 5.000-7.000 đồng mỗi lượt"},
+          {t:"Miễn phí xe buýt 134 tuyến ở TP.HCM từ 1-7", p:"Cổng TTĐT Trung tâm Báo chí TP.HCM", d:"23/6/2026", u:"https://ttbc-hcm.gov.vn/mien-phi-xe-buyt-134-tuyen-o-tphcm-tu-1-7-nguoi-dan-can-luu-y-dieu-gi-1021625.html", q:"Từ ngày 1/7 đến hết 31/12/2026… hỗ trợ 100% giá vé"}]},
+  cav:"Số liệu năm 2002 là giá vé sau đợt trợ giá xe buýt; chưa tìm được giá năm 2000. Từ 1/7 đến 31/12/2026, 134 tuyến xe buýt được miễn vé, nên dashboard dùng giá vé niêm yết."},
+
+ {id:"xe", g:"Đi lại", name:"Xe số Honda (Dream → Future)", unit:"đ/chiếc",
+  a:{v:24500000, show:"24,5 triệu", yr:"2001", conf:2,
+     src:[{t:"Giá Dream Thái thay đổi qua các thời kỳ như thế nào", p:"VietNamNet", d:"11/5/2016", u:"https://vietnamnet.vn/gia-dream-thai-thay-doi-qua-cac-thoi-ky-nhu-the-nao-304063.html", q:"Dream Việt lúc này được bán giá 24,5 triệu đồng"}]},
+  b:{v:30520000, show:"30,52 triệu", yr:"mẫu 2026",
+     src:[{t:"Honda Future 125 Fi 2026 tinh chỉnh diện mạo, giá từ 30,52 triệu", p:"Báo Lâm Đồng", d:"28/10/2025", u:"https://baolamdong.vn/honda-future-125-fi-2026-tinh-chinh-dien-mao-gia-tu-3052-trieu-398415.html", q:"Phiên bản Tiêu chuẩn: 30,52 triệu đồng"}]},
+  cav:"Hai năm là hai mẫu xe khác nhau: Dream hiện không còn bán. Future 125 Fi là xe số cao cấp tương đương của Honda. Giá năm 2026 là giá đề xuất."},
+
+ {id:"vang", g:"Tài sản & tiền tệ", name:"Vàng SJC", unit:"đ/lượng",
+  a:{v:4750000, show:"4,5–5,0 triệu", yr:"2000", conf:2,
+     src:[{t:"Giá vàng năm 2000 là bao nhiêu?", p:"Finhay", d:"11/3/2026", u:"https://finhay.com.vn/gia-vang-nam-2000", q:"khoảng 4.500.000 VNĐ đến 5.000.000 VNĐ cho 1 lượng"}]},
+  b:{v:144800000, show:"144,8 triệu (bán ra)", yr:"13h25 9/10/2026",
+     src:[{t:"Giá vàng SJC ngày 09/10/2026", p:"Webgia.com", d:"9/10/2026", u:"https://webgia.com/gia-vang/sjc/09-10-2026.html", q:"Mua vào 141.800 · Bán ra 144.800 (nghìn đồng/lượng)"}]},
+  cav:"Số liệu năm 2000 là khoảng giá viết lại về sau. Có thể đối chiếu bằng giá thế giới: vàng bình quân năm 2000 khoảng 279 USD/ounce (metalcharts.org); 1 lượng = 1,2057 ounce; nhân với tỷ giá 14.168 thì được ≈ 4,77 triệu, khớp với điểm giữa khoảng giá."},
+
+ {id:"usd", g:"Tài sản & tiền tệ", name:"Tỷ giá USD/VND", unit:"đ/USD",
+  a:{v:14167.75, show:"14.168", yr:"2000 (bình quân)", conf:3,
+     src:[{t:"Official exchange rate (LCU per US$) – Viet Nam (PA.NUS.FCRF)", p:"World Bank", d:"cập nhật 8/10/2026", u:"https://data.worldbank.org/indicator/PA.NUS.FCRF?locations=VN", q:"2000: 14167.75"}]},
+  b:{v:26160, show:"26.160 (VCB bán ra)", yr:"7/10/2026",
+     src:[{t:"Tỉ giá USD hôm nay 8.10: Vietcombank bán ra 26.160 đồng/USD", p:"Báo Văn Hóa", d:"8/10/2026", u:"https://baovanhoa.vn/kinh-te/ti-gia-usd-hom-nay-810-vietcombank-ban-ra-26160-dongusd-272311.html", q:"25.760 đồng/USD mua vào và 26.160 đồng/USD bán ra … tỉ giá trung tâm ở mức 25.638"}]},
+  cav:"Năm 2000 là tỷ giá chính thức bình quân cả năm; năm 2026 là giá bán ra của Vietcombank. Nếu dùng tỷ giá trung tâm 25.638 thì tỷ giá tăng ×1,81."},
+
+ {id:"luong", g:"Thu nhập & học phí", name:"Lương tối thiểu", unit:"đ/tháng",
+  a:{v:180000, show:"180.000", yr:"từ 1/1/2000", conf:3,
+     src:[{t:"Nghị định 10/2000/NĐ-CP quy định tiền lương tối thiểu trong các doanh nghiệp", p:"Chính phủ (Hệ thống pháp luật)", d:"27/3/2000", u:"https://hethongphapluat.com/nghi-dinh-10-2000-nd-cp-quy-dinh-tien-luong-toi-thieu-trong-cac-doanh-nghiep.html", q:"mức tiền lương tối thiểu là 180.000 đồng/tháng … hiệu lực từ ngày 01 tháng 01 năm 2000"}]},
+  b:{v:5310000, show:"5.310.000 (vùng I)", yr:"từ 1/1/2026",
+     src:[{t:"Nghị định lương tối thiểu vùng 2026 là nghị định nào?", p:"Thư Viện Pháp Luật (NĐ 293/2025/NĐ-CP)", d:"9/1/2026", u:"https://thuvienphapluat.vn/hoi-dap-phap-luat/nghi-dinh-luong-toi-thieu-vung-2026-la-nghi-dinh-nao-138076681.html", q:"Vùng I | 5.310.000 | 25.500"}]},
+  cav:"Năm 2000 là lương tối thiểu chung, năm 2026 là lương tối thiểu vùng I. Doanh nghiệp FDI năm 2000 áp dụng một mức riêng cao hơn. Một số khu vực ngoại thành TP.HCM thuộc vùng II."},
+
+ {id:"hp", g:"Thu nhập & học phí", name:"Học phí ĐH công lập (mức trần)", unit:"đ/tháng",
+  a:{v:180000, show:"180.000", yr:"1998–2005", conf:2,
+     src:[{t:"Phí đại học dự kiến tăng gần 40%", p:"VnExpress", d:"15/9/2005", u:"https://vnexpress.net/phi-dai-hoc-du-kien-tang-gan-40-2033570.html", q:"mức trần hiện hành là 180.000 đồng/tháng"}]},
+  b:{v:1790000, show:"1.790.000", yr:"năm học 2026–27",
+     src:[{t:"Mức trần học phí đối với cơ sở GDĐH công lập… (bảng trần cho trường chưa tự bảo đảm chi thường xuyên, NĐ 238/2025/NĐ-CP)", p:"Thư Viện Pháp Luật", d:"6/10/2025", u:"https://thuvienphapluat.vn/phap-luat/muc-tran-hoc-phi-doi-voi-co-so-giao-duc-dai-hoc-cong-lap-tu-bao-dam-chi-thuong-xuyen-duoc-xac-dinh--932464-235364.html", q:"Kinh doanh và quản lý, pháp luật … 1.790 (nghìn đồng/tháng, năm học 2026–2027)"}]},
+  cav:"Cả hai năm đều là mức trần, không phải học phí thực thu. Mức năm 2026 áp dụng cho khối kinh doanh–quản lý và luật ở trường chưa tự chủ. Trường tự chủ, như UEH, có thể thu khoảng 40–75 triệu đồng/năm."}
+];
+
+const MACRO = {
+  cpi:{a:48.088, b:195.982, src:{t:"Consumer price index (2010 = 100) – Viet Nam (FP.CPI.TOTL)", p:"World Bank", d:"cập nhật 8/10/2026", u:"https://data.worldbank.org/indicator/FP.CPI.TOTL?locations=VN"}},
+  gdp:{a:404.03, b:5065.99, src:{t:"GDP per capita (current US$) – Viet Nam (NY.GDP.PCAP.CD)", p:"World Bank", d:"cập nhật 8/10/2026", u:"https://data.worldbank.org/indicator/NY.GDP.PCAP.CD?locations=VN"}}
+};
+
+const ONLY26 = [
+  {n:"Bình gas 12 kg (Petrolimex)", v:"612.000đ", s:"SGGP, 1/10/2026", u:"https://sggp.org.vn/gia-gas-tang-tu-1-10-mot-so-loai-binh-12kg-tang-20000-dong-post874329.html", gap:"Chưa tìm được giá bình gas năm 2000."},
+  {n:"Trứng gà công nghiệp (chục)", v:"30.000đ", s:"VietNamNet, 4/8/2026", u:"https://vietnamnet.vn/nho-banh-trung-thu-gia-trung-ga-thoat-day-2541670.html", gap:"Chỉ có trứng vịt năm 2001: 10.465đ/chục (Cục Thống kê TP.HCM qua CEIC); khác loại nên không so sánh."},
+  {n:"Lon Coca-Cola 320–330 ml", v:"10.000–13.000đ", s:"Webtretho, 8/7/2026", u:"https://www.webtretho.vn/f/kinh-nghiem-hay-huu-ich/gia-cocacola-320ml330ml-bao-nhieu-cap-nhat-bang-gia-moi-nhat-nam-2026", gap:"Chưa tìm được giá năm 2000."},
+  {n:"Taxi Vinasun: giá mở cửa", v:"11.000đ / 500 m đầu", s:"Xanh SM, 20/3/2025 (số năm 2025)", u:"https://www.greensm.com/vn-vi/news/taxi-sai-gon", gap:"Vinasun thành lập năm 2003. Chưa tìm được giá taxi năm 2000."},
+  {n:"Vé máy bay HN–TP.HCM (giá trần, phổ thông)", v:"3.400.000đ", s:"VietnamPlus, 3/1/2025; VnExpress, 26/3/2026", u:"https://www.vietnamplus.vn/gia-ve-may-bay-noi-dia-hang-pho-thong-toi-da-khong-qua-4-trieu-dong-moi-chieu-post1005568.vnp", gap:"Đây là giá trần, không phải giá vé thực tế. Chưa tìm được giá năm 2000."},
+  {n:"Vé xem phim CGV 2D (người lớn)", v:"105.000đ (T2, T3, T5)", s:"FPT Shop, khoảng 8/2026", u:"https://fptshop.com.vn/tin-tuc/for-gamers/gia-ve-cgv-211057", gap:"Mốc sớm nhất tìm được là năm 2011: BHD 35.000–80.000đ (VnExpress, 8/7/2011)."},
+  {n:"Sữa đặc Ông Thọ đỏ 380 g", v:"23.000–25.000đ", s:"Websosanh (không ghi ngày)", u:"https://websosanh.vn/sua-dac-ong-tho-do-380g-ma-sp-000512/28923214/so-sanh.htm", gap:"Chưa tìm được giá năm 2000."},
+  {n:"Cắt tóc (nam)", v:"Chưa có giá 2026", s:"Năm 2000: 6.104đ/lần (Cục Thống kê TP.HCM qua CEIC)", u:CEIC_URL, gap:"Mục này ngược lại: có giá năm 2000 nhưng chưa tìm được giá 2026 có nguồn."},
+  {n:"Báo Tuổi Trẻ (1 tờ)", v:"Ngừng bản in từ 30/6/2026", s:"Tiền Phong, 30/6/2026", u:"https://tienphong.vn/nhung-so-bao-cuoi-truoc-gio-bao-chi-tphcm-chuyen-minh-post1855657.tpo", gap:"Không còn giá bìa năm 2026. Mốc gần nhất tìm được là 3.700đ năm 2012 (Tuổi Trẻ, 28/9/2012)."}
+];
+
+// ---------- helpers ----------
+const fmt = (n, d=0) => n.toLocaleString("vi-VN",{maximumFractionDigits:d, minimumFractionDigits:d});
+const fmtX = n => "×" + (n>=10 ? fmt(n,1) : fmt(n,2)).replace(/,0+$/,"");
+const confDots = c => ["", "●○○", "●●○", "●●●"][c];
+const confTxt = c => ["", "Thấp", "Trung bình", "Cao"][c];
+const esc = s => String(s).replace(/[&<>"]/g, ch => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[ch]));
+ITEMS.forEach(it => { it.mult = it.b.v / it.a.v; it.real = it.mult / CPI; });
+
+// ---------- theme ----------
+(function(){
+  const btn = document.getElementById("themeBtn");
+  const states = ["auto","light","dark"], labels = {auto:"Tự động", light:"Sáng", dark:"Tối"};
+  let i = 0;
+  try { const s = localStorage.getItem("gia-theme"); if (s && states.includes(s)) i = states.indexOf(s); } catch(e){}
+  const apply = () => {
+    const s = states[i];
+    if (s === "auto") document.documentElement.removeAttribute("data-theme");
+    else document.documentElement.setAttribute("data-theme", s);
+    btn.textContent = "Giao diện: " + labels[s];
+    try { localStorage.setItem("gia-theme", s); } catch(e){}
+    if (window.__draw) window.__draw();
+  };
+  btn.addEventListener("click", () => { i = (i+1)%3; apply(); });
+  apply();
+})();
+
+// ---------- KPIs ----------
+(function(){
+  const consumer = ITEMS.filter(it => !["vang","usd","luong","hp","xe"].includes(it.id)).map(it=>it.mult).sort((a,b)=>a-b);
+  const med = consumer.length%2 ? consumer[(consumer.length-1)/2] : (consumer[consumer.length/2-1]+consumer[consumer.length/2])/2;
+  const by = id => ITEMS.find(x=>x.id===id);
+  const k = [
+    {l:"Lạm phát chung (CPI)", v:"≈×4,26", c:"×4,08 cho giai đoạn 2000–2025 (World Bank), cộng thêm +4,52% của 2026"},
+    {l:"Trung vị 13 món tiêu dùng", v:fmtX(med), c:"Gồm đồ ăn, chợ, điện, nước, xăng, xe buýt"},
+    {l:"Lương tối thiểu", v:fmtX(by("luong").mult), c:"180.000đ lên 5.310.000đ/tháng"},
+    {l:"Vàng SJC", v:fmtX(by("vang").mult), c:"≈4,75 triệu lên 144,8 triệu/lượng"},
+    {l:"Tỷ giá USD", v:fmtX(by("usd").mult), c:"14.168 lên 26.160 đồng/USD"},
+    {l:"GDP đầu người (USD)", v:fmtX(MACRO.gdp.b/MACRO.gdp.a), c:"404 USD (2000) lên 5.066 USD (2025)"}
+  ];
+  document.getElementById("kpis").innerHTML = k.map(x=>`<div class="card kpi"><div class="lbl">${x.l}</div><div class="val">${x.v}</div><div class="ctx">${x.c}</div></div>`).join("");
+})();
+
+// ---------- purchasing power ----------
+(function(){
+  const W0 = 180000, W1 = 5310000;
+  const by = id => ITEMS.find(x=>x.id===id);
+  const rows = [
+    {n:"Tô phở", it:by("pho"), u:"tô", d:0},
+    {n:"Gạo thường", it:by("gao"), u:"kg", d:0},
+    {n:"Thịt heo", it:by("heo"), u:"kg", d:1},
+    {n:"Xăng 92", it:by("xang"), u:"lít", d:0},
+    {n:"Điện bậc 1", it:by("dien"), u:"kWh", d:0},
+    {n:"Vàng SJC", it:by("vang"), u:"chỉ", d:2, per:10}
+  ];
+  document.getElementById("pp").innerHTML = rows.map(r=>{
+    const p0 = r.it.a.v/(r.per||1), p1 = r.it.b.v/(r.per||1);
+    const q0 = W0/p0, q1 = W1/p1;
+    return `<div class="box"><div class="nm">${r.n}</div>
+      <div class="nums">${fmt(q0,r.d)} <small>→</small> ${fmt(q1,r.d)} <small>${r.u}</small></div>
+      <div class="x">Lượng mua được ${q1/q0>=1?"gấp":"chỉ bằng"} ${fmtX(q1/q0)} năm 2000</div></div>`;
+  }).join("");
+})();
+
+// ---------- chart ----------
+let mode = "nominal", group = "Tất cả";
+(function(){
+  const wrap = document.getElementById("groupChips");
+  ["Tất cả", ...GROUPS].forEach(g=>{
+    const b = document.createElement("button");
+    b.className="chip"; b.type="button"; b.textContent=g; b.setAttribute("aria-pressed", g===group);
+    b.onclick=()=>{ group=g; [...wrap.children].forEach(c=>c.setAttribute("aria-pressed", c.textContent===g)); draw(); };
+    wrap.appendChild(b);
+  });
+  const bn = document.getElementById("modeNominal"), br = document.getElementById("modeReal");
+  bn.onclick=()=>{mode="nominal"; bn.setAttribute("aria-pressed",true); br.setAttribute("aria-pressed",false); draw();};
+  br.onclick=()=>{mode="real"; br.setAttribute("aria-pressed",true); bn.setAttribute("aria-pressed",false); draw();};
+})();
+
+function cssVar(n){ return getComputedStyle(document.documentElement).getPropertyValue(n).trim(); }
+
+function draw(){
+  const box = document.getElementById("chartBox"), tip = document.getElementById("tip");
+  [...box.querySelectorAll("svg")].forEach(s=>s.remove());
+  const data = ITEMS.filter(it => group==="Tất cả" || it.g===group)
+    .map(it => ({it, val: mode==="nominal" ? it.mult : it.real}))
+    .sort((a,b)=>b.val-a.val);
+  const ref = mode==="nominal" ? CPI : 1;
+  document.getElementById("chartTitle").textContent = mode==="nominal" ? "Giá năm 2026 gấp bao nhiêu lần năm 2000" : "Đắt lên hay rẻ đi sau khi trừ lạm phát";
+  document.getElementById("chartSub").textContent = mode==="nominal"
+    ? "Trục ngang theo thang log, để ×2 và ×20 cách đều nhau. Vạch đứng là mức lạm phát chung (≈×4,26)."
+    : "Bằng hệ số tăng giá chia cho lạm phát (×4,26). Vạch đứng ở ×1 nghĩa là tăng đúng bằng lạm phát; bên phải vạch là đắt lên theo giá thực, bên trái là rẻ đi.";
+  const up = cssVar("--up"), down = cssVar("--down");
+  document.getElementById("legend").innerHTML =
+    `<span><i class="sw" style="background:${up}"></i>Tăng nhanh hơn lạm phát</span>
+     <span><i class="sw" style="background:${down}"></i>Tăng chậm hơn lạm phát</span>
+     <span><i class="sw" style="background:${cssVar("--ink-2")};opacity:.4"></i>Nhạt và có dấu ◌: giá 2000 từ hồi ức trên diễn đàn</span>`;
+
+  const W = box.clientWidth, narrow = W < 620;
+  const labelW = narrow ? 150 : 250, rightPad = 56, top = 26, rowH = narrow ? 30 : 32, bottom = 30;
+  const H = top + data.length*rowH + bottom;
+  const vals = data.map(d=>d.val).concat([ref]);
+  let lo = Math.min(...vals)*(mode==="real"?0.6:0.8), hi = Math.max(...vals)*1.15;
+  if (mode==="nominal") { lo = Math.min(lo, 1); }
+  const L0 = Math.log(lo), L1 = Math.log(hi);
+  const x = v => labelW + (Math.log(v)-L0)/(L1-L0)*(W-labelW-rightPad);
+  const ticksAll = [0.1,0.2,0.3,0.5,1,2,3,5,10,20,30,50];
+  const ticks = ticksAll.filter(t=>t>=lo && t<=hi);
+  const NS="http://www.w3.org/2000/svg";
+  const svg = document.createElementNS(NS,"svg");
+  svg.setAttribute("width",W); svg.setAttribute("height",H); svg.setAttribute("role","img");
+  svg.setAttribute("aria-label", "Biểu đồ thanh: " + data.map(d=>d.it.name+" "+fmtX(d.val)).join("; "));
+  let s = "";
+  const muted = cssVar("--muted"), grid = cssVar("--grid"), ink = cssVar("--ink"), ink2 = cssVar("--ink-2"), axis=cssVar("--axis"), surface=cssVar("--surface");
+  ticks.forEach(t=>{
+    s += `<line x1="${x(t)}" x2="${x(t)}" y1="${top-6}" y2="${H-bottom}" stroke="${grid}" stroke-width="1"/>`;
+    s += `<text x="${x(t)}" y="${H-bottom+18}" fill="${muted}" font-size="12" text-anchor="middle">×${fmt(t,t<1?1:0)}</text>`;
+  });
+  const base = x(Math.min(lo*1.0001, ref)) ;
+  const x0 = labelW;
+  const xr = x(ref);
+  s += `<line x1="${xr}" x2="${xr}" y1="${top-10}" y2="${H-bottom}" stroke="${ink}" stroke-width="1.5"/>`;
+  s += `<text x="${xr}" y="${top-14}" fill="${ink}" font-size="12" font-weight="600" text-anchor="${xr>W-120?"end":"middle"}">${mode==="nominal"?"Lạm phát ≈×4,26":"Bằng lạm phát ×1"}</text>`;
+  data.forEach((d,i)=>{
+    const y = top + i*rowH, bh = rowH-12, cy = y+ (rowH)/2;
+    const col = d.val >= ref ? up : down;
+    const low = d.it.a.conf===1;
+    const xe = x(d.val), x1 = x(1);
+    const left = Math.min(xe,x1), w = Math.max(2, Math.abs(xe-x1));
+    const pos = d.val >= 1;
+    s += `<g class="bar" data-i="${i}">`;
+    s += `<rect x="0" y="${y}" width="${W}" height="${rowH}" fill="transparent"/>`;
+    s += `<text x="${labelW-10}" y="${cy+4}" text-anchor="end" fill="${ink}" font-size="${narrow?12:13.5}">${low?"◌ ":""}${esc(narrow && d.it.name.length>22 ? d.it.name.slice(0,21)+"…" : d.it.name)}</text>`;
+    s += `<rect class="m" x="${left}" y="${y+6}" width="${w}" height="${bh}" rx="3" fill="${col}" opacity="${low?0.42:1}"/>`;
+    s += `<text x="${pos? Math.max(xe,x1)+6 : xe-6}" y="${cy+4}" text-anchor="${pos?"start":"end"}" fill="${ink2}" font-size="12.5" stroke="${surface}" stroke-width="4" paint-order="stroke" style="font-variant-numeric:tabular-nums">${fmtX(d.val)}</text>`;
+    s += `</g>`;
+  });
+  // baseline + reference
+  s += `<line x1="${x(1)}" x2="${x(1)}" y1="${top-6}" y2="${H-bottom}" stroke="${axis}" stroke-width="1"/>`;
+  svg.innerHTML = s;
+  box.appendChild(svg);
+
+  svg.querySelectorAll("g.bar").forEach(g=>{
+    const d = data[+g.dataset.i];
+    g.addEventListener("mousemove", e=>{
+      const r = box.getBoundingClientRect();
+      tip.innerHTML = `<div class="t">${esc(d.it.name)}</div>
+        <div class="r">${d.it.a.yr}: ${d.it.a.show} ${d.it.unit}</div>
+        <div class="r">${d.it.b.yr}: ${d.it.b.show} ${d.it.unit}</div>
+        <div>Danh nghĩa <b>${fmtX(d.it.mult)}</b> · Sau lạm phát <b>${fmtX(d.it.real)}</b></div>
+        <div class="r">Tin cậy (2000): ${confDots(d.it.a.conf)} ${confTxt(d.it.a.conf)}</div>`;
+      let lx = e.clientX - r.left + 14, ly = e.clientY - r.top + 14;
+      if (lx + 290 > r.width) lx = e.clientX - r.left - 290;
+      tip.style.left = Math.max(0,lx)+"px"; tip.style.top = ly+"px"; tip.style.opacity = 1;
+      g.querySelector("rect.m").setAttribute("stroke", ink); g.querySelector("rect.m").setAttribute("stroke-width","1");
+    });
+    g.addEventListener("mouseleave", ()=>{ tip.style.opacity=0; g.querySelector("rect.m").removeAttribute("stroke"); });
+    g.addEventListener("click", ()=> openRow(d.it.id));
+  });
+}
+window.__draw = draw;
+window.addEventListener("resize", ()=>{ clearTimeout(window.__rt); window.__rt=setTimeout(draw,120); });
+const mq = window.matchMedia("(prefers-color-scheme: dark)"); if (mq.addEventListener) mq.addEventListener("change", draw);
+
+// ---------- table ----------
+let sortK = "mult", sortDir = -1;
+const open = new Set();
+function srcHtml(list){
+  return list.map(s=>`<div class="src"><a href="${s.u}" target="_blank" rel="noopener">${esc(s.t)}</a> · ${esc(s.p)} · ${esc(s.d)}<blockquote>“${esc(s.q)}”</blockquote></div>`).join("");
+}
+function renderTable(){
+  const tb = document.querySelector("#tbl tbody");
+  const key = it => ({name:it.name, v0:it.a.v, v1:it.b.v, mult:it.mult, real:it.real, conf:it.a.conf}[sortK]);
+  const rows = [...ITEMS].sort((a,b)=>{ const A=key(a),B=key(b); return (typeof A==="string"? A.localeCompare(B,"vi") : A-B)*sortDir; });
+  let h = "";
+  rows.forEach(it=>{
+    h += `<tr class="main" data-id="${it.id}" tabindex="0" aria-expanded="${open.has(it.id)}">
+      <td><div>${esc(it.name)}</div><div class="grp">${esc(it.g)} · ${esc(it.unit)}</div></td>
+      <td class="num">${it.a.show}<div class="yr">${esc(it.a.yr)}</div></td>
+      <td class="num">${it.b.show}<div class="yr">${esc(it.b.yr)}</div></td>
+      <td class="num"><b>${fmtX(it.mult)}</b></td>
+      <td class="num">${fmtX(it.real)} ${Math.abs(it.real-1)<0.03?"≈":(it.real>=1?"▲":"▼")}</td>
+      <td class="conf"><span class="dots" aria-hidden="true">${confDots(it.a.conf)}</span> ${confTxt(it.a.conf)}</td>
+      <td class="src">${it.a.src.map((s,i)=>`<a href="${s.u}" target="_blank" rel="noopener">2000${it.a.src.length>1?"·"+(i+1):""}</a>`).join(" ")} · ${it.b.src.map((s,i)=>`<a href="${s.u}" target="_blank" rel="noopener">2026${it.b.src.length>1?"·"+(i+1):""}</a>`).join(" ")}</td></tr>`;
+    if (open.has(it.id)) h += `<tr class="detail"><td colspan="7"><div class="dgrid">
+      <div><h4>Nguồn năm 2000 (${esc(it.a.yr)})</h4>${srcHtml(it.a.src)}</div>
+      <div><h4>Nguồn năm 2026 (${esc(it.b.yr)})</h4>${srcHtml(it.b.src)}</div></div>
+      <div class="caveat"><b>Lưu ý khi so sánh:</b> ${esc(it.cav)}</div></td></tr>`;
+  });
+  // macro rows
+  h += `<tr><td><div>Chỉ số giá tiêu dùng CPI</div><div class="grp">Vĩ mô · 2010 = 100</div></td>
+    <td class="num">48,09<div class="yr">2000</div></td><td class="num">195,98<div class="yr">2025</div></td>
+    <td class="num"><b>×4,08</b></td><td class="num">—</td><td class="conf"><span class="dots">●●●</span> Cao</td>
+    <td class="src"><a href="${MACRO.cpi.src.u}" target="_blank" rel="noopener">World Bank</a></td></tr>
+    <tr><td><div>GDP bình quân đầu người</div><div class="grp">Vĩ mô · USD theo giá hiện hành</div></td>
+    <td class="num">404 USD<div class="yr">2000</div></td><td class="num">5.066 USD<div class="yr">2025</div></td>
+    <td class="num"><b>${fmtX(MACRO.gdp.b/MACRO.gdp.a)}</b></td><td class="num">—</td><td class="conf"><span class="dots">●●●</span> Cao</td>
+    <td class="src"><a href="${MACRO.gdp.src.u}" target="_blank" rel="noopener">World Bank</a></td></tr>`;
+  tb.innerHTML = h;
+  tb.querySelectorAll("tr.main").forEach(tr=>{
+    const t = ()=>{ const id=tr.dataset.id; open.has(id)?open.delete(id):open.add(id); renderTable(); };
+    tr.addEventListener("click", e=>{ if(e.target.tagName!=="A") t(); });
+    tr.addEventListener("keydown", e=>{ if(e.key==="Enter"||e.key===" "){ e.preventDefault(); t(); }});
+  });
+  document.querySelectorAll("#tbl th[data-k]").forEach(th=>{
+    th.classList.remove("sorted-asc","sorted-desc");
+    if (th.dataset.k===sortK) th.classList.add(sortDir>0?"sorted-asc":"sorted-desc");
+  });
+}
+document.querySelectorAll("#tbl th[data-k]").forEach(th=>th.addEventListener("click",()=>{
+  if (sortK===th.dataset.k) sortDir*=-1; else { sortK=th.dataset.k; sortDir = th.dataset.k==="name"?1:-1; }
+  renderTable();
+}));
+function openRow(id){
+  open.add(id); renderTable();
+  const tr = document.querySelector(`#tbl tr.main[data-id="${id}"]`);
+  if (tr) tr.scrollIntoView({behavior:"smooth", block:"center"});
+}
+
+// ---------- 2026-only ----------
+document.getElementById("only26").innerHTML = ONLY26.map(o=>`<div class="box"><div class="nm">${esc(o.n)}</div><div class="v">${esc(o.v)}</div>
+  <div class="s"><a href="${o.u}" target="_blank" rel="noopener">${esc(o.s)}</a></div><div class="s" style="margin-top:4px">${esc(o.gap)}</div></div>`).join("");
+
+renderTable();
+draw();
+</script>
+</body>
+</html>

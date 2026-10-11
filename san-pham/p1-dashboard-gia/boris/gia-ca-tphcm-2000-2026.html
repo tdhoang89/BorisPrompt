@@ -1,0 +1,1034 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Giá cả TP.HCM 2000–2026</title>
+<meta name="description" content="So sánh giá 17 mặt hàng và dịch vụ quen thuộc ở TP.HCM năm 2000 và 2026, mỗi con số kèm nguồn mở được.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23c2362f'/%3E%3Cpath d='M7 23h4v-6H7zM14 23h4V12h-4zM21 23h4V7h-4z' fill='%23fff'/%3E%3C/svg%3E">
+<style>
+:root{
+  color-scheme: light;
+  --page:#f6f5f1; --surface:#fcfcfb; --surface-2:#f0efea; --ink:#0b0b0b; --ink-2:#52514e; --muted:#77756f;
+  --grid:#e4e3dc; --axis:#c3c2b7; --ring:rgba(11,11,11,.10); --ring-2:rgba(11,11,11,.16);
+  --z-hi:#c2362f; --z-mid:#eda100; --z-lo:#2a78d6;
+  --z-hi-bg:rgba(194,54,47,.08); --z-mid-bg:rgba(237,161,0,.10); --z-lo-bg:rgba(42,120,214,.08);
+  --link:#1c5cab; --chip:#ecebe5; --warn-ink:#8a5a00; --warn-bg:#fdf3dc;
+  --shadow:0 1px 2px rgba(0,0,0,.04),0 4px 16px rgba(0,0,0,.04);
+  --radius:14px;
+  --font: system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme: dark;
+    --page:#0f0f0e; --surface:#1a1a19; --surface-2:#222220; --ink:#f0efec; --ink-2:#c3c2b7; --muted:#9a988f;
+    --grid:#2c2c2a; --axis:#45453f; --ring:rgba(255,255,255,.10); --ring-2:rgba(255,255,255,.16);
+    --z-hi:#d6453f; --z-mid:#c98500; --z-lo:#3987e5;
+    --z-hi-bg:rgba(214,69,63,.14); --z-mid-bg:rgba(201,133,0,.14); --z-lo-bg:rgba(57,135,229,.14);
+    --link:#86b6ef; --chip:#2a2a27; --warn-ink:#f2c46b; --warn-bg:#2e2615;
+    --shadow:none;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme: dark;
+  --page:#0f0f0e; --surface:#1a1a19; --surface-2:#222220; --ink:#f0efec; --ink-2:#c3c2b7; --muted:#9a988f;
+  --grid:#2c2c2a; --axis:#45453f; --ring:rgba(255,255,255,.10); --ring-2:rgba(255,255,255,.16);
+  --z-hi:#d6453f; --z-mid:#c98500; --z-lo:#3987e5;
+  --z-hi-bg:rgba(214,69,63,.14); --z-mid-bg:rgba(201,133,0,.14); --z-lo-bg:rgba(57,135,229,.14);
+  --link:#86b6ef; --chip:#2a2a27; --warn-ink:#f2c46b; --warn-bg:#2e2615;
+  --shadow:none;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--page);color:var(--ink);font:16px/1.55 var(--font);}
+a{color:var(--link);text-underline-offset:2px}
+a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,[tabindex]:focus-visible,summary:focus-visible{outline:2px solid var(--link);outline-offset:2px;border-radius:6px}
+.wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+@media (max-width:600px){.wrap{padding:0 16px}}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* top bar */
+.topbar{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:18px 0 0}
+.eyebrow{font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2);font-weight:600}
+.tools{display:flex;gap:8px;flex-wrap:wrap}
+.btn{appearance:none;border:1px solid var(--ring-2);background:var(--surface);color:var(--ink);font:500 14px/1 var(--font);padding:9px 12px;border-radius:10px;cursor:pointer;display:inline-flex;align-items:center;gap:6px;min-height:38px}
+.btn:hover{background:var(--surface-2)}
+.btn svg{width:16px;height:16px}
+
+/* header */
+header.hero-head{padding:22px 0 8px}
+h1{font-size:clamp(30px,4.6vw,52px);line-height:1.08;letter-spacing:-.02em;margin:0 0 14px;font-weight:750;max-width:20ch}
+.lede{font-size:clamp(16px,1.6vw,19px);color:var(--ink-2);max-width:68ch;margin:0}
+.meta-row{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0 0}
+.pill{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--ink-2);background:var(--surface);border:1px solid var(--ring);border-radius:999px;padding:5px 11px}
+.pill b{color:var(--ink);font-weight:650}
+
+/* hero */
+.hero{display:grid;grid-template-columns:1.35fr 1fr;gap:16px;margin:26px 0 16px}
+@media (max-width:860px){.hero{grid-template-columns:1fr}}
+.card{background:var(--surface);border:1px solid var(--ring);border-radius:var(--radius);box-shadow:var(--shadow)}
+.hero-main{padding:26px 26px 22px;position:relative;overflow:hidden}
+.hero-main::before{content:"";position:absolute;inset:0 auto 0 0;width:5px;background:var(--z-hi)}
+.kicker{font-size:13px;font-weight:650;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-2);margin:0 0 6px}
+.hero-num{font-size:clamp(64px,10vw,112px);line-height:1;font-weight:780;letter-spacing:-.035em;margin:2px 0 18px}
+.hero-num small{font-size:.42em;font-weight:650;letter-spacing:-.01em;margin-left:6px;color:var(--ink-2)}
+.hero-name{font-size:clamp(20px,2.3vw,26px);font-weight:700;margin:0 0 4px;line-height:1.25}
+.hero-sub{color:var(--ink-2);margin:0 0 14px}
+.fromto{display:flex;align-items:center;gap:12px;flex-wrap:wrap;font-variant-numeric:tabular-nums}
+.fromto .y{font-size:12px;color:var(--muted);display:block;font-weight:600;letter-spacing:.04em}
+.fromto .v{font-size:20px;font-weight:650}
+.fromto .arrow{color:var(--muted);font-size:20px}
+.caveat{margin-top:16px;padding:10px 12px;border-radius:10px;background:var(--warn-bg);color:var(--warn-ink);font-size:14px;line-height:1.45}
+.caveat b{font-weight:650}
+.hero-side{display:grid;grid-template-rows:repeat(3,1fr);gap:12px}
+.mini{padding:16px 18px;display:flex;justify-content:space-between;align-items:center;gap:14px;cursor:pointer;text-align:left;width:100%;font:inherit;color:inherit}
+.mini:hover{border-color:var(--ring-2);background:var(--surface-2)}
+.mini .mtxt{display:flex;flex-direction:column;gap:3px;min-width:0}
+.mini .rank{font-size:12px;font-weight:650;color:var(--muted);letter-spacing:.02em}
+.mini .nm{font-weight:650;font-size:17px;display:flex;align-items:center;gap:8px}
+.mini .sm{font-size:13px;color:var(--ink-2);font-variant-numeric:tabular-nums}
+.mini .x{font-size:32px;font-weight:760;letter-spacing:-.02em;white-space:nowrap}
+.dot{display:inline-block;width:10px;height:10px;border-radius:50%;flex:none}
+
+/* insight band */
+.insight{padding:20px 22px;margin:0 0 30px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px 18px}
+.bm .l{font-size:13px;color:var(--ink-2);font-weight:600}
+.bm .v{font-size:30px;font-weight:760;letter-spacing:-.02em;line-height:1.15}
+.bm .s{font-size:12px;color:var(--muted)}
+.says{grid-column:1/-1;font-size:17px;line-height:1.55;border-top:1px solid var(--grid);padding-top:14px;max-width:95ch}
+.says b{font-weight:680}
+@media (max-width:520px){.insight{grid-template-columns:1fr 1fr}.bm .v{font-size:26px}}
+/* sections */
+section{margin:0 0 34px}
+.sec-h{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap;margin:0 0 12px}
+h2{font-size:clamp(22px,2.4vw,28px);letter-spacing:-.015em;margin:0;line-height:1.2}
+.sec-sub{color:var(--ink-2);margin:4px 0 0;max-width:72ch;font-size:15px}
+
+/* controls */
+.controls{display:flex;flex-wrap:wrap;gap:10px 14px;align-items:center;padding:14px 16px;border-bottom:1px solid var(--grid)}
+.seg{display:inline-flex;background:var(--surface-2);border-radius:10px;padding:3px;gap:2px;flex-wrap:wrap}
+.seg button{appearance:none;border:0;background:transparent;color:var(--ink-2);font:550 14px/1 var(--font);padding:9px 12px;border-radius:8px;cursor:pointer;min-height:36px}
+.seg button[aria-pressed="true"]{background:var(--surface);color:var(--ink);box-shadow:0 0 0 1px var(--ring-2)}
+.ctl-label{font-size:12px;color:var(--muted);font-weight:650;text-transform:uppercase;letter-spacing:.05em;margin-right:2px}
+.ctl-group{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.spacer{flex:1}
+.mode-explain{padding:12px 16px 0;color:var(--ink-2);font-size:14px;min-height:2.6em}
+.legend{display:flex;flex-wrap:wrap;gap:6px 16px;padding:8px 16px 0;font-size:13px;color:var(--ink-2)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.chart-wrap{padding:6px 8px 12px;position:relative}
+#chart{display:block;width:100%;height:auto;overflow:visible}
+#chart text{font-family:var(--font)}
+.row-hit{cursor:pointer}
+.row-hit:focus{outline:none}
+.row-hit:focus .hit-bg, .row-hit:hover .hit-bg{fill:var(--surface-2)}
+.bar{transition:none}
+.tip{position:fixed;z-index:20;pointer-events:none;background:var(--surface);color:var(--ink);border:1px solid var(--ring-2);border-radius:12px;padding:12px 14px;box-shadow:0 8px 28px rgba(0,0,0,.16);font-size:14px;max-width:320px;opacity:0;transform:translateY(4px);transition:opacity .12s,transform .12s}
+.tip.on{opacity:1;transform:none}
+.tip h4{margin:0 0 6px;font-size:15px}
+.tip .r{display:flex;justify-content:space-between;gap:14px;font-variant-numeric:tabular-nums}
+.tip .r span:first-child{color:var(--ink-2)}
+.tip .hint{margin-top:6px;font-size:12px;color:var(--muted)}
+
+/* table */
+.tbl-wrap{overflow-x:auto;padding:0 0 4px}
+table{border-collapse:collapse;width:100%;font-size:14px}
+th,td{padding:10px 12px;border-bottom:1px solid var(--grid);text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
+th:first-child,td:first-child{text-align:left;white-space:normal;min-width:180px}
+th{font-size:12px;text-transform:uppercase;letter-spacing:.04em;color:var(--ink-2);font-weight:650;position:sticky;top:0;background:var(--surface)}
+th button{all:unset;cursor:pointer;display:inline-flex;gap:4px;align-items:center}
+th button:focus-visible{outline:2px solid var(--link)}
+tbody tr:hover{background:var(--surface-2)}
+.hidden{display:none!important}
+
+/* cards */
+.filters{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:0 0 14px}
+.search{flex:1;min-width:220px;max-width:380px;position:relative}
+.search input{width:100%;font:15px var(--font);padding:10px 12px 10px 36px;border-radius:10px;border:1px solid var(--ring-2);background:var(--surface);color:var(--ink);min-height:42px}
+.search svg{position:absolute;left:11px;top:50%;transform:translateY(-50%);width:16px;height:16px;color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:14px}
+@media (max-width:420px){.grid{grid-template-columns:minmax(0,1fr)}}
+.item{padding:18px 18px 14px;display:flex;flex-direction:column;gap:10px;scroll-margin-top:16px}
+.item.flash{animation:flash 1.4s ease}
+@keyframes flash{0%{box-shadow:0 0 0 3px var(--link)}100%{box-shadow:var(--shadow)}}
+.item-h{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+.item-h h3{margin:0;font-size:17px;line-height:1.3}
+.item-h .spec{font-size:13px;color:var(--ink-2);margin-top:2px}
+.rk{font-size:12px;font-weight:700;color:var(--muted);margin-bottom:2px;display:flex;align-items:center;gap:6px}
+.bigx{font-size:32px;font-weight:770;letter-spacing:-.02em;line-height:1;text-align:right;white-space:nowrap}
+.bigx .zl{display:flex;justify-content:flex-end;align-items:center;gap:5px;font-size:11px;font-weight:650;color:var(--ink-2);letter-spacing:0;margin-top:5px}
+.prices{display:grid;grid-template-columns:1fr auto 1fr;gap:8px;align-items:center;background:var(--surface-2);border-radius:10px;padding:10px 12px}
+.prices .y{font-size:12px;font-weight:650;color:var(--muted)}
+.prices .v{font-size:16px;font-weight:650;font-variant-numeric:tabular-nums}
+.prices .when{font-size:12px;color:var(--ink-2);line-height:1.35}
+.prices .ar{color:var(--muted)}
+.facts{display:grid;grid-template-columns:1fr 1fr;gap:6px 12px;font-size:13px}
+.facts .k{color:var(--ink-2)}
+.facts .val{font-weight:600;font-variant-numeric:tabular-nums}
+.flags{display:flex;flex-wrap:wrap;gap:6px}
+.flag{font-size:12px;background:var(--warn-bg);color:var(--warn-ink);border-radius:6px;padding:3px 7px;line-height:1.3}
+.note{font-size:14px;color:var(--ink-2);margin:0}
+.srcs{border-top:1px solid var(--grid);padding-top:10px;font-size:13px;display:flex;flex-direction:column;gap:6px}
+.src{display:grid;grid-template-columns:auto 1fr;gap:2px 8px;align-items:baseline}
+.src .side{font-size:11px;font-weight:700;color:var(--ink-2);background:var(--chip);border-radius:5px;padding:2px 6px;text-align:center;min-width:44px}
+.src a{font-weight:600}
+.src .q{grid-column:2;color:var(--ink-2);font-style:italic;font-size:13px;line-height:1.45;margin:2px 0 4px;border-left:2px solid var(--grid);padding-left:8px}
+details.more summary{cursor:pointer;color:var(--link);font-size:13px;font-weight:600;list-style:none;padding:4px 0}
+details.more summary::-webkit-details-marker{display:none}
+details.more summary::before{content:"▸ ";}
+details.more[open] summary::before{content:"▾ ";}
+.empty{padding:30px;text-align:center;color:var(--ink-2)}
+
+/* calculator */
+.calc{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.4fr);gap:0}
+@media (max-width:820px){.calc{grid-template-columns:minmax(0,1fr)}}
+.calc-in{padding:22px;border-right:1px solid var(--grid)}
+@media (max-width:820px){.calc-in{border-right:0;border-bottom:1px solid var(--grid)}}
+.calc-in label{display:block;font-weight:650;margin:0 0 8px}
+.money{display:flex;align-items:center;border:1px solid var(--ring-2);border-radius:12px;background:var(--surface);overflow:hidden}
+.money input{flex:1;min-width:0;border:0;background:transparent;color:var(--ink);font:700 26px var(--font);padding:12px 14px;font-variant-numeric:tabular-nums}
+.money input:focus{outline:none}
+.money:focus-within{outline:2px solid var(--link);outline-offset:1px}
+.money span{padding:0 14px;color:var(--ink-2);font-weight:650}
+.quick{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0 0}
+.quick button{font-size:13px;padding:6px 10px;min-height:32px;white-space:normal;text-align:left}
+.calc-out{padding:22px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px}
+@media (max-width:520px){.calc-out{grid-template-columns:minmax(0,1fr)}}
+.co .l{font-size:13px;color:var(--ink-2);font-weight:600}
+.co .v{font-size:24px;font-weight:740;letter-spacing:-.01em;font-variant-numeric:tabular-nums}
+.co .s{font-size:12px;color:var(--muted)}
+.buy{grid-column:1/-1;border-top:1px solid var(--grid);padding-top:14px;display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.buy select{width:100%;font:15px var(--font);padding:8px 10px;border-radius:10px;border:1px solid var(--ring-2);background:var(--surface);color:var(--ink);min-height:40px;max-width:100%}
+.buy p{margin:6px 0 0;width:100%;font-size:15px}
+
+/* benchmarks & pending */
+.bench{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px}
+.bench .card{padding:16px}
+.bench .x{font-size:28px;font-weight:760;letter-spacing:-.02em}
+.bench .nm{font-weight:650}
+.bench .ft{font-size:13px;color:var(--ink-2);font-variant-numeric:tabular-nums;margin:4px 0 8px}
+.pend{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(300px,100%),1fr));gap:12px}
+.pend .card{padding:16px;display:flex;flex-direction:column;gap:8px}
+.pend h3{margin:0;font-size:16px}
+.pend .now{font-size:20px;font-weight:700}
+.pend .early{font-size:14px;color:var(--ink-2)}
+.pend .why{font-size:12px;color:var(--warn-ink);background:var(--warn-bg);border-radius:6px;padding:3px 7px;align-self:flex-start}
+
+/* method & sources */
+.method{padding:22px 24px;display:grid;grid-template-columns:1fr 1fr;gap:6px 36px}
+@media (max-width:820px){.method{grid-template-columns:1fr}}
+.method h3{margin:12px 0 6px;font-size:16px}
+.method p,.method li{font-size:14.5px;color:var(--ink-2)}
+.method ul{margin:0;padding-left:18px}
+.srclist{columns:2;column-gap:36px;font-size:13.5px;padding:0;margin:0;list-style:none;counter-reset:s}
+@media (max-width:820px){.srclist{columns:1}}
+.srclist li{break-inside:avoid;margin:0 0 8px;padding-left:30px;position:relative;color:var(--ink-2)}
+.srclist li::before{counter-increment:s;content:counter(s);position:absolute;left:0;top:0;font-weight:700;color:var(--muted);font-variant-numeric:tabular-nums}
+.srclist a{font-weight:600;word-break:break-word}
+footer{padding:20px 0 50px;color:var(--muted);font-size:13px;border-top:1px solid var(--grid);margin-top:10px}
+
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
+@media print{
+  .tools,.controls,.filters,.quick,.calc{display:none!important}
+  body{background:#fff}.card{box-shadow:none;break-inside:avoid}
+  details.more{display:block}details.more>*{display:block}
+}
+
+@media (max-width:600px){
+  .topbar{align-items:center}
+  .eyebrow{font-size:12px}
+  .tools{flex-wrap:nowrap}
+  .hide-sm{display:none}
+  .fromto{flex-wrap:nowrap;gap:8px}
+  .fromto .v{font-size:16px}
+  .tools .btn{padding:8px 10px}
+  .hero-main{padding:20px 18px 18px}
+  .mini .x{font-size:28px}
+  .controls{padding:12px}
+  .seg button{padding:8px 10px}
+}
+
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="topbar">
+    <div class="eyebrow">TP. Hồ Chí Minh · 2000 → 2026</div>
+    <div class="tools">
+      <button class="btn" id="csvBtn" type="button" title="Tải toàn bộ số liệu và nguồn dạng CSV">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg><span class="hide-sm">Tải </span>CSV</button>
+      <button class="btn" id="themeBtn" type="button" aria-label="Đổi giao diện sáng/tối">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg><span id="themeLbl">Tối</span></button>
+    </div>
+  </div>
+
+  <header class="hero-head">
+    <h1>26 năm, giá cả Sài Gòn đã đi bao xa?</h1>
+    <p class="lede" id="lede"></p>
+    <div class="meta-row" id="metaRow"></div>
+  </header>
+
+  <div class="hero" id="hero"></div>
+  <div class="card insight" id="insight"></div>
+
+  <section id="xep-hang" aria-labelledby="h-rank">
+    <div class="sec-h">
+      <div>
+        <h2 id="h-rank">Bảng xếp hạng: gấp bao nhiêu lần sau 26 năm</h2>
+        <p class="sec-sub">Mỗi thanh đi từ mốc “không đổi” (×1). Thang chia theo bội số, nên ×2 và ×20 cách nhau bằng ×20 và ×200. Rê chuột hoặc chạm vào thanh để xem số và nguồn; bấm để mở thẻ chi tiết.</p>
+      </div>
+    </div>
+    <div class="card">
+      <div class="controls">
+        <div class="ctl-group" role="group" aria-label="Cách so sánh">
+          <span class="ctl-label">So theo</span>
+          <div class="seg" id="modeSeg">
+            <button type="button" data-mode="nominal" aria-pressed="true">Giá ghi trên nhãn</button>
+            <button type="button" data-mode="real" aria-pressed="false">Sau khi trừ lạm phát</button>
+            <button type="button" data-mode="wage" aria-pressed="false">Theo ngày công</button>
+          </div>
+        </div>
+        <div class="ctl-group" role="group" aria-label="Lọc nhóm">
+          <span class="ctl-label">Nhóm</span>
+          <div class="seg" id="catSeg"></div>
+        </div>
+        <div class="spacer"></div>
+        <div class="seg" id="viewSeg" role="group" aria-label="Kiểu hiển thị">
+          <button type="button" data-view="chart" aria-pressed="true">Biểu đồ</button>
+          <button type="button" data-view="table" aria-pressed="false">Bảng số</button>
+        </div>
+      </div>
+      <div class="mode-explain" id="modeExplain" aria-live="polite"></div>
+      <div class="legend" id="legend"></div>
+      <div class="chart-wrap" id="chartWrap"><svg id="chart" role="img" aria-labelledby="h-rank"></svg></div>
+      <div class="tbl-wrap hidden" id="tableWrap"></div>
+    </div>
+  </section>
+
+  <section id="chi-tiet" aria-labelledby="h-detail">
+    <div class="sec-h">
+      <div>
+        <h2 id="h-detail">Từng món: giá, cách tính và nguồn</h2>
+        <p class="sec-sub">Mỗi con số có đường dẫn tới trang gốc và câu trích nguyên văn chứa con số đó. Nhãn vàng cho biết chỗ cần đọc kỹ (năm lệch, giá niêm yết, số quy đổi…).</p>
+      </div>
+    </div>
+    <div class="filters">
+      <label class="search"><span class="sr">Tìm mặt hàng</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input id="q" type="search" placeholder="Tìm: xăng, vàng, gạo…" autocomplete="off"></label>
+      <span class="pill" id="countPill"></span>
+    </div>
+    <div class="grid" id="cards"></div>
+  </section>
+
+  <section id="may-tinh" aria-labelledby="h-calc">
+    <div class="sec-h"><div>
+      <h2 id="h-calc">Đổi tiền năm 2000 sang tiền hôm nay</h2>
+      <p class="sec-sub">Cùng một số tiền, “đáng giá” bao nhiêu hôm nay tùy bạn đo bằng gì. Gõ số tiền hoặc chọn nhanh.</p>
+    </div></div>
+    <div class="card calc">
+      <div class="calc-in">
+        <label for="amt">Số tiền năm 2000</label>
+        <div class="money"><input id="amt" inputmode="numeric" value="100.000" aria-describedby="amtHelp"><span>đ</span></div>
+        <div class="quick" id="quick"></div>
+        <p class="sec-sub" id="amtHelp" style="font-size:13px;margin-top:12px">Ví dụ: tiền tiêu vặt, tiền lì xì, hay lương tháng của bạn năm 2000.</p>
+      </div>
+      <div class="calc-out" id="calcOut"></div>
+    </div>
+  </section>
+
+  <section id="thuoc-do" aria-labelledby="h-bench">
+    <div class="sec-h"><div>
+      <h2 id="h-bench">Các thước đo để đặt giá cả vào bối cảnh</h2>
+      <p class="sec-sub">Ba vạch trên biểu đồ (không đổi · giá chung · lương tối thiểu) lấy từ đây.</p>
+    </div></div>
+    <div class="bench" id="bench"></div>
+  </section>
+
+  <section id="chua-du" aria-labelledby="h-pend">
+    <div class="sec-h"><div>
+      <h2 id="h-pend">Quen thuộc nhưng chưa đủ chuẩn để xếp hạng</h2>
+      <p class="sec-sub">Những món này có giá 2026 kèm nguồn, nhưng chưa tìm được số năm 2000 ở TP.HCM mà mở ra kiểm được. Thay vì đoán, bảng để trống và ghi rõ đã tìm thấy gì.</p>
+    </div></div>
+    <div class="pend" id="pend"></div>
+  </section>
+
+  <section id="phuong-phap" aria-labelledby="h-method">
+    <div class="sec-h"><div><h2 id="h-method">Cách làm và giới hạn</h2></div></div>
+    <div class="card method" id="method"></div>
+  </section>
+
+  <section id="nguon" aria-labelledby="h-src">
+    <div class="sec-h"><div>
+      <h2 id="h-src">Toàn bộ nguồn</h2>
+      <p class="sec-sub">Mọi trang dưới đây đã được mở lại và đối chiếu con số ngày 10/10/2026. Giá niêm yết của nhà bán lẻ có thể đã thay đổi khi bạn mở.</p>
+    </div></div>
+    <ol class="srclist" id="srclist"></ol>
+  </section>
+
+  <footer id="foot"></footer>
+</div>
+<div class="tip" id="tip" role="tooltip" aria-hidden="true"></div>
+
+<script>
+/* ===== DỮ LIỆU — mọi con số đều trỏ tới nguồn trong SRC ===== */
+const SRC = {
+  tn2004:   {o:"Thanh Niên", d:"19/11/2004", t:"Bài về cách xác định bảng giá đất mới TP.HCM (bảng giá QĐ 05/1995)", u:"https://thanhnien.vn/tp-ho-chi-minh-gia-dat-moi-duoc-xac-dinh-nhu-the-nao-185417304.htm"},
+  tn2025:   {o:"Thanh Niên", d:"26/12/2025", t:"TP.HCM ban hành bảng giá đất áp dụng từ 1/1/2026", u:"https://thanhnien.vn/tphcm-ban-hanh-bang-gia-dat-ap-dung-tu-112026-185251226141641138.htm"},
+  cafebiz:  {o:"CafeBiz", d:"04/12/2025", t:"Dự thảo bảng giá đất 2026 và giá thực tế ở các tuyến đắt nhất TP.HCM", u:"https://cafebiz.vn/du-thao-bang-gia-dat-2026-bat-ngo-gia-thuc-o-cac-tuyen-duong-dat-do-nhat-tphcm-176251204161858118.chn"},
+  finhay:   {o:"Finhay (blog tài chính)", d:"11/03/2026", t:"Giá vàng năm 2000", u:"https://www.finhay.com.vn/gia-vang-nam-2000"},
+  vneco:    {o:"VnEconomy", d:"15/01/2025", t:"Diễn biến giá vàng qua các giai đoạn khủng hoảng hơn 20 năm qua", u:"https://vneconomy.vn/dien-bien-gia-vang-qua-cac-giai-doan-khung-hoang-hon-20-nam-qua.htm"},
+  wbfx:     {o:"Ngân hàng Thế giới (WDI)", d:"cập nhật 13/07/2026", t:"Tỷ giá chính thức VND/USD, bình quân năm (PA.NUS.FCRF)", u:"https://api.worldbank.org/v2/country/VNM/indicator/PA.NUS.FCRF?format=json&per_page=100"},
+  tngold:   {o:"Thanh Niên", d:"10/10/2026", t:"Giá vàng hôm nay 10/10/2026", u:"https://thanhnien.vn/gia-vang-hom-nay-10102026-dung-yen-nhung-van-cao-hon-the-gioi-13-trieu-dong-185261010082652652.htm"},
+  ceic:     {o:"CEIC Data — số liệu Cục Thống kê TP.HCM", d:"truy cập 10/10/2026", t:"Giá bán lẻ bình quân tại TP.HCM (27 mặt hàng, chuỗi năm)", u:"https://www.ceicdata.com/en/vietnam/average-retail-price-ho-chi-minh-city"},
+  vnechiphi:{o:"VnExpress", d:"18/06/2026", t:"Chi phí sinh hoạt đồng loạt tăng", u:"https://vnexpress.net/chi-phi-sinh-hoat-dong-loat-tang-5086180.html"},
+  vne2002:  {o:"VnExpress", d:"05/02/2002", t:"Tết này, thịt lợn có thể cháy chợ", u:"https://vnexpress.net/tet-nay-thit-lon-co-the-chay-cho-2667509.html"},
+  tpthit:   {o:"Tiền Phong", d:"12/08/2026", t:"Giá thực phẩm hạ nhiệt", u:"https://tienphong.vn/gia-thuc-pham-ha-nhiet-post1867072.tpo"},
+  bhxduong: {o:"Bách Hóa Xanh (niêm yết online)", d:"truy cập 10/10/2026", t:"Danh mục Đường", u:"https://www.bachhoaxanh.com/duong"},
+  qd76:     {o:"Thư viện Pháp luật", d:"20/09/2000", t:"Quyết định 76/2000/QĐ-BVGCP về giá giới hạn tối đa xăng dầu", u:"https://thuvienphapluat.vn/van-ban/Thuong-mai/Quyet-dinh-76-2000-QD-BVGCP-gia-gioi-han-toi-da-xang-dau-46771.aspx"},
+  tpxang:   {o:"Tiền Phong", d:"08/10/2026", t:"Giá xăng tiếp tục tăng, xăng E10 RON95-III lên hơn 28.000 đồng/lít", u:"https://tienphong.vn/gia-xang-tiep-tuc-tang-xang-e10-ron95-iii-len-hon-28000-donglit-post1883363.tpo"},
+  kfm:      {o:"Kingfoodmart (nhà bán lẻ)", d:"08/04/2026", t:"Bảng giá bia Sài Gòn xanh", u:"https://kingfoodmart.com/bai-viet/gia-bia-sai-gon-xanh"},
+  vnebia:   {o:"VnExpress", d:"29/11/2001", t:"Bia Sài Gòn tăng giá", u:"https://vnexpress.net/bia-sai-gon-tang-gia-2666683.html"},
+  tnbus:    {o:"Thanh Niên", d:"26/10/2019", t:"Đưa xe buýt về thời hoàng kim", u:"https://thanhnien.vn/dua-xe-buyt-ve-thoi-hoang-kim-185895191.htm"},
+  vnebus:   {o:"VnExpress", d:"02/04/2026", t:"TP.HCM sẽ miễn phí xe buýt cho toàn dân", u:"https://vnexpress.net/tp-hcm-se-mien-phi-xe-buyt-cho-toan-dan-5057389.html"},
+  nldbus:   {o:"Người Lao Động (tuoitre.vn/nld)", d:"22/06/2026", t:"TP.HCM miễn phí vé 134 tuyến xe buýt từ ngày 1-7", u:"https://tuoitre.vn/nld/tphcm-mien-phi-ve-134-tuyen-xe-buyt-tu-ngay-1-7-196260622154458377.htm"},
+  ttlt05:   {o:"Thư viện Pháp luật", d:"hiệu lực 01/10/1999", t:"Thông tư liên tịch 05/1999/TTLT-BVGCP-BCN về giá bán điện", u:"https://thuvienphapluat.vn/van-ban/Thuong-mai/Thong-tu-lien-tich-05-1999-TTLT-BVGCP-BCN-gia-ban-dien-45786.aspx"},
+  vtcdien:  {o:"VTC News", d:"05/06/2026", t:"Chi tiết bảng giá điện sinh hoạt 2026", u:"https://vtcnews.vn/chi-tiet-bang-gia-dien-sinh-hoat-2026-cach-tinh-gia-dien-thang-6-2026-ar1021826.html"},
+  skgao:    {o:"Sức khỏe & Đời sống", d:"04/09/2026", t:"Giá lúa gạo ngày 4/9/2026", u:"https://phapluat.suckhoedoisong.vn/gia-lua-gao-ngay-492026-thi-truong-di-ngang-om-18-va-dai-thom-8-giu-gia-6800-dongkg-284658.html"},
+  qd10nuoc: {o:"Caselaw.vn", d:"29/02/2000", t:"Quyết định 10/2000/QĐ-UB-ĐT của UBND TP.HCM điều chỉnh giá nước", u:"https://caselaw.vn/van-ban-phap-luat/239056-quyet-dinh-so-10-2000-qd-ub-dt-ngay-29-02-2000-dieu-chinh-gia-nuoc-sinh-hoat-san-xuat-kinh-doanh-dich-vu-do-uy-ban-nhan-dan-thanh-pho-ho-chi-minh-ban-hanh-van-ban-het-hieu-luc"},
+  sggpnuoc: {o:"Sài Gòn Giải Phóng", d:"27/03/2025", t:"Đơn giá nước sinh hoạt hộ gia đình tính theo định mức", u:"https://www.sggp.org.vn/don-gia-nuoc-sinh-hoat-ho-gia-dinh-tinh-theo-dinh-muc-post787873.html"},
+  hcnuoc:   {o:"Home Credit (blog)", d:"15/07/2026", t:"Cập nhật giá nước sinh hoạt mới nhất", u:"https://www.homecredit.vn/blog/cap-nhat-gia-nuoc-sinh-hoat-moi-nhat-101"},
+  vtcsang:  {o:"VTC News", d:"07/10/2026", t:"20.000–30.000 đồng chỉ đủ xôi, bánh mì: bữa sáng ở TP.HCM ngày càng đắt đỏ", u:"https://vtcnews.vn/20-000-30-000-dong-chi-du-xoi-banh-mi-bua-sang-o-tp-hcm-ngay-cang-dat-do-ar1043628.html"},
+  bhxmuoi:  {o:"Bách Hóa Xanh (niêm yết online)", d:"truy cập 10/10/2026", t:"Danh mục Muối", u:"https://www.bachhoaxanh.com/muoi-an"},
+  vnntrung: {o:"VietNamNet", d:"04/08/2026", t:"Nhờ bánh Trung thu, giá trứng gà thoát đáy", u:"https://vietnamnet.vn/nho-banh-trung-thu-gia-trung-ga-thoat-day-2541670.html"},
+  honda02:  {o:"Honda Motor Co. (thông cáo)", d:"19/01/2002", t:"Honda Vietnam bắt đầu sản xuất và bán Wave α", u:"https://global.honda/newsroom/news/2002/c020119-eng.html"},
+  vnewave:  {o:"VnExpress", d:"31/01/2002", t:"Wave Alpha đã có mặt trên thị trường", u:"https://vnexpress.net/wave-alpha-da-co-mat-tren-thi-truong-2054284.html"},
+  dtrihonda:{o:"Dân trí", d:"03/07/2026", t:"17 xe máy Honda tăng giá", u:"https://dantri.com.vn/o-to-xe-may/17-xe-may-honda-tang-gia-20260703151352598.htm"},
+  hondavn:  {o:"Honda Việt Nam", d:"truy cập 10/10/2026", t:"Trang sản phẩm Wave Alpha 110", u:"https://www.honda.com.vn/xe-may/san-pham/wave-alpha-110"},
+  qd293:    {o:"Thư viện Pháp luật", d:"03/04/2000", t:"Quyết định 293/2000/QĐ-TCBĐ về cước thông tin di động GSM", u:"https://thuvienphapluat.vn/van-ban/Thuong-mai/Quyet-dinh-293-2000-QD-TCBD-cuoc-dich-vu-thong-tin-di-dong-GSM-8557.aspx"},
+  fptshop:  {o:"FPT Shop (tin tức)", d:"khoảng 01/2024", t:"Gói cước Tomato Viettel", u:"https://fptshop.com.vn/tin-tuc/danh-gia/goi-cuoc-tomato-174964"},
+  qd820:    {o:"Caselaw.vn", d:"20/09/2000", t:"Quyết định 820/2000/QĐ-TCBĐ về cước truy nhập Internet gián tiếp", u:"https://caselaw.vn/van-ban-phap-luat/238286-quyet-dinh-so-820-2000-qd-tcbd-ngay-20-09-2000-ve-bang-cuoc-truy-nhap-internet-gian-tiep-qua-mang-dien-thoai-cong-cong-do-tong-cuc-truong-tong-cuc-buu-dien-ban-hanh-van-ban-het-hieu-luc"},
+  fptnet:   {o:"FPT Telecom", d:"truy cập 10/10/2026", t:"Bảng giá gói Internet cá nhân", u:"https://fpt.vn/internet"},
+  nd10:     {o:"Hệ thống pháp luật", d:"27/03/2000", t:"Nghị định 10/2000/NĐ-CP về tiền lương tối thiểu trong doanh nghiệp", u:"https://hethongphapluat.com/decree-no-10-2000-nd-cp-of-march-27-2000-providing-the-minimum-wage-level-in-enterprises.html"},
+  lvluong:  {o:"LuatVietnam", d:"12/11/2025", t:"Mức lương tối thiểu vùng tại TP.HCM năm 2026", u:"https://luatvietnam.vn/lao-dong-tien-luong/muc-luong-toi-thieu-vung-tai-tphcm-nam-2026-562-105246-article.html"},
+  wbcpi:    {o:"Ngân hàng Thế giới (WDI)", d:"cập nhật 13/07/2026", t:"Chỉ số giá tiêu dùng Việt Nam, 2010 = 100 (FP.CPI.TOTL)", u:"https://api.worldbank.org/v2/country/VNM/indicator/FP.CPI.TOTL?format=json&per_page=100"},
+  tcctcpi:  {o:"Tạp chí Công Thương", d:"03/10/2026", t:"9 tháng năm 2026, CPI tăng 4,52%", u:"https://tapchicongthuong.vn/9-thang-nam-2026--cpi-tang-4-52-lam-phat-co-ban-tang-4-26-554941.htm"},
+  tnusd:    {o:"Thanh Niên", d:"09/10/2026", t:"Giá USD hôm nay 9/10/2026", u:"https://thanhnien.vn/gia-usd-hom-nay-9102026-do-la-trong-ngan-hang-giam-manh-185261009084354579.htm"},
+  wbgdp:    {o:"Ngân hàng Thế giới (WDI)", d:"cập nhật 08/10/2026", t:"GDP bình quân đầu người, VND giá hiện hành (NY.GDP.PCAP.CN)", u:"https://api.worldbank.org/v2/country/VNM/indicator/NY.GDP.PCAP.CN?format=json&per_page=100"},
+  gso2002:  {o:"Tổng cục Thống kê (nso.gov.vn)", d:"KSMS 2002–2010", t:"Mục 05 – Thu nhập bình quân 1 nhân khẩu 1 tháng", u:"https://www.nso.gov.vn/wp-content/uploads/2019/03/Muc05_thunhap-1.pdf"},
+  gso2025:  {o:"Cục Thống kê (nso.gov.vn)", d:"07/2026", t:"Thông cáo báo chí kết quả Khảo sát mức sống dân cư 2025", u:"https://www.nso.gov.vn/wp-content/uploads/2026/07/Thong-cao-bao-chi-ksms2025.pdf"},
+  infonet:  {o:"Infonet (VietNamNet)", d:"12/10/2022", t:"Những cơn bão giá nhìn từ giá niêm yết tô phở Bát Đàn", u:"https://infonet.vietnamnet.vn/nhung-con-bao-gia-nhin-tu-gia-niem-yet-to-pho-bat-dan-5002997.html"},
+  vnepho:   {o:"VnExpress", d:"02/02/2006", t:"Phở đắt giá đầu năm", u:"https://vnexpress.net/pho-dat-gia-dau-nam-2684510.html"},
+  ktcafe:   {o:"Kiến Thức", d:"13/05/2026", t:"Giá ly cà phê vỉa hè tăng từng nghìn đồng", u:"https://kienthuc.net.vn/gia-ly-ca-phe-via-he-tang-tung-nghin-dong-quan-an-nho-lo-mat-khach-post1616220.html"},
+  vnecom:   {o:"VnExpress", d:"25/03/2005", t:"Cơm bình dân tăng giá, sinh viên lao đao", u:"https://vnexpress.net/com-binh-dan-tang-gia-sinh-vien-lao-dao-1980839.html"},
+  cgv:      {o:"CellphoneS Sforum", d:"05/06/2026", t:"Giá vé CGV mới nhất", u:"https://cellphones.com.vn/sforum/gia-ve-cgv"},
+  vnemega:  {o:"VnExpress", d:"24/04/2006", t:"Khai trương cụm rạp Megastar Cineplex (Hà Nội)", u:"https://vnexpress.net/khai-truong-cum-rap-megastar-cineplex-1888211.html"},
+  tbtcgas:  {o:"Thời báo Tài chính Việt Nam", d:"01/10/2026", t:"Giá gas bán lẻ tháng 10/2026 tăng mạnh", u:"https://thoibaotaichinhvietnam.vn/gia-gas-ban-le-thang-10-2026-tang-manh-204655.html"},
+  winmart:  {o:"WinMart (niêm yết online)", d:"truy cập 10/10/2026", t:"Sữa đặc có đường Ông Thọ trắng lon 380g", u:"https://winmart.vn/products/vnm-ong-tho-sua-dac-trang-c.duong-380g--s10010460"},
+  vnesua:   {o:"VnExpress", d:"28/11/2004", t:"Sữa tiếp tục tăng giá", u:"https://vnexpress.net/sua-tiep-tuc-tang-gia-2679846.html"},
+  tthocphi: {o:"Tuổi Trẻ", d:"24/06/2026", t:"Học phí 80 trường đại học, có trường tăng gấp đôi", u:"https://tuoitre.vn/hoc-phi-80-truong-dai-hoc-co-truong-tang-gap-doi-cao-nhat-150-trieu-dong-nam-100260624095721276.htm"},
+  ttvmb:    {o:"Tuổi Trẻ", d:"21/04/2026", t:"Giá vé máy bay lễ 30/4 cao như Tết", u:"https://tuoitre.vn/gia-ve-may-bay-le-30-4-cao-nhu-tet-20260421080331387.htm"},
+  ttbao:    {o:"Tuổi Trẻ", d:"30/06/2026", t:"Tạm biệt báo in, hẹn gặp Tuổi Trẻ Online mỗi ngày", u:"https://tuoitre.vn/tam-biet-bao-in-hen-gap-tuoi-tre-online-moi-ngay-100260630060237331.htm"},
+  tt2012:   {o:"Tuổi Trẻ", d:"28/09/2012", t:"Mời đặt báo Tuổi Trẻ dài hạn (quý IV/2012)", u:"https://tuoitre.vn/moi-dat-bao-tuoi-tre-dai-han-513536.htm"}
+};
+
+/* Thước đo vĩ mô */
+const CPI2000 = 48.0884087276966, CPI2025 = 195.981813344138, CPI_9M2026 = 1.0452;
+const K_CPI = CPI2025 / CPI2000 * CPI_9M2026;          // ≈ 4,26 (ước tính tới 2026)
+const WAGE0 = 180000, WAGE1 = 5310000, K_WAGE = WAGE1 / WAGE0; // ×29,5
+const USD0 = 14167.75, USD1 = 25629, K_USD = USD1 / USD0;     // ×1,81
+const GOLD0 = 4750000, GOLD1 = 144800000;
+
+const BENCH = [
+  {id:"wage", name:"Lương tối thiểu", unit:"đ/tháng", v0:WAGE0, v1:WAGE1,
+   l0:"2000 · doanh nghiệp (chưa chia vùng)", l1:"2026 · Vùng I (đô thị TP.HCM)",
+   s0:{k:"nd10", q:"To stipulate the minimum wage level of 180,000 VND/month applicable to the laborers working in enterprises ... This Decree takes effect as from January 1st, 2000."},
+   s1:{k:"lvluong", q:"Mức lương tối thiểu tháng: 5.310.000 đồng/tháng. (Nghị định 293/2025/NĐ-CP, hiệu lực từ 1/1/2026)"},
+   note:"Thước đo “giá sức lao động”. Dùng để quy đổi giá ra ngày công."},
+  {id:"cpi", name:"Giá chung (CPI)", unit:"chỉ số, 2010 = 100", v0:CPI2000, v1:CPI2025*CPI_9M2026, ratioLabel:"≈ ×4,26",
+   l0:"2000 · 48,09", l1:"2025 · 195,98, cộng thêm 4,52% bình quân 9 tháng 2026",
+   s0:{k:"wbcpi", q:"\"date\":\"2000\",\"value\":48.0884087276966 … \"date\":\"2025\",\"value\":195.981813344138"},
+   s1:{k:"tcctcpi", q:"Bình quân 9 tháng năm 2026, CPI tăng 4,52% so với cùng kỳ năm trước; lạm phát cơ bản tăng 4,26%."},
+   note:"195,98 ÷ 48,09 = ×4,08 tới năm 2025; nhân thêm 1,0452 ra ≈ ×4,26 cho 2026 (ước tính của bảng này)."},
+  {id:"usd", name:"1 đô la Mỹ", unit:"đ/USD", v0:USD0, v1:USD1,
+   l0:"2000 · tỷ giá chính thức bình quân năm", l1:"9/10/2026 · tỷ giá trung tâm NHNN",
+   s0:{k:"wbfx", q:"\"date\":\"2000\",\"value\":14167.75"},
+   s1:{k:"tnusd", q:"Ngân hàng Nhà nước tiếp tục giảm tỷ giá trung tâm 5 đồng/USD, xuống 25.629 đồng."},
+   note:"Tiền đồng mất giá so với USD chậm hơn nhiều so với lạm phát trong nước."},
+  {id:"gdp", name:"GDP bình quân đầu người", unit:"đ/người/năm", v0:5724213, v1:126454306,
+   l0:"2000", l1:"2025 (năm mới nhất)",
+   s0:{k:"wbgdp", q:"\"date\":\"2000\",\"value\":5724213.09373015"},
+   s1:{k:"wbgdp", q:"\"date\":\"2025\",\"value\":126454305.936874"},
+   note:"Cả nước, giá hiện hành."},
+  {id:"inc", name:"Thu nhập bình quân/người/tháng", unit:"đ/tháng", v0:356100, v1:6000000,
+   l0:"2002 · cả nước (TP.HCM: 904.100 đ)", l1:"2025 · cả nước",
+   s0:{k:"gso2002", q:"Thu nhập bình quân 1 nhân khẩu 1 tháng … 2002: CẢ NƯỚC 356.1; TP. Hồ Chí Minh 904.1 (nghìn đồng)"},
+   s1:{k:"gso2025", q:"Thu nhập bình quân đầu người một tháng theo giá hiện hành đạt 6,0 triệu đồng"},
+   note:"Khảo sát mức sống dân cư; không có vòng khảo sát năm 2000, vòng sớm nhất so sánh được là 2002."}
+];
+
+/* Mặt hàng & dịch vụ đủ chuẩn xếp hạng */
+const CATS = {food:"Ăn uống & chợ", home:"Nhà & dịch vụ", move:"Đi lại & liên lạc", asset:"Tài sản"};
+const ITEMS = [
+ {id:"dat", name:"Đất mặt tiền Đồng Khởi – Nguyễn Huệ", short:"Đất Đồng Khởi (bảng giá)", spec:"1 m² đất ở, theo bảng giá đất Nhà nước", cat:"asset", unit:"m²",
+  p0:13.8e6, y0:"Bảng giá 1995 (QĐ 05), áp dụng tới 2004", p1:687.2e6, y1:"Bảng giá từ 1/1/2026",
+  flags:["Bảng giá Nhà nước, không phải giá mua bán"],
+  s0:[{k:"tn2004", q:"Chẳng hạn, 2 tuyến đường có giá cao nhất theo QĐ 05 là Đồng Khởi và Nguyễn Huệ (Q.1) thì cũng chỉ ở mức 13,8 triệu đồng/m2."}],
+  s1:[{k:"tn2025", q:"giá đất ở cao nhất là 687,2 triệu đồng/m², áp dụng cho các tuyến đường Đồng Khởi, Nguyễn Huệ, Lê Lợi"}],
+  alt:[{k:"tn2004", q:"khung giá đất ở theo Quyết định (QĐ) 05 vào thời điểm ban hành (năm 1995) cũng chỉ bằng khoảng 30-40% giá thị trường"},
+       {k:"cafebiz", q:"giá thực tế theo khảo sát của đơn vị tư vấn tại 3 tuyến đường này là 954,3 triệu đồng/m²"}],
+  note:"Hai năm đều dùng bảng giá Nhà nước nên so sánh cùng chuẩn. Nhưng bảng giá 1995 chỉ bằng khoảng 30–40% giá thị trường, còn bảng giá 2026 đã sát thị trường hơn nhiều. Nếu suy ngược giá thị trường năm 2000 ≈ 34,5–46 triệu/m² và lấy giá thực tế 2026 là 954,3 triệu/m², mức tăng theo thị trường vào khoảng ×21–28 (tính thô, vì tỉ lệ 30–40% là của năm 1995)."},
+ {id:"vang", name:"Vàng miếng SJC", short:"Vàng SJC", spec:"1 lượng (37,5 g), giá bán ra", cat:"asset", unit:"lượng",
+  p0:GOLD0, r0:[4.5e6,5.0e6], y0:"Năm 2000 (khoảng giá phổ biến)", p1:GOLD1, y1:"Sáng 10/10/2026",
+  flags:["Số 2000 lấy từ bài hồi cứu, đã đối chiếu giá thế giới"],
+  s0:[{k:"finhay", q:"Giá vàng năm 2000 tại Việt Nam (vàng SJC) được niêm yết phổ biến khoảng 4.500.000 VNĐ đến 5.000.000 VNĐ cho 1 lượng"}],
+  s1:[{k:"tngold", q:"vàng miếng tại Công ty vàng bạc đá quý Sài Gòn - SJC tiếp tục được mua vào 141,8 triệu đồng/lượng, bán ra 144,8 triệu đồng"}],
+  alt:[{k:"vneco", q:"giá vàng bình quân năm đã tăng hơn 755%, từ mức 279 USD/oz vào năm 2000."},
+       {k:"wbfx", q:"\"date\":\"2000\",\"value\":14167.75"}],
+  note:"Đối chiếu độc lập: 279 USD/oz × 1,2057 oz/lượng × 14.167,75 đ/USD ≈ 4,77 triệu đ/lượng — khớp khoảng 4,5–5 triệu. Bảng dùng trung điểm 4,75 triệu."},
+ {id:"cattoc", name:"Cắt tóc", short:"Cắt tóc", spec:"1 lần (2026: cắt tóc nam, mức phổ biến)", cat:"home", unit:"lần",
+  p0:6104, y0:"Bình quân năm 2000", p1:85000, r1:[50000,120000], y1:"6/2026",
+  flags:["Khoảng giá 2026 rộng: lấy trung điểm"],
+  s0:[{k:"ceic", q:"[Haircut] The data reached an all-time high of 34,299.000 VND/Times in 2017 and a record low of 6,104.000 VND/Times in 2000."}],
+  s1:[{k:"vnechiphi", q:"Giá cắt tóc nam hiện phổ biến ở mức 50.000-120.000 đồng mỗi lần, cao hơn khoảng 5.000-10.000 đồng so với năm ngoái."}],
+  note:"Số 2000 là giá bình quân do Cục Thống kê TP.HCM thu thập. Dịch vụ dựa trên công sức con người thường tăng giá theo lương — đây là ví dụ rõ nhất trong bảng."},
+ {id:"buyt", name:"Vé xe buýt", short:"Vé xe buýt", spec:"1 lượt, vé thường, tuyến có trợ giá", cat:"move", unit:"lượt",
+  p0:1000, y0:"2002 (tuyến buýt mẫu có trợ giá)", p1:6000, r1:[5000,7000], y1:"Đến 30/6/2026",
+  flags:["Số năm 2002","Đang miễn phí 1/7–31/12/2026"],
+  s0:[{k:"tnbus", q:"Do được trợ giá, tiền vé đồng hạng 1.000 đồng/lượt trên tất cả các tuyến."}],
+  s1:[{k:"vnebus", q:"Giá vé phổ thông dao động 5.000-7.000 đồng mỗi lượt."}],
+  alt:[{k:"nldbus", q:"Từ ngày 1-7 đến hết ngày 31-12-2026, TPHCM sẽ triển khai chương trình hỗ trợ 100% giá vé xe buýt trên 134 tuyến"}],
+  note:"Không tìm được giá vé năm 2000; số sớm nhất là vé đồng giá 1.000 đ trên các tuyến buýt mẫu có trợ giá chạy từ 21/1/2002. Ngay lúc này, đi 134 tuyến buýt ở TP.HCM là miễn phí."},
+ {id:"thitheo", name:"Thịt heo ba rọi", short:"Thịt heo ba rọi", spec:"1 kg, chợ truyền thống TP.HCM", cat:"food", unit:"kg",
+  p0:25000, r0:[24000,26000], y0:"2/2002, chợ Phạm Văn Hai", p1:145000, r1:[140000,150000], y1:"8/2026",
+  flags:["Số năm 2002 (sát Tết)"],
+  s0:[{k:"vne2002", q:"Giá bản lẻ tại chợ cũng bình ổn: Heo nạc vào khoảng 28.000-38.000 đồng/kg, đùi 26.000-28.000, ba rọi: 24.000-26.000 đồng."}],
+  s1:[{k:"tpthit", q:"Thịt đùi và thịt vai hiện quanh mức 90.000-95.000 đồng/kg, trong khi ba rọi giảm còn khoảng 140.000-150.000 đồng/kg."}],
+  alt:[{k:"ceic", q:"[Pork] … a record low of 27,027.000 VND/kg in 2001."}],
+  note:"So cùng phần thịt (ba rọi). Nếu so thịt đùi: 26–28 nghìn (2002) → 90–95 nghìn (2026), chỉ khoảng ×3,4 — ba rọi tăng mạnh hơn hẳn."},
+ {id:"duong", name:"Đường cát trắng", short:"Đường trắng", spec:"1 kg", cat:"food", unit:"kg",
+  p0:5283, y0:"Bình quân năm 2000", p1:29000, r1:[27000,29000], y1:"Niêm yết 10/10/2026",
+  flags:["2026: giá niêm yết của nhà bán lẻ"],
+  s0:[{k:"ceic", q:"[Local White Sugar] … a record low of 5,283.000 VND/kg in 2000."}],
+  s1:[{k:"bhxduong", q:"Đường kính trắng An Khê 1kg … 27.000đ /Gói 1kg -7% 29.000đ [giá khuyến mãi · giá gốc]"}],
+  note:"2026 lấy giá gốc 29.000 đ (đang khuyến mãi 27.000 đ). Đây là đường đóng gói có thương hiệu, đường cân ký ở chợ thường rẻ hơn chút."},
+ {id:"xang", name:"Xăng", short:"Xăng (loại 92)", spec:"1 lít loại 92 (2000: xăng chì 92 · 2026: E5 RON92)", cat:"move", unit:"lít",
+  p0:5400, r0:[4800,5400], y0:"Giá trần từ 21/9/2000", p1:27703, y1:"Từ 15h 8/10/2026",
+  flags:["Giá trần Nhà nước, áp dụng toàn quốc"],
+  s0:[{k:"qd76", q:"Xăng chất lượng cao (xăng chì 92): 5.400 [đồng/lít] … có hiệu lực thi hành kể từ ngày 21 tháng 9 năm 2000"}],
+  s1:[{k:"tpxang", q:"Theo đó, xăng E5 RON92 tăng 1.134 đồng/lít, lên mức 27.703 đồng/lít."}],
+  alt:[{k:"ceic", q:"[Petrol] … a record low of 4,800.000 VND/l in 2000."}],
+  note:"Năm 2000 giá xăng đổi nhiều lần; bình quân năm tại TP.HCM là 4.800 đ. Bảng chọn xăng 92 để cùng chỉ số octan với E5 RON92 hôm nay."},
+ {id:"bia", name:"Bia Sài Gòn", short:"Bia Sài Gòn", spec:"1 chai", cat:"food", unit:"chai",
+  p0:4792, y0:"Bình quân năm 2000", p1:23000, r1:[21000,25000], y1:"4/2026",
+  flags:["2026: giá tham khảo của nhà bán lẻ"],
+  s0:[{k:"ceic", q:"[Saigon Beer] … a record low of 4,792.000 VND/Bottle in 2000."}],
+  s1:[{k:"kfm", q:"Bia Sài Gòn Lager (Chai 450ml) · 1 chai · 21.000 – 25.000 [một dòng trong bảng giá]"}],
+  alt:[{k:"vnebia", q:"Bia chai Sài Gòn xanh tăng giá từ 86.000 đồng/két lên 90.000 đồng/két trong vòng vài ngày qua."}],
+  note:"Đối chiếu 11/2001: 86.000–90.000 đ/két, tức khoảng 4.300–4.500 đ/chai nếu két 20 chai — khớp số bình quân 2000."},
+ {id:"muoi", name:"Muối ăn", short:"Muối ăn", spec:"1 kg", cat:"food", unit:"kg",
+  p0:1800, y0:"Bình quân năm 2001", p1:8000, r1:[8000,10000], y1:"Niêm yết 10/10/2026",
+  flags:["Số năm 2001","2026: giá niêm yết của nhà bán lẻ"],
+  s0:[{k:"ceic", q:"[Salt] … a record low of 1,800.000 VND/kg in 2001."}],
+  s1:[{k:"bhxmuoi", q:"Muối sấy i ốt Sosal Group 1kg · Gói 1kg · 8.000đ [một dòng niêm yết]"}],
+  note:"2026 lấy gói muối i-ốt rẻ nhất (8.000 đ); muối hạt thiên nhiên 1 kg là 10.000 đ."},
+ {id:"dien", name:"Điện sinh hoạt", short:"Điện (bậc 1)", spec:"1 kWh bậc rẻ nhất, chưa VAT", cat:"home", unit:"kWh",
+  p0:454.54, y0:"Biểu giá từ 1/10/1999", p1:1984, y1:"Biểu giá từ 10/5/2025",
+  flags:["Bậc 1: năm 2000 là 0–100 kWh, nay là 0–50 kWh"],
+  s0:[{k:"ttlt05", q:"Cho 100 kwh đầu tiên 500 454.54 [hai cột: Đã có VAT · Chưa có VAT]"}],
+  s1:[{k:"vtcdien", q:"| 1 | 0 - 50 | 50 | 1.984 | … chưa bao gồm thuế giá trị gia tăng (VAT)"}],
+  alt:[{k:"ceic", q:"[Electricity] … a record low of 500.000 VND/kWh in 2001."}],
+  note:"So cùng chuẩn chưa VAT. Năm 2000 bậc cao nhất là 1.397 đ (đã VAT); năm 2026 bậc cao nhất là 3.460 đ (chưa VAT)."},
+ {id:"thitbo", name:"Thịt bò", short:"Thịt bò", spec:"1 kg", cat:"food", unit:"kg",
+  p0:45333, y0:"Bình quân năm 2000", p1:180000, y1:"10/2026",
+  flags:["2026: giá chủ quán mua vào, một nguồn"],
+  s0:[{k:"ceic", q:"[Beef] … a record low of 45,333.000 VND/kg in 2000."}],
+  s1:[{k:"vtcsang", q:"Thịt bò từ khoảng 150.000 đồng/kg lên 180.000 đồng/kg; xương bò từ 50.000 đồng/kg lên 60.000 đồng/kg."}],
+  note:"Lời một chủ quán bún bò ở TP.HCM. Chưa có loại thịt cụ thể ở cả hai năm, nên coi là mức tham khảo."},
+ {id:"gao", name:"Gạo thường", short:"Gạo thường", spec:"1 kg, bán lẻ", cat:"food", unit:"kg",
+  p0:3411, y0:"Bình quân năm 2001", p1:13500, r1:[12000,15000], y1:"9/2026",
+  flags:["Số năm 2001","2026: mặt bằng bán lẻ chung"],
+  s0:[{k:"ceic", q:"[Rice] … a record low of 3,411.000 VND/kg in 2001."}],
+  s1:[{k:"skgao", q:"Gạo thường: 12.000 - 15.000 đồng/kg."}],
+  note:"Cùng bài 2026: gạo trắng thông dụng 16.000 đ/kg, gạo thơm 15.000–28.000 đ/kg."},
+ {id:"nuoc", name:"Nước sinh hoạt", short:"Nước máy", spec:"1 m³ trong định mức (≤ 4 m³/người/tháng)", cat:"home", unit:"m³",
+  p0:1700, y0:"Từ 1/3/2000", p1:6700, y1:"Từ 2022, áp dụng tới 2026",
+  flags:["2026: chưa VAT 5% và phí thoát nước"],
+  s0:[{k:"qd10nuoc", q:"Trong định mức từ 4m3 đầu/người/tháng trở xuống … 1.700 đ/m3"}],
+  s1:[{k:"sggpnuoc", q:"có giá 6.700 đồng/m3 (trong định mức), chưa tính thuế giá trị gia tăng (VAT - 5%)."}],
+  alt:[{k:"ceic", q:"[Supply Water] … a record low of 1,633.000 VND/Cub m in 2000."},
+       {k:"hcnuoc", q:"Hộ dân cư 6.700 335 9.205,8 [các cột: giá nước · VAT · tổng cộng cả phí thoát nước]"}],
+  note:"Hóa đơn thực tế 2026 là 9.205,8 đ/m³ vì cộng thêm VAT và phí thoát nước. Văn bản năm 2000 không ghi giá 1.700 đ đã gồm VAT hay chưa."},
+ {id:"trungvit", name:"Trứng vịt", short:"Trứng vịt", spec:"1 chục (10 quả)", cat:"food", unit:"chục",
+  p0:10465, y0:"Bình quân năm 2001", p1:35000, r1:[30000,35000], y1:"8/2026",
+  flags:["Số năm 2001"],
+  s0:[{k:"ceic", q:"[Duck's Egg] … a record low of 10,465.000 VND/10 Piece in 2001."}],
+  s1:[{k:"vnntrung", q:"35.000 đồng/chục đối với trứng vịt loại 1"}],
+  note:"Giá ở chợ Phạm Văn Hai và Bà Chiểu; chợ Cầu bán trứng vịt đồng 30.000–35.000 đ/chục."},
+ {id:"xemay", name:"Xe máy Honda Wave α", short:"Xe Honda Wave α", spec:"Giá bán lẻ đề xuất", cat:"move", unit:"chiếc",
+  p0:10.99e6, y0:"Ra mắt 19/1/2002", p1:18.84e6, r1:[18.29e6,19.39e6], y1:"Từ 1/7/2026",
+  flags:["Số năm 2002 (lúc ra mắt)"],
+  s0:[{k:"honda02", q:"10.99 million VND* (Approx. US $732)"}],
+  s1:[{k:"dtrihonda", q:"Giá mới của Wave Alpha dao động từ 18,29 triệu đến 19,39 triệu đồng."}],
+  alt:[{k:"vnewave", q:"Sáng 30/1, các đại lý Honda tại TP HCM bắt đầu trưng bày và bán loại xe mới này với giá 10,99 triệu đồng."},
+       {k:"hondavn", q:"Giá bán lẻ đề xuất 18.841.091 VNĐ"}],
+  note:"Cùng dòng xe. Tính theo lương tối thiểu năm 2000 (180.000 đ), chiếc Wave α lúc ra mắt bằng khoảng 61 tháng lương; năm 2026 chỉ còn khoảng 3,5 tháng."},
+ {id:"didong", name:"Gọi điện thoại di động", short:"Gọi di động", spec:"1 phút gọi trong nước", cat:"move", unit:"phút",
+  p0:1636, y0:"Từ 1/5/2000 (trả sau, nội vùng)", p1:1590, r1:[1590,1790], y1:"Gói Viettel Tomato",
+  flags:["2000: chưa VAT, chưa kể 182.000 đ thuê bao/tháng","2026: quy đổi từ giá theo giây"],
+  s0:[{k:"qd293", q:"Nội vùng: | đồng/phút | 1.636 … Cước thuê bao | đồng/máy/tháng | 182.000 … Các mức cước trên đây không bao gồm thuế giá trị gia tăng."}],
+  s1:[{k:"fptshop", q:"26,5 đồng/giây (gọi nội mạng) và 29,83 đồng/giây (gọi ngoại mạng)"}],
+  note:"26,5 đ/giây × 60 = 1.590 đ/phút (nội mạng); ngoại mạng ≈ 1.790 đ/phút. Trang nguồn 2026 không ghi ngày cụ thể (khoảng 2024). Năm 2000 còn phải trả 182.000 đ/tháng chỉ để giữ thuê bao — bằng cả tháng lương tối thiểu."},
+ {id:"internet", name:"Internet tại nhà", short:"Internet (1 giờ)", spec:"Chi phí 1 giờ online, giả định dùng 3 giờ/ngày", cat:"move", unit:"giờ",
+  p0:15000, y0:"Từ 1/10/2000 (quay số, giờ hành chính)", p1:195000/90, y1:"10/2026 (cáp quang 300 Mbps, trọn gói)",
+  flags:["Khác công nghệ: quay số vs cáp quang","Số đã quy đổi"],
+  s0:[{k:"qd820", q:"Từ 7 giờ đến 19 giờ trong ngày (trừ ngày lễ, thứ bảy, chủ nhật) | 250 [đồng/phút] … chưa bao gồm thuế giá trị gia tăng"}],
+  s1:[{k:"fptnet", q:"Internet Giga 195.000đ /tháng … Mức giá trên đã bao gồm VAT và có thể được thay đổi theo khu vực và thời điểm."}],
+  note:"2000: 250 đ/phút × 60 = 15.000 đ/giờ, chưa kể tiền điện thoại và phí thuê bao nhà mạng. 2026: 195.000 đ/tháng ÷ 90 giờ ≈ 2.167 đ/giờ. Nếu dùng 24/24 thì chỉ ≈ 271 đ/giờ."}
+];
+
+/* Mặt hàng quen thuộc nhưng chưa đủ chuẩn xếp hạng */
+const PENDING = [
+ {name:"Tô phở", now:"60.000–70.000 đ", nowS:{k:"vtcsang", q:"Mỗi tô phở bây giờ thấp nhất cũng 60.000 đồng"},
+  early:"TP.HCM 2006: 9.000 đ/tô (quán Q.5) · Hà Nội 2000–2005: 5.000–7.000 đ", earlyS:[{k:"vnepho", q:"một tô hủ tiếu, phở tái, bánh canh được bán với giá 9.000 đồng"},{k:"infonet", q:"Giai đoạn từ năm 2000-2005, giá mỗi tô phở vỉa hè ở khu vực trung tâm Hà Nội chỉ 5.000 – 7.000 đồng/tô."}],
+  why:"Chưa có số TP.HCM năm 2000."},
+ {name:"Ổ bánh mì thịt", now:"25.000–35.000 đ", nowS:{k:"vtcsang", q:"Lúc trước mỗi ổ bánh mì 20.000 đồng nhưng bây giờ lên 25.000-30.000 đồng."},
+  early:"Chưa tìm được", earlyS:[], why:"Không có bài nào mở được nêu giá năm 2000."},
+ {name:"Ly cà phê sữa đá vỉa hè", now:"20.000 đ", nowS:{k:"ktcafe", q:"ly cà phê sữa đá tăng từ 18.000 đồng lên 20.000 đồng"},
+  early:"Chưa tìm được", earlyS:[], why:"Không có bài nào mở được nêu giá năm 2000."},
+ {name:"Dĩa cơm tấm / cơm bình dân", now:"45.000–55.000 đ", nowS:{k:"vnechiphi", q:"Một quán cơm tấm ở phường Xuân Hòa hiện bán 45.000-55.000 đồng mỗi phần"},
+  early:"2005: cơm căng-tin làng ĐH Thủ Đức 3.000 → 4.000–5.000 đ", earlyS:[{k:"vnecom", q:"chỉ với 3.000 đồng là có bữa ăn ngon với một món mặn và canh"}],
+  why:"Số sớm nhất là 2005, lại là cơm sinh viên."},
+ {name:"Vé xem phim 2D", now:"70.000–105.000 đ (CGV)", nowS:{k:"cgv", q:"Thứ 6/7/CN/lễ Ca chiếu sau 17h | 70K | 70K | 105K | 80K | 105K"},
+  early:"2006: 30.000–40.000 đ (Megastar, Hà Nội)", earlyS:[{k:"vnemega", q:"với giá vé 30.000-40.000 đồng"}], why:"Chưa có số TP.HCM năm 2000."},
+ {name:"Bình gas 12 kg", now:"662.081 đ (PV GAS, TP.HCM)", nowS:{k:"tbtcgas", q:"Tại TP Hồ Chí Minh, giá bình 12 kg tăng 20.000 đồng, lên 662.081 đồng/bình"},
+  early:"Chưa tìm được", earlyS:[], why:"Giá gas không do Nhà nước định nên không có văn bản; báo mạng trước 2001 rất ít."},
+ {name:"Sữa đặc Ông Thọ (lon)", now:"37.200 đ (lon 380 g)", nowS:{k:"winmart", q:"Sữa đặc có đường Ông Thọ trắng lon 380g … Giá bán lẻ 37.200 ₫"},
+  early:"11/2004: 7.500 → 8.000 đ/hộp (TP.HCM)", earlyS:[{k:"vnesua", q:"Loại sữa đặc có đường nhãn hiệu Ông Thọ (hộp thiếc) giá từ 7.500 đồng đã tăng lên 8.000 đồng/hộp."}],
+  why:"Số sớm nhất là 2004."},
+ {name:"Học phí đại học công lập", now:"Trần 1,71–3,5 triệu đ/tháng (2026–2027)", nowS:{k:"tthocphi", q:"mức trần (mức cao nhất được thu) năm học 2026 - 2027 từ 1,71 - 3,5 triệu đồng/tháng"},
+  early:"Chưa mở được văn bản gốc", earlyS:[], why:"Không mở được văn bản quy định học phí đại học năm 2000 để kiểm."},
+ {name:"Vé máy bay TP.HCM – Hà Nội", now:"3,6–4,2 triệu đ/chiều (cao điểm lễ 30/4)", nowS:{k:"ttvmb", q:"giá vé một chiều hạng phổ thông chặng TP.HCM - Hà Nội dao động khoảng 3,6 - 4,2 triệu đồng/vé, tùy hãng"},
+  early:"Chưa tìm được", earlyS:[], why:"Chưa tìm được giá vé năm 2000; số 2026 cũng là giá cao điểm."},
+ {name:"Tờ báo Tuổi Trẻ", now:"Nhật báo in dừng phát hành từ giữa 2026", nowS:{k:"ttbao", q:"sẽ dừng bước để tập trung phát triển báo Tuổi Trẻ điện tử và các sản phẩm báo chí số"},
+  early:"2012: 3.700 đ/tờ", earlyS:[{k:"tt2012", q:"Nhật báo Tuổi Trẻ 3.700 đồng 92 340.400 đồng"}], why:"Món này không còn để so — một thay đổi của 26 năm."}
+];
+
+</script>
+<script>
+(function(){
+"use strict";
+/* ---------- helpers ---------- */
+const $ = s => document.querySelector(s);
+const el = (tag, attrs={}, html) => { const e=document.createElement(tag); for(const k in attrs){ if(k==="class") e.className=attrs[k]; else e.setAttribute(k,attrs[k]); } if(html!=null) e.innerHTML=html; return e; };
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const nf = (d=0) => new Intl.NumberFormat("vi-VN",{minimumFractionDigits:0,maximumFractionDigits:d});
+const trim = (v,d) => nf(d).format(v);
+function vnd(v, unit){
+  let s;
+  if (v >= 1e9) s = trim(v/1e9, 2) + " tỷ";
+  else if (v >= 1e6) s = trim(v/1e6, 2) + " triệu";
+  else if (v >= 1000) s = trim(Math.round(v), 0);
+  else s = trim(v, 2);
+  return s + " đ" + (unit ? "/" + unit : "");
+}
+function fx(v){
+  if (v >= 10) return "×" + trim(v,1);
+  if (v >= 0.8) return "×" + trim(v,2);
+  const d = 1/v; return "÷" + trim(d, d>=10?0:1);
+}
+function labor(days){
+  if (days >= 26) return trim(days/26, 1) + " tháng lương";
+  if (days >= 1) return trim(days, 1) + " ngày công";
+  const h = days*8; if (h >= 1) return trim(h, 1) + " giờ công";
+  return trim(h*60, 0) + " phút công";
+}
+const DAY0 = WAGE0/26, DAY1 = WAGE1/26;
+const reduceMotion = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+/* ---------- derived data ---------- */
+ITEMS.forEach(it => {
+  it.ratio = it.p1/it.p0;
+  const r0 = it.r0 || [it.p0,it.p0], r1 = it.r1 || [it.p1,it.p1];
+  it.lo = r1[0]/r0[1]; it.hi = r1[1]/r0[0];
+  it.zone = it.ratio > K_WAGE ? "hi" : it.ratio > K_CPI ? "mid" : "lo";
+});
+const RANKED = ITEMS.slice().sort((a,b)=>b.ratio-a.ratio);
+RANKED.forEach((it,i)=> it.rank = i+1);
+const ZONES = {
+  hi:{lbl:"Tăng nhanh hơn cả lương tối thiểu", short:"Vượt cả lương", c:"var(--z-hi)"},
+  mid:{lbl:"Tăng nhanh hơn giá chung, chậm hơn lương", short:"Vượt lạm phát", c:"var(--z-mid)"},
+  lo:{lbl:"Tăng chậm hơn giá chung", short:"Chậm hơn lạm phát", c:"var(--z-lo)"}
+};
+
+/* source numbering by first appearance */
+const SRCNUM = {}; let srcCount = 0;
+const reg = k => { if(!(k in SRCNUM)) SRCNUM[k] = ++srcCount; return SRCNUM[k]; };
+RANKED.forEach(it => [...it.s0, ...it.s1, ...(it.alt||[])].forEach(s=>reg(s.k)));
+BENCH.forEach(b => {reg(b.s0.k); reg(b.s1.k);});
+PENDING.forEach(p => {reg(p.nowS.k); p.earlyS.forEach(s=>reg(s.k));});
+
+function srcLink(k){ const s=SRC[k]; return `<a href="${esc(s.u)}" target="_blank" rel="noopener">[${SRCNUM[k]}] ${esc(s.o)}</a> <span style="color:var(--muted)">· ${esc(s.d)}</span>`; }
+function srcBlock(side, s){ return `<div class="src"><span class="side">${side}</span><span>${srcLink(s.k)}</span><span class="q">“${esc(s.q)}”</span></div>`; }
+
+/* ---------- state ---------- */
+const state = { mode:"nominal", cat:"all", view:"chart", q:"" };
+const MODES = {
+  nominal:{f:1, base:"Không đổi", lines:["cpi","wage"],
+    text:`Giá 2026 chia cho giá 2000 — cách người ta vẫn nói “gấp mấy lần”. Để so: mặt bằng giá chung tăng ≈${fx(K_CPI)}, lương tối thiểu tăng ${fx(K_WAGE)}.`},
+  real:{f:K_CPI, base:"Tăng đúng bằng lạm phát", lines:["wage"],
+    text:`Đã chia cho mức tăng giá chung (≈${fx(K_CPI)}). Trên ×1 là đắt lên thật; dưới ×1 là rẻ đi thật, dù giá ghi trên nhãn vẫn tăng.`},
+  wage:{f:K_WAGE, base:"Tốn số ngày công như năm 2000", lines:["cpi"],
+    text:`Đo bằng ngày công lương tối thiểu (lương tăng ${fx(K_WAGE)}). ×1 là tốn số ngày công như năm 2000; ÷2 là chỉ còn tốn một nửa.`}
+};
+const LINES = { cpi:{v:K_CPI, lbl:"Giá chung"}, wage:{v:K_WAGE, lbl:"Lương tối thiểu"} };
+const visibleItems = () => RANKED.filter(it => state.cat==="all" || it.cat===state.cat);
+
+/* ---------- header, hero, insight ---------- */
+function renderHead(){
+  $("#lede").textContent = `So ${ITEMS.length} mặt hàng và dịch vụ quen thuộc của người Sài Gòn giữa năm 2000 và năm 2026, đặt cạnh lạm phát và lương tối thiểu. Mỗi con số đều dẫn tới nguồn gốc kèm câu trích nguyên văn.`;
+  $("#metaRow").innerHTML = [
+    `<b>${ITEMS.length}</b> món được xếp hạng`, `<b>${BENCH.length}</b> thước đo bối cảnh`,
+    `<b>${srcCount}</b> nguồn, đã mở lại để kiểm`, `Số liệu tới <b>10/10/2026</b>`
+  ].map(s=>`<span class="pill">${s}</span>`).join("");
+
+  const top = RANKED[0], two = RANKED[1], three = RANKED[2];
+  const cheap = RANKED[RANKED.length-1];
+  const mini = (it, rk, sub) => `<button type="button" class="card mini" data-go="${it.id}">
+      <span class="mtxt"><span class="rank">${rk} · ${CATS[it.cat]}</span>
+      <span class="nm"><span class="dot" style="background:${ZONES[it.zone].c}"></span>${esc(it.name)}</span>
+      <span class="sm">${sub}</span></span><span class="x">${fx(it.ratio)}</span></button>`;
+  const dat = ITEMS.find(i=>i.id==="dat");
+  $("#hero").innerHTML = `
+    <div class="card hero-main">
+      <p class="kicker">Đắt lên nhiều nhất trong 26 năm</p>
+      <div class="hero-num">${fx(top.ratio)}</div>
+      <p class="hero-name">${esc(top.name)}</p>
+      <p class="hero-sub">${esc(top.spec)}</p>
+      <div class="fromto">
+        <div><span class="y">2000</span><span class="v">${vnd(top.p0, top.unit)}</span></div>
+        <span class="arrow" aria-hidden="true">→</span>
+        <div><span class="y">2026</span><span class="v">${vnd(top.p1, top.unit)}</span></div>
+      </div>
+      ${top.id==="dat" ? `<div class="caveat"><b>Đọc kỹ:</b> đây là bảng giá Nhà nước. Bảng giá 1995 chỉ bằng khoảng 30–40% giá thị trường, nên tính theo giá mua bán thực tế, đất trung tâm ước tăng khoảng ×21–28 — ngang vàng. <a href="#item-dat" data-go="dat">Xem cách tính</a></div>`:""}
+    </div>
+    <div class="hero-side">
+      ${mini(two, "#2", `${vnd(two.p0)} → ${vnd(two.p1)}`)}
+      ${mini(three, "#3", `${vnd(three.p0)} → ${vnd(three.p1)}`)}
+      ${mini(cheap, "Rẻ đi nhiều nhất", `${vnd(cheap.p0, cheap.unit)} → ${vnd(cheap.p1, cheap.unit)}`)}
+    </div>`;
+
+  const hi = RANKED.filter(i=>i.zone==="hi"), lo = RANKED.filter(i=>i.zone==="lo");
+  const cheaperByLabor = RANKED.filter(i=>i.ratio < K_WAGE).length;
+  const x = ITEMS.find(i=>i.id==="xang");
+  const names = arr => { const n = arr.map(i=>i.short); return n.length>1 ? n.slice(0,-1).join(", ")+" và "+n[n.length-1] : n[0]; };
+  $("#insight").innerHTML = `
+    <div class="bm"><div class="l">Lương tối thiểu</div><div class="v">${fx(K_WAGE)}</div><div class="s">180.000 → 5.310.000 đ/tháng</div></div>
+    <div class="bm"><div class="l">Giá chung (CPI)</div><div class="v">≈${fx(K_CPI)}</div><div class="s">ước tính tới 9/2026</div></div>
+    <div class="bm"><div class="l">1 đô la Mỹ</div><div class="v">${fx(K_USD)}</div><div class="s">14.168 → 25.629 đ</div></div>
+    <div class="says">Lương tối thiểu tăng nhanh gấp ${K_WAGE/K_CPI < Math.round(K_WAGE/K_CPI) ? "gần " : ""}${trim(Math.round(K_WAGE/K_CPI),0)} lần giá chung. Vì thế <b>${cheaperByLabor}/${ITEMS.length} món rẻ hơn năm 2000 nếu tính bằng ngày công</b> — 1 lít xăng từng tốn ${labor(x.p0/DAY0)}, nay ${labor(x.p1/DAY1)}. Chỉ <b>${names(hi)}</b> tăng nhanh hơn cả lương. Ở đầu kia, ${lo.length} món tăng chậm hơn lạm phát, rõ nhất là ${names(lo.slice(-2))}.</div>`;
+}
+
+/* ---------- chart ---------- */
+const svgNS = "http://www.w3.org/2000/svg";
+let anim = null, cur = { logf: 0, dom: null };
+function domainFor(mode, items){
+  const f = MODES[mode].f; let lo = 1, hi = 1;
+  items.forEach(it => { lo = Math.min(lo, it.lo/f, it.ratio/f); hi = Math.max(hi, it.hi/f, it.ratio/f); });
+  MODES[mode].lines.forEach(k => { lo = Math.min(lo, LINES[k].v/f); hi = Math.max(hi, LINES[k].v/f); });
+  return [Math.log10(lo) - 0.12, Math.log10(hi) + 0.08];
+}
+function pathBar(x1, x2, y, h, r){
+  const w = Math.abs(x2-x1); r = Math.min(r, w, h/2);
+  if (w < 0.5) return "";
+  if (x2 >= x1) return `M${x1},${y}H${x2-r}Q${x2},${y} ${x2},${y+r}V${y+h-r}Q${x2},${y+h} ${x2-r},${y+h}H${x1}Z`;
+  return `M${x1},${y}H${x2+r}Q${x2},${y} ${x2},${y+r}V${y+h-r}Q${x2},${y+h} ${x2+r},${y+h}H${x1}Z`;
+}
+function drawChart(logf, dom){
+  const svg = $("#chart"), wrap = $("#chartWrap");
+  const W = Math.max(280, wrap.clientWidth - 16);
+  const narrow = W < 600;
+  const items = visibleItems();
+  const f = Math.pow(10, logf);
+  const anyNeg = items.some(it => it.ratio/f < 1 || it.lo/f < 1);
+  const labelW = narrow ? 0 : Math.min(230, W*0.26);
+  const padR = narrow ? 56 : 72, rowH = narrow ? 50 : 36, barH = narrow ? 16 : 18, axisH = 30;
+  const x0 = labelW + 10 + (anyNeg ? (narrow ? 44 : 52) : 0), x1 = W - padR;
+  const X = v => x0 + (Math.log10(v) - dom[0])/(dom[1]-dom[0])*(x1-x0);
+  /* reference labels first: decide levels, then derive top margin */
+  const refs = [{v:1, lbl:(narrow ? "×1 · " : "") + MODES[state.mode].base, strong:true}]
+    .concat(MODES[state.mode].lines.map(k=>({v:LINES[k].v/f, lbl:`${narrow && k==="wage" ? "Lương t.thiểu" : LINES[k].lbl} ${fx(LINES[k].v/f)}`})));
+  const placed = [];
+  refs.sort((a,b)=>a.v-b.v).forEach(r => { const x = X(r.v), w = r.lbl.length*6.9 + 8;
+    let anchor = "middle", L = x - w/2;
+    if (L < 2) { anchor = "start"; L = x - 4; }
+    if (L + w > W - 2) { anchor = "end"; L = x - w + 4; }
+    let lvl = 0; while (lvl < 3 && placed.some(q => q.lvl===lvl && !(L + w < q.L || L > q.L + q.w))) lvl++;
+    placed.push({L, w, lvl, x, anchor, r});
+  });
+  const nLvl = Math.max(...placed.map(q=>q.lvl)) + 1;
+  const top = 26 + nLvl*16;
+  const H = top + items.length*rowH + axisH;
+  const yAxis = top + items.length*rowH + 4;
+  svg.setAttribute("viewBox", `0 0 ${W} ${H}`); svg.setAttribute("width", W); svg.setAttribute("height", H);
+  let s = "";
+  /* zone bands */
+  const clampX = x => Math.min(Math.max(x, x0), x1);
+  const bCpi = clampX(X(K_CPI/f)), bWage = clampX(X(K_WAGE/f)), bh = items.length*rowH + 6;
+  s += `<rect x="${x0}" y="${top-6}" width="${Math.max(0,bCpi-x0)}" height="${bh}" fill="var(--z-lo-bg)" opacity=".6"/>`;
+  s += `<rect x="${bCpi}" y="${top-6}" width="${Math.max(0,bWage-bCpi)}" height="${bh}" fill="var(--z-mid-bg)" opacity=".6"/>`;
+  s += `<rect x="${bWage}" y="${top-6}" width="${Math.max(0,x1-bWage)}" height="${bh}" fill="var(--z-hi-bg)" opacity=".6"/>`;
+  /* ticks */
+  const cand = [0.001,0.002,0.005,0.01,0.02,0.05,0.1,0.2,0.5,1,2,5,10,20,50,100,200];
+  const pxPerDec = (x1-x0)/(dom[1]-dom[0]);
+  let ticks = cand.filter(v => Math.log10(v) >= dom[0] && Math.log10(v) <= dom[1]);
+  if (pxPerDec < 130) ticks = ticks.filter(v => { const m = String(v).replace(/^0\.0*/,""); return m[0]==="1" || (pxPerDec >= 105 && m[0]==="5"); });
+  ticks.forEach(v => { const x = X(v);
+    s += `<line x1="${x}" x2="${x}" y1="${top-6}" y2="${yAxis}" stroke="var(--grid)" stroke-width="1"/>`;
+    s += `<text x="${x}" y="${yAxis+18}" text-anchor="middle" font-size="12" fill="var(--muted)" style="font-variant-numeric:tabular-nums">${fx(v).replace(/,0+$/,"")}</text>`;
+  });
+  /* reference lines + labels */
+  placed.forEach(q => { const x = q.x;
+    s += `<line x1="${x}" x2="${x}" y1="${18 + q.lvl*16 + 4}" y2="${yAxis}" stroke="${q.r.strong?"var(--ink-2)":"var(--axis)"}" stroke-width="${q.r.strong?1.5:1}"/>`;
+    const dx = q.anchor==="end" ? 4 : q.anchor==="start" ? -4 : 0;
+    s += `<text x="${x+dx}" y="${14 + q.lvl*16}" text-anchor="${q.anchor}" font-size="12" font-weight="650" fill="var(--ink-2)" paint-order="stroke" stroke="var(--surface)" stroke-width="4">${esc(q.r.lbl)}</text>`;
+  });
+  /* rows */
+  items.forEach((it, i) => {
+    const yRow = top + i*rowH;
+    const yb = narrow ? yRow + 24 : yRow + (rowH-barH)/2;
+    const v = it.ratio/f, lo = it.lo/f, hi = it.hi/f;
+    const xb = X(1), xe = X(v);
+    s += `<g class="row-hit" tabindex="0" role="button" data-id="${it.id}" aria-label="${esc(`${it.rank}. ${it.name}: ${vnd(it.p0,it.unit)} năm 2000, ${vnd(it.p1,it.unit)} năm 2026, ${fx(it.ratio)}`)}">`;
+    s += `<rect class="hit-bg" x="0" y="${yRow}" width="${W}" height="${rowH}" fill="transparent" rx="8"/>`;
+    const lblX = narrow ? 4 : labelW, lblY = narrow ? yRow + 15 : yRow + rowH/2 + 5;
+    s += `<text x="${lblX}" y="${lblY}" text-anchor="${narrow?"start":"end"}" font-size="14" fill="var(--ink)"${narrow?` paint-order="stroke" stroke="var(--surface)" stroke-width="3"`:""}><tspan fill="var(--muted)" font-size="12" font-weight="700">${it.rank}  </tspan>${esc(it.short)}</text>`;
+    s += `<path d="${pathBar(xb, xe, yb, barH, 4)}" fill="${ZONES[it.zone].c}"/>`;
+    let xr = Math.max(xe, xb), xl = Math.min(xe, xb);
+    if (hi/lo > 1.04) { const a = X(lo), b = X(hi), yc = yb + barH/2;
+      s += `<g stroke="var(--ink)" stroke-width="1.5" opacity=".75"><line x1="${a}" x2="${b}" y1="${yc}" y2="${yc}"/><line x1="${a}" x2="${a}" y1="${yc-5}" y2="${yc+5}"/><line x1="${b}" x2="${b}" y1="${yc-5}" y2="${yc+5}"/></g>`;
+      xr = Math.max(xr, b); xl = Math.min(xl, a);
+    }
+    const up = v >= 1;
+    s += `<text x="${up ? xr+7 : xl-7}" y="${yb+barH/2+5}" text-anchor="${up?"start":"end"}" font-size="14" font-weight="700" fill="var(--ink)" style="font-variant-numeric:tabular-nums">${fx(v)}</text>`;
+    s += `</g>`;
+  });
+  svg.innerHTML = s;
+  svg.setAttribute("aria-label", `Biểu đồ xếp hạng ${items.length} món theo số lần tăng giá, chế độ: ${MODES[state.mode].base}`);
+}
+function renderChart(animate){
+  const items = visibleItems();
+  const target = { logf: Math.log10(MODES[state.mode].f), dom: domainFor(state.mode, items) };
+  if (!animate || reduceMotion || !cur.dom) { cur = target; drawChart(cur.logf, cur.dom); return; }
+  const from = { logf: cur.logf, dom: cur.dom.slice() }; const t0 = performance.now(), D = 520;
+  if (anim) cancelAnimationFrame(anim);
+  const step = now => { let t = Math.min(1,(now-t0)/D); const e = t<.5 ? 4*t*t*t : 1-Math.pow(-2*t+2,3)/2;
+    cur = { logf: from.logf + (target.logf-from.logf)*e, dom:[from.dom[0]+(target.dom[0]-from.dom[0])*e, from.dom[1]+(target.dom[1]-from.dom[1])*e] };
+    drawChart(cur.logf, cur.dom); if (t<1) anim = requestAnimationFrame(step); };
+  anim = requestAnimationFrame(step);
+}
+function renderLegend(){
+  $("#legend").innerHTML = ["hi","mid","lo"].map(z=>`<span><span class="dot" style="background:${ZONES[z].c}"></span>${ZONES[z].lbl}</span>`).join("") +
+    `<span><svg width="22" height="10" aria-hidden="true"><line x1="2" x2="20" y1="5" y2="5" stroke="currentColor" stroke-width="1.5"/><line x1="2" x2="2" y1="1" y2="9" stroke="currentColor" stroke-width="1.5"/><line x1="20" x2="20" y1="1" y2="9" stroke="currentColor" stroke-width="1.5"/></svg>Khoảng dao động khi nguồn ghi một khoảng giá</span>`;
+  $("#modeExplain").textContent = MODES[state.mode].text;
+}
+
+/* tooltip */
+const tip = $("#tip"); let tipFor = null;
+function showTip(id, cx, cy){
+  const it = ITEMS.find(i=>i.id===id); if(!it) return; tipFor = id;
+  tip.innerHTML = `<h4>${it.rank}. ${esc(it.name)}</h4>
+    <div class="r"><span>2000</span><span>${vnd(it.p0,it.unit)}</span></div>
+    <div class="r"><span>2026</span><span>${vnd(it.p1,it.unit)}</span></div>
+    <div class="r"><span>Gấp</span><b>${fx(it.ratio)}</b></div>
+    <div class="r"><span>Sau lạm phát</span><span>${fx(it.ratio/K_CPI)}</span></div>
+    <div class="r"><span>Ngày công</span><span>${labor(it.p0/DAY0)} → ${labor(it.p1/DAY1)}</span></div>
+    ${it.flags.length?`<div class="hint">⚑ ${esc(it.flags.join(" · "))}</div>`:""}
+    <div class="hint">${matchMedia("(hover: none)").matches ? "Chạm lần nữa" : "Bấm"} để xem nguồn và câu trích</div>`;
+  tip.classList.add("on"); tip.setAttribute("aria-hidden","false");
+  const r = tip.getBoundingClientRect(); let x = cx + 16, y = cy + 16;
+  if (x + r.width > innerWidth - 8) x = Math.max(8, cx - r.width - 16);
+  if (y + r.height > innerHeight - 8) y = Math.max(8, cy - r.height - 16);
+  tip.style.left = x + "px"; tip.style.top = y + "px";
+}
+function hideTip(){ tip.classList.remove("on"); tip.setAttribute("aria-hidden","true"); tipFor = null; }
+function goTo(id){
+  hideTip();
+  if (state.cat !== "all" && ITEMS.find(i=>i.id===id).cat !== state.cat) { state.cat = "all"; syncSeg("#catSeg","cat"); renderChart(false); renderTable(); }
+  if (state.q) { state.q=""; $("#q").value=""; renderCards(); }
+  const c = document.getElementById("item-"+id); if(!c) return;
+  c.scrollIntoView({behavior: reduceMotion?"auto":"smooth", block:"start"});
+  c.classList.remove("flash"); void c.offsetWidth; c.classList.add("flash");
+}
+function bindChart(){
+  const svg = $("#chart");
+  svg.addEventListener("pointermove", e => { const g = e.target.closest(".row-hit"); if (!g) { hideTip(); return; } if (e.pointerType!=="touch") showTip(g.dataset.id, e.clientX, e.clientY); });
+  svg.addEventListener("pointerleave", e => { if (e.pointerType!=="touch") hideTip(); });
+  svg.addEventListener("click", e => { const g = e.target.closest(".row-hit"); if(!g) return;
+    if (e.pointerType === "touch" || (e.detail && window.matchMedia("(hover: none)").matches)) {
+      if (tipFor !== g.dataset.id) { const r = g.getBoundingClientRect(); showTip(g.dataset.id, Math.min(r.left+40, innerWidth-40), r.bottom); return; }
+    }
+    goTo(g.dataset.id); });
+  svg.addEventListener("focusin", e => { const g = e.target.closest(".row-hit"); if(!g) return; let fv = true; try { fv = g.matches(":focus-visible"); } catch(_){} if (!fv) return; const r = g.getBoundingClientRect(); showTip(g.dataset.id, r.left + Math.min(r.width/2, 260), r.bottom - 8); });
+  svg.addEventListener("focusout", hideTip);
+  svg.addEventListener("keydown", e => { const g = e.target.closest(".row-hit"); if(!g) return;
+    if (e.key==="Enter"||e.key===" ") { e.preventDefault(); goTo(g.dataset.id); }
+    if (e.key==="ArrowDown"||e.key==="ArrowUp") { e.preventDefault(); const all=[...svg.querySelectorAll(".row-hit")]; const i=all.indexOf(g); const n=all[i+(e.key==="ArrowDown"?1:-1)]; if(n) n.focus(); }
+    if (e.key==="Escape") hideTip(); });
+  document.addEventListener("scroll", () => { if (tipFor && !document.activeElement.closest?.(".row-hit")) hideTip(); }, {passive:true});
+}
+
+/* ---------- table ---------- */
+let sortKey = "ratio", sortDir = -1;
+function renderTable(){
+  const cols = [
+    {k:"rank", t:"#", v:i=>i.rank}, {k:"name", t:"Mặt hàng", v:i=>i.name},
+    {k:"p0", t:"2000", v:i=>i.p0}, {k:"p1", t:"2026", v:i=>i.p1},
+    {k:"ratio", t:"Gấp", v:i=>i.ratio}, {k:"real", t:"Sau lạm phát", v:i=>i.ratio/K_CPI},
+    {k:"l0", t:"Ngày công 2000", v:i=>i.p0/DAY0}, {k:"l1", t:"Ngày công 2026", v:i=>i.p1/DAY1}, {k:"src", t:"Nguồn", v:()=>0}
+  ];
+  const rows = visibleItems().slice().sort((a,b)=>{ const c = cols.find(c=>c.k===sortKey); const va=c.v(a), vb=c.v(b); return (typeof va==="string" ? va.localeCompare(vb,"vi") : va-vb) * sortDir; });
+  const head = cols.map(c => c.k==="src" ? `<th>${c.t}</th>` : `<th aria-sort="${sortKey===c.k?(sortDir>0?"ascending":"descending"):"none"}"><button type="button" data-k="${c.k}">${c.t}${sortKey===c.k?(sortDir>0?" ↑":" ↓"):""}</button></th>`).join("");
+  const body = rows.map(i => `<tr><td style="text-align:right;min-width:0">${i.rank}</td><td><a href="#item-${i.id}" data-go="${i.id}">${esc(i.name)}</a><div style="font-size:12px;color:var(--muted)">${esc(i.spec)}</div></td>
+    <td>${vnd(i.p0,i.unit)}</td><td>${vnd(i.p1,i.unit)}</td><td><b>${fx(i.ratio)}</b></td><td>${fx(i.ratio/K_CPI)}</td>
+    <td>${labor(i.p0/DAY0)}</td><td>${labor(i.p1/DAY1)}</td>
+    <td>${[...new Set([...i.s0,...i.s1].map(s=>s.k))].map(k=>`<a href="${esc(SRC[k].u)}" target="_blank" rel="noopener" title="${esc(SRC[k].o+" · "+SRC[k].d)}">[${SRCNUM[k]}]</a>`).join(" ")}</td></tr>`).join("");
+  $("#tableWrap").innerHTML = `<table><caption class="sr">Bảng số liệu giá 2000 và 2026</caption><thead><tr>${head.replace('<th aria-sort','<th style="text-align:right" aria-sort')}</tr></thead><tbody>${body}</tbody></table>`;
+  $("#tableWrap").querySelectorAll("th button").forEach(b => b.addEventListener("click", () => { const k=b.dataset.k; if (sortKey===k) sortDir*=-1; else { sortKey=k; sortDir = (k==="name"||k==="rank")?1:-1; } renderTable(); }));
+}
+
+/* ---------- cards ---------- */
+function cardHTML(it){
+  const range = (it.r0||it.r1) && it.hi/it.lo > 1.04 ? `<div><div class="k">Khoảng theo nguồn</div><div class="val">${fx(it.lo)} – ${fx(it.hi)}</div></div>` : "";
+  const alt = it.alt && it.alt.length ? `<details class="more"><summary>Nguồn đối chiếu (${it.alt.length})</summary>${it.alt.map(s=>srcBlock("đối chiếu", s)).join("")}</details>` : "";
+  return `<article class="card item" id="item-${it.id}" data-cat="${it.cat}">
+    <div class="item-h">
+      <div><div class="rk">#${it.rank} · ${CATS[it.cat]}</div><h3>${esc(it.name)}</h3><div class="spec">${esc(it.spec)}</div></div>
+      <div class="bigx">${fx(it.ratio)}<div class="zl"><span class="dot" style="background:${ZONES[it.zone].c}"></span>${ZONES[it.zone].short}</div></div>
+    </div>
+    <div class="prices">
+      <div><div class="y">2000</div><div class="v">${vnd(it.p0,it.unit)}</div><div class="when">${esc(it.y0)}</div></div>
+      <div class="ar" aria-hidden="true">→</div>
+      <div><div class="y">2026</div><div class="v">${vnd(it.p1,it.unit)}</div><div class="when">${esc(it.y1)}</div></div>
+    </div>
+    <div class="facts">
+      <div><div class="k">Sau khi trừ lạm phát</div><div class="val">${fx(it.ratio/K_CPI)}</div></div>
+      ${range}
+      <div><div class="k">Ngày công năm 2000</div><div class="val">${labor(it.p0/DAY0)}</div></div>
+      <div><div class="k">Ngày công năm 2026</div><div class="val">${labor(it.p1/DAY1)}</div></div>
+    </div>
+    ${it.flags.length ? `<div class="flags">${it.flags.map(f=>`<span class="flag">${esc(f)}</span>`).join("")}</div>`:""}
+    <p class="note">${esc(it.note)}</p>
+    <div class="srcs">${it.s0.map(s=>srcBlock("2000",s)).join("")}${it.s1.map(s=>srcBlock("2026",s)).join("")}${alt}</div>
+  </article>`;
+}
+const norm = s => s.normalize("NFD").replace(/[̀-ͯ]/g,"").replace(/đ/g,"d").replace(/Đ/g,"D").toLowerCase();
+function renderCards(){
+  const q = norm(state.q.trim());
+  const list = visibleItems().filter(it => !q || norm(it.name+" "+it.short+" "+it.spec+" "+CATS[it.cat]).includes(q));
+  $("#cards").innerHTML = list.length ? list.map(cardHTML).join("") : `<div class="card empty">Không có món nào khớp “${esc(state.q)}”. Thử từ khác, hoặc xem mục “chưa đủ chuẩn” bên dưới.</div>`;
+  $("#countPill").innerHTML = `<b>${list.length}</b> / ${ITEMS.length} món` + (state.cat!=="all" ? ` · nhóm ${CATS[state.cat]}` : "");
+}
+
+/* ---------- calculator ---------- */
+function parseAmt(s){ const n = Number(String(s).replace(/[^\d]/g,"")); return isFinite(n) ? n : 0; }
+function renderCalc(){
+  const A = parseAmt($("#amt").value);
+  const sel = $("#buySel") ? $("#buySel").value : "xang";
+  const it = ITEMS.find(i=>i.id===sel) || ITEMS[0];
+  const n0 = A/it.p0, n1 = A/it.p1;
+  const q = v => v >= 100 ? trim(v,0) : v >= 1 ? trim(v,1) : new Intl.NumberFormat("vi-VN",{maximumSignificantDigits:2}).format(v);
+  const r3 = v => { const k = Math.pow(10, Math.max(0, Math.floor(Math.log10(v)) - 2)); return Math.round(v/k)*k; };
+  $("#calcOut").innerHTML = A<=0 ? `<p class="sec-sub">Nhập một số tiền lớn hơn 0.</p>` : `
+    <div class="co"><div class="l">Theo giá chung (CPI)</div><div class="v">≈ ${vnd(r3(A*K_CPI))}</div><div class="s">giữ nguyên sức mua bình quân</div></div>
+    <div class="co"><div class="l">Theo lương tối thiểu</div><div class="v">${vnd(A*K_WAGE)}</div><div class="s">= ${labor(A/DAY0)} năm 2000</div></div>
+    <div class="co"><div class="l">Theo vàng SJC</div><div class="v">≈ ${vnd(r3(A*GOLD1/GOLD0))}</div><div class="s">= ${trim(A/GOLD0*10,2)} chỉ vàng năm 2000</div></div>
+    <div class="co"><div class="l">Theo đô la Mỹ</div><div class="v">≈ ${vnd(r3(A*K_USD))}</div><div class="s">= ${trim(A/USD0,2)} USD năm 2000</div></div>
+    <div class="buy"><label for="buySel" style="font-weight:650">Số tiền đó mua được</label>
+      <select id="buySel">${RANKED.map(i=>`<option value="${i.id}" ${i.id===it.id?"selected":""}>${esc(i.short)} (${esc(i.unit)})</option>`).join("")}</select>
+      <p>Năm 2000: <b>${q(n0)} ${esc(it.unit)}</b>. Năm 2026, cùng ${vnd(A)} chỉ mua được <b>${q(n1)} ${esc(it.unit)}</b>${n1<n0?`; muốn mua lại ${q(n0)} ${esc(it.unit)} cần ≈ ${vnd(r3(A*it.ratio))}`:`, tức nhiều hơn trước`}.</p></div>`;
+  $("#buySel").addEventListener("change", renderCalc);
+}
+
+/* ---------- benchmarks, pending, method, sources ---------- */
+function renderBench(){
+  $("#bench").innerHTML = BENCH.map(b => `<div class="card"><div class="nm">${esc(b.name)}</div><div class="x">${b.ratioLabel || fx(b.v1/b.v0)}</div>
+    <div class="ft">${b.id==="cpi" ? `${trim(b.v0,2)} → ${trim(b.v1,2)}` : `${vnd(b.v0)} → ${vnd(b.v1)}`}<br><span style="color:var(--muted)">${esc(b.l0)}<br>${esc(b.l1)}</span></div>
+    <p class="note" style="font-size:13px">${esc(b.note)}</p>
+    <details class="more"><summary>Nguồn</summary><div class="srcs" style="border:0;padding-top:4px">${srcBlock("đầu",b.s0)}${srcBlock("cuối",b.s1)}</div></details></div>`).join("");
+}
+function renderPending(){
+  $("#pend").innerHTML = PENDING.map(p => `<div class="card"><h3>${esc(p.name)}</h3>
+    <div><div class="y" style="font-size:12px;color:var(--muted);font-weight:650">2026</div><div class="now">${esc(p.now)}</div></div>
+    <div class="early"><b style="color:var(--ink)">Số sớm nhất tìm được:</b> ${esc(p.early)}</div>
+    <span class="why">${esc(p.why)}</span>
+    <div class="srcs">${srcBlock("2026",p.nowS)}${p.earlyS.map(s=>srcBlock("sớm nhất",s)).join("")}</div></div>`).join("");
+}
+function renderMethod(){
+  $("#method").innerHTML = `<div>
+    <h3>Cách làm</h3><ul>
+    <li><b>Phạm vi:</b> giá tại TP.HCM. Với giá Nhà nước định chung cả nước (xăng, điện, cước viễn thông) thì dùng giá cả nước.</li>
+    <li><b>Năm so sánh:</b> ưu tiên đúng năm 2000. Không có thì dùng năm gần nhất, tối đa 2002, và gắn nhãn vàng. Món chỉ có số từ 2004 trở đi không được xếp hạng.</li>
+    <li><b>Gấp bao nhiêu lần</b> = giá 2026 ÷ giá 2000. Nguồn ghi khoảng giá thì lấy trung điểm; độ rộng hiện bằng vạch ngang mảnh trên biểu đồ.</li>
+    <li><b>Sau lạm phát:</b> chia tiếp cho ≈${trim(K_CPI,2)} — CPI của Ngân hàng Thế giới 2000→2025 (×${trim(CPI2025/CPI2000,2)}) nhân 1,0452 theo CPI bình quân 9 tháng 2026 của Cục Thống kê. Đây là ước tính của bảng.</li>
+    <li><b>Ngày công:</b> lương tối thiểu tháng ÷ 26 ngày, 1 ngày = 8 giờ. Năm 2000: 180.000 đ; năm 2026: 5.310.000 đ (Vùng I).</li>
+    <li><b>Nguồn:</b> ưu tiên văn bản pháp luật, số liệu thống kê và báo lớn; chỉ dùng giá niêm yết của nhà bán lẻ khi không có bài báo, và có gắn nhãn.</li>
+    <li><b>Kiểm chứng:</b> từng đường dẫn đã được mở lại ngày 10/10/2026 và đối chiếu con số trên trang. Câu trích là nguyên văn; dấu “…” là lược bớt, phần trong [ngoặc vuông] là chú thích của bảng này, dấu “|” hay “·” ngăn các ô của một dòng trong bảng.</li></ul></div>
+    <div><h3>Giới hạn cần biết</h3><ul>
+    <li>Số 2000 của nhiều món thực phẩm là giá bình quân năm của Cục Thống kê TP.HCM (qua CEIC); số 2026 là giá báo chí ghi nhận ở vài chợ, cửa hàng. Cùng thành phố, khác cách thu thập.</li>
+    <li>Chất lượng thay đổi theo thời gian: xăng pha chì → xăng sinh học E5, internet quay số → cáp quang, Wave α đời 2002 → đời 2026.</li>
+    <li>Lương tối thiểu năm 2000 không chia vùng; năm 2026 dùng Vùng I.</li>
+    <li>Giá đất là bảng giá Nhà nước, không phải giá mua bán. Mức tăng theo thị trường thấp hơn nhiều (ước ×21–28).</li>
+    <li>Vài số 2026 chỉ có một nguồn (thịt bò, cước di động) hoặc là giá niêm yết có thể đã đổi khi bạn mở trang.</li>
+    <li>Chưa có số năm 2000 kiểm được cho phở, bánh mì, cà phê, cơm tấm, vé phim, bình gas, học phí đại học, vé máy bay — xem mục riêng ở trên.</li>
+    <li>Đây là bảng tổng hợp để tham khảo, không phải tư vấn đầu tư.</li></ul></div>`;
+}
+function renderSources(){
+  const keys = Object.keys(SRCNUM).sort((a,b)=>SRCNUM[a]-SRCNUM[b]);
+  $("#srclist").innerHTML = keys.map(k => { const s = SRC[k]; return `<li><a href="${esc(s.u)}" target="_blank" rel="noopener">${esc(s.o)}</a> · ${esc(s.d)}<br>${esc(s.t)}</li>`; }).join("");
+  $("#foot").innerHTML = `Tổng hợp ngày 10/10/2026 từ ${srcCount} nguồn công khai. Bấm “Tải CSV” để lấy toàn bộ số liệu kèm nguồn và câu trích. · <a href="#xep-hang">Về đầu bảng xếp hạng</a>`;
+}
+
+/* ---------- controls ---------- */
+function syncSeg(sel, key){ document.querySelectorAll(sel+" button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset[key]===state[key]))); }
+function bindControls(){
+  $("#catSeg").innerHTML = `<button type="button" data-cat="all" aria-pressed="true">Tất cả</button>` + Object.keys(CATS).map(k=>`<button type="button" data-cat="${k}" aria-pressed="false">${CATS[k]}</button>`).join("");
+  $("#modeSeg").addEventListener("click", e => { const b = e.target.closest("button"); if(!b || b.dataset.mode===state.mode) return; state.mode=b.dataset.mode; syncSeg("#modeSeg","mode"); renderLegend(); renderChart(true); });
+  $("#catSeg").addEventListener("click", e => { const b = e.target.closest("button"); if(!b) return; state.cat=b.dataset.cat; syncSeg("#catSeg","cat"); renderChart(false); renderTable(); renderCards(); });
+  $("#viewSeg").addEventListener("click", e => { const b = e.target.closest("button"); if(!b) return; state.view=b.dataset.view; syncSeg("#viewSeg","view");
+    $("#chartWrap").classList.toggle("hidden", state.view!=="chart"); $("#legend").classList.toggle("hidden", state.view!=="chart"); $("#modeExplain").classList.toggle("hidden", state.view!=="chart"); $("#tableWrap").classList.toggle("hidden", state.view!=="table");
+    if (state.view==="chart") renderChart(false); });
+  let qT; $("#q").addEventListener("input", e => { clearTimeout(qT); qT = setTimeout(()=>{ state.q = e.target.value; renderCards(); }, 120); });
+  document.addEventListener("click", e => { const g = e.target.closest("[data-go]"); if (g) { e.preventDefault(); goTo(g.dataset.go); } });
+  /* calculator */
+  const amt = $("#amt");
+  amt.addEventListener("input", () => { const n = parseAmt(amt.value); const pos = amt.value.length - amt.selectionStart; amt.value = n ? trim(n,0) : ""; const np = Math.max(0, amt.value.length - pos); try{ amt.setSelectionRange(np,np);}catch(_){} renderCalc(); });
+  $("#quick").innerHTML = [[10000,"10.000"],[100000,"100.000"],[180000,"180.000 (1 tháng lương tối thiểu)"],[1000000,"1 triệu"],[4750000,"4,75 triệu (1 lượng vàng)"]].map(([v,l])=>`<button type="button" class="btn" data-v="${v}">${l}</button>`).join("");
+  $("#quick").addEventListener("click", e => { const b = e.target.closest("button"); if(!b) return; amt.value = trim(+b.dataset.v,0); renderCalc(); });
+  /* theme */
+  const root = document.documentElement;
+  const isDark = () => root.dataset.theme ? root.dataset.theme==="dark" : matchMedia("(prefers-color-scheme: dark)").matches;
+  const syncTheme = () => { $("#themeLbl").textContent = isDark() ? "Sáng" : "Tối"; };
+  try { const t = localStorage.getItem("gia2000-theme"); if (t) root.dataset.theme = t; } catch(_){}
+  syncTheme();
+  $("#themeBtn").addEventListener("click", () => { root.dataset.theme = isDark() ? "light" : "dark"; try{ localStorage.setItem("gia2000-theme", root.dataset.theme);}catch(_){} syncTheme(); });
+  /* csv */
+  $("#csvBtn").addEventListener("click", () => {
+    const cell = v => `"${String(v==null?"":v).replace(/"/g,'""')}"`;
+    const rows = [["hang","mat_hang","quy_cach","nhom","gia_2000_vnd","thoi_diem_2000","gia_2026_vnd","thoi_diem_2026","gap_lan","sau_lam_phat","nhan_luu_y","nguon_2000","url_2000","trich_2000","nguon_2026","url_2026","trich_2026","ghi_chu"]];
+    RANKED.forEach(i => rows.push([i.rank,i.name,i.spec,CATS[i.cat],Math.round(i.p0*100)/100,i.y0,Math.round(i.p1*100)/100,i.y1,i.ratio.toFixed(3),(i.ratio/K_CPI).toFixed(3),i.flags.join("; "),
+      SRC[i.s0[0].k].o+" "+SRC[i.s0[0].k].d,SRC[i.s0[0].k].u,i.s0[0].q,SRC[i.s1[0].k].o+" "+SRC[i.s1[0].k].d,SRC[i.s1[0].k].u,i.s1[0].q,i.note]));
+    BENCH.forEach(b => rows.push(["",b.name,b.unit,"Thước đo",b.v0,b.l0,b.v1,b.l1,(b.v1/b.v0).toFixed(3),"","",SRC[b.s0.k].o,SRC[b.s0.k].u,b.s0.q,SRC[b.s1.k].o,SRC[b.s1.k].u,b.s1.q,b.note]));
+    const csv = "﻿" + rows.map(r=>r.map(cell).join(",")).join("\r\n");
+    const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([csv],{type:"text/csv;charset=utf-8"})); a.download = "gia-ca-tphcm-2000-2026.csv"; document.body.appendChild(a); a.click(); setTimeout(()=>{URL.revokeObjectURL(a.href); a.remove();}, 500);
+  });
+  let rT; addEventListener("resize", () => { clearTimeout(rT); rT = setTimeout(()=>{ if(state.view==="chart") drawChart(cur.logf, cur.dom); }, 80); });
+}
+
+/* ---------- boot ---------- */
+renderHead(); bindControls(); renderLegend(); renderChart(false); bindChart(); renderTable(); renderCards(); renderCalc(); renderBench(); renderPending(); renderMethod(); renderSources();
+window.__dash = { ITEMS, RANKED, K_CPI, K_WAGE, SRCNUM, state };
+})();
+
+</script>
+</body>
+</html>

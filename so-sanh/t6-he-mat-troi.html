@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="vi" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>T6 · Hệ Mặt Trời 3D — prompt trần và prompt Boris</title>
+<meta name="description" content="So sánh hai sản phẩm Claude Opus 5.5 làm từ cùng một đề bài: hệ mặt trời 3d. Prompt trần một câu, prompt kiểu Boris thêm năm câu.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="T6 · Hệ Mặt Trời 3D — prompt trần và prompt Boris">
+<meta property="og:description" content="So sánh hai sản phẩm Claude Opus 5.5 làm từ cùng một đề bài: hệ mặt trời 3d. Prompt trần một câu, prompt kiểu Boris thêm năm câu.">
+<meta property="og:image" content="../assets/img/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#F5F1E8" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#111214" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M6 4h20a4 4 0 0 1 4 4v12a4 4 0 0 1-4 4H14l-6 5v-5H6a4 4 0 0 1-4-4V8a4 4 0 0 1 4-4z' fill='%2317171A'/%3E%3Crect x='7' y='9' width='11' height='2.6' rx='1.3' fill='%23F5F1E8'/%3E%3Crect x='7' y='14.2' width='18' height='2.6' rx='1.3' fill='%23E85A2A'/%3E%3Crect x='7' y='19.4' width='13' height='2.6' rx='1.3' fill='%23E85A2A' opacity='.6'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400..600;1,6..72,400..500&display=swap">
+<link rel="stylesheet" href="../assets/css/site.css">
+<script>try{var t=localStorage.getItem('bp-theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}</script>
+</head>
+<body>
+<a class="sr" href="#noi-dung">Bỏ qua tới nội dung</a>
+
+<header class="topbar">
+  <div class="wrap">
+    <a class="brand" href="../index.html"><svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true"><path d="M6 4h20a4 4 0 0 1 4 4v12a4 4 0 0 1-4 4H14l-6 5v-5H6a4 4 0 0 1-4-4V8a4 4 0 0 1 4-4z" fill="var(--ink)"/><rect x="7" y="9" width="11" height="2.6" rx="1.3" fill="var(--paper)"/><rect x="7" y="14.2" width="18" height="2.6" rx="1.3" fill="var(--boris)"/><rect x="7" y="19.4" width="13" height="2.6" rx="1.3" fill="var(--boris)" opacity=".6"/></svg><span>Prompt kiểu Boris</span></a>
+    <nav class="cmp-tabs" aria-label="Các bài thử"><a href="t2-game.html" title="Game trình duyệt tự nghĩ">T2</a><a href="t4-landing.html" title="Landing page quán cà phê hư cấu">T4</a><a href="t6-he-mat-troi.html" aria-current="page" title="Hệ Mặt Trời 3D">T6</a><a href="t10-hoat-hinh.html" title="Hoạt hình giải thích 30 giây">T10</a><a href="p1-dashboard-gia.html" title="Nghiên cứu web và dashboard giá cả">+1</a><a href="p2-video-motion.html" title="Video motion graphics 20 giây">+2</a></nav>
+    <button class="icon-btn" type="button" data-theme-toggle aria-label="Đổi nền sáng / tối"><svg class="theme-ico-light" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M4.6 4.6l1.4 1.4M18 18l1.4 1.4M2.5 12h2M19.5 12h2M4.6 19.4L6 18M18 6l1.4-1.4"/></svg><svg class="theme-ico-dark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg></button>
+  </div>
+</header>
+<main id="noi-dung">
+<section class="cmp-head">
+  <div class="wrap">
+    <a class="btn-sm" href="../index.html#bai-thu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Tất cả bài thử</a>
+    <p class="kicker" style="margin-top:28px">Bài thử T6 · Claude Code</p>
+    <h1 class="display">Hệ Mặt Trời 3D</h1>
+    <p class="lede">Bài có cả phần đẹp lẫn phần đúng kiểm được. Cả hai bản đều đạt đủ yêu cầu. Bản Boris đi xa đề bài nhất trong 6 bài: tính vị trí thật theo ngày giờ, có nền sao thật và chế độ tỉ lệ thật.</p>
+    <div class="cmp-meta">
+      <span class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></svg>Claude Opus 5.5</span>
+      <span class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 18a9 9 0 1 1 16 0"/><path d="M12 13l4-4"/></svg>Effort High</span>
+      <span class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 9l3 3-3 3M12 15h5"/></svg>Claude Code</span>
+      <span class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h3l3-7 4 14 3-7h3"/></svg>1 lượt mỗi prompt</span>
+      <span class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>Không chấm mù, nhãn ghi rõ</span>
+    </div>
+  </div>
+</section>
+
+<section class="cmp-sec">
+  <div class="wrap">
+    <div class="sec-title"><h2>Hai prompt</h2><p>Cùng đề bài. Prompt Boris thêm 5 câu cố định, giống nhau ở mọi bài.</p></div>
+    <div class="cmp-prompts">
+      <div class="bubble tran">
+        <div class="bubble-meta"><span class="arm tran">Prompt trần</span><span class="wc">32 từ</span></div>
+        <p id="pt-t6">Làm cho tôi <span class="fill">một mô phỏng hệ Mặt Trời 3D chạy trong trình duyệt, xoay và phóng to được bằng chuột và cảm ứng, bấm vào hành tinh để xem thông tin</span>.</p>
+      </div>
+      <div class="bubble boris">
+        <div class="bubble-meta"><span class="arm boris">Prompt Boris</span><span class="wc">125 từ</span></div>
+        <p id="pb-t6">Tôi muốn bạn làm <span class="fill">một mô phỏng hệ Mặt Trời 3D chạy trong trình duyệt, xoay và phóng to được bằng chuột và cảm ứng, bấm vào hành tinh để xem thông tin</span>. <span class="add">Làm cho đẹp và dễ dùng, tập trung vào <span class="fill">đẹp như một gian triển lãm khoa học và số liệu hành tinh đúng</span>.</span> <span class="add">Làm thật tốt vào, dùng nhiều token và lặp lại cho đến khi bạn tự hào về nó.</span> <span class="add">Thấy gì làm nó hay hơn thì cứ thêm, bạn tự quyết.</span> <span class="add">Nhắm tới những thứ hay nhất cùng loại mà bạn từng thấy, nhưng tốt hơn.</span> <span class="add">Trước khi nói xong, tự thử như một người dùng thật, rồi cho tôi biết bạn đã kiểm gì và chưa kiểm được gì.</span></p>
+      </div>
+    </div>
+    <div class="cmp-prompts-foot">
+      <span class="add-legend"><i></i>Phần prompt Boris thêm vào</span>
+      <button class="btn-sm" type="button" data-copy-from="pt-t6"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a1 1 0 0 1 1-1h10"/></svg><span data-label>Chép prompt trần</span></button>
+      <button class="btn-sm" type="button" data-copy-from="pb-t6"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a1 1 0 0 1 1-1h10"/></svg><span data-label>Chép prompt Boris</span></button>
+    </div>
+  </div>
+</section>
+
+<section class="cmp-sec" id="xem">
+  <div class="wrap">
+    <div class="sec-title"><h2>Dùng thử hai bản</h2><p>Trái là prompt trần, phải là prompt Boris. Bấm vào ảnh để chạy.</p></div>
+    
+  <div class="viewer-tools">
+    <div class="seg" role="group" aria-label="Cách xem">
+      <button type="button" data-mode-btn="both" aria-pressed="true">Cạnh nhau</button>
+      <button type="button" data-mode-btn="tran" aria-pressed="false"><span class="dot" style="background:var(--tran)"></span>Bản trần</button>
+      <button type="button" data-mode-btn="boris" aria-pressed="false"><span class="dot" style="background:var(--boris)"></span>Bản Boris</button>
+    </div>
+    <div class="seg" role="group" aria-label="Khung màn hình">
+      <button type="button" data-device-btn="desktop" aria-pressed="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" width="15" height="15"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg>Máy tính</button>
+      <button type="button" data-device-btn="phone" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" width="15" height="15"><rect x="7" y="3" width="10" height="18" rx="2"/><path d="M11 18h2"/></svg>Điện thoại</button>
+    </div>
+    <span class="spacer"></span>
+    <button class="btn-sm" type="button" data-run-both><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg>Chạy cả hai</button>
+  </div>
+  <div class="stage" data-mode="both">
+    <div class="pane tran" data-src="../san-pham/t6-he-mat-troi/tran/index.html" data-title="Hệ Mặt Trời 3D — Prompt trần" data-poster-desktop="../assets/img/t6-tran-d.webp" data-poster-phone="../assets/img/t6-tran-m.webp">
+      <div class="pane-bar">
+        <span class="arm tran solid">Prompt trần</span>
+        <span class="pname">Hệ Mặt Trời 3D</span>
+        <span class="acts">
+          <button class="btn-sm" type="button" data-reload title="Tải lại"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 11a8 8 0 1 0-2.3 5.7M20 4v7h-7"/></svg><span class="sr">Tải lại</span></button>
+          <a class="btn-sm" href="../san-pham/t6-he-mat-troi/tran/index.html" target="_blank" rel="noopener" title="Mở tab mới"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M19 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h5"/></svg><span class="lbl">Mở tab mới</span></a>
+        </span>
+      </div>
+      <div class="screen" data-device="desktop"></div>
+      
+    </div>
+    <div class="pane boris" data-src="../san-pham/t6-he-mat-troi/boris/index.html" data-title="Hệ Mặt Trời hôm nay — Prompt Boris" data-poster-desktop="../assets/img/t6-boris-d.webp" data-poster-phone="../assets/img/t6-boris-m.webp">
+      <div class="pane-bar">
+        <span class="arm boris solid">Prompt Boris</span>
+        <span class="pname">Hệ Mặt Trời hôm nay</span>
+        <span class="acts">
+          <button class="btn-sm" type="button" data-reload title="Tải lại"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 11a8 8 0 1 0-2.3 5.7M20 4v7h-7"/></svg><span class="sr">Tải lại</span></button>
+          <a class="btn-sm" href="../san-pham/t6-he-mat-troi/boris/index.html" target="_blank" rel="noopener" title="Mở tab mới"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M19 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h5"/></svg><span class="lbl">Mở tab mới</span></a>
+        </span>
+      </div>
+      <div class="screen" data-device="desktop"></div>
+      <div class="pane-note">Cần WebGL 2. Chờ vài giây để dựng bề mặt hành tinh rồi bấm “Bắt đầu khám phá”.</div>
+    </div>
+  </div>
+  <div class="callout"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 7.6v.4"/></svg><p>Sản phẩm chạy thật trong khung, thu nhỏ theo bề rộng màn hình. Muốn dùng thoải mái, bấm “Mở tab mới”. Ảnh chờ là ảnh chụp lúc mới mở trang.</p></div>
+
+  </div>
+</section>
+
+<section class="cmp-sec">
+  <div class="wrap">
+    <div class="sec-title"><h2>Có làm đúng đề không</h2><p>Yêu cầu trong đề đạt trọn: bản trần 4/4, bản Boris 4/4. Phép kiểm của kế hoạch: bản trần 2/3, bản Boris 3/3.</p></div>
+    <table class="req">
+      <thead><tr><th>Yêu cầu</th><th><span class="arm tran">Prompt trần</span></th><th><span class="arm boris">Prompt Boris</span></th></tr></thead>
+      <tbody><tr class="grp"><th colspan="3">Yêu cầu trong đề bài<span>chung cho hai prompt</span></th></tr>
+      <tr>
+        <td>3D, chạy trong trình duyệt</td>
+        <td data-arm="Prompt trần"><span class="verdict ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Đạt</span><small>three.js r147, một file HTML.</small></td>
+        <td data-arm="Prompt Boris"><span class="verdict ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Đạt</span><small>three.js r160 dạng module, 7 file.</small></td>
+      </tr>
+      <tr>
+        <td>Xoay và phóng to bằng chuột</td>
+        <td data-arm="Prompt trần"><span class="verdict ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Đạt</span><small>OrbitControls, đổi con trỏ khi rê lên hành tinh.</small></td>
+        <td data-arm="Prompt Boris"><span class="verdict ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Đạt</span><small>OrbitControls, chú thích hiện khi rê chuột.</small></td>
+      </tr>
+      <tr>
+        <td>Xoay và phóng to bằng cảm ứng</td>
+        <td data-arm="Prompt trần"><span class="verdict ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Đạt</span><small>Có, kèm dòng hướng dẫn riêng cho màn cảm ứng.</small></td>
+        <td data-arm="Prompt Boris"><span class="verdict ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Đạt</span><small>Một ngón xoay, hai ngón phóng to và kéo.</small></td>
+      </tr>
+      <tr>
+        <td>Bấm vào hành tinh để xem thông tin</td>
+        <td data-arm="Prompt trần"><span class="verdict ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Đạt</span><small>Bảng hồ sơ bên phải; trên điện thoại là tấm trượt từ dưới lên.</small></td>
+        <td data-arm="Prompt Boris"><span class="verdict ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Đạt</span><small>Bảng thông tin nhóm theo mục, có số liệu “ngay lúc này”.</small></td>
+      </tr><tr class="grp"><th colspan="3">Phép kiểm “Đúng” ghi sẵn trong kế hoạch thử nghiệm<span>đăng ký trước khi chạy</span></th></tr>
+      <tr>
+        <td>8 hành tinh đúng thứ tự</td>
+        <td data-arm="Prompt trần"><span class="verdict ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Đạt</span><small>Đúng.</small></td>
+        <td data-arm="Prompt Boris"><span class="verdict ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Đạt</span><small>Đúng.</small></td>
+      </tr>
+      <tr>
+        <td>5 số liệu khớp bảng NASA</td>
+        <td data-arm="Prompt trần"><span class="verdict part"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M6 12h12"/></svg>Một phần</span><small>3/5 khớp (chu kỳ Sao Hỏa 687 ngày; Sao Thổ cách Mặt Trời 1,43 tỉ km; Sao Kim 464 °C). Hai đường kính dùng số trung bình, 12.742 km và 139.820 km, thay vì số xích đạo của bảng NASA, không ghi rõ.</small></td>
+        <td data-arm="Prompt Boris"><span class="verdict ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Đạt</span><small>5/5 khớp, gồm đường kính xích đạo Trái Đất 12.756 km và Sao Mộc 142.984 km.</small></td>
+      </tr>
+      <tr>
+        <td>Chạy được trên điện thoại</td>
+        <td data-arm="Prompt trần"><span class="verdict ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Đạt</span><small>Bố cục riêng cho màn hẹp, bảng thông tin trượt từ dưới lên; hiển thị đúng ở 390 px.</small></td>
+        <td data-arm="Prompt Boris"><span class="verdict ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Đạt</span><small>Bố cục riêng, tự hạ độ phân giải; hiển thị đúng ở 390 px. Cần WebGL 2.</small></td>
+      </tr>
+      </tbody>
+    </table>
+    <p class="small muted" style="margin-top:12px">Căn cứ: đọc mã nguồn, chạy thử trong trình duyệt. “Một phần” nghĩa là có làm nhưng còn chỗ thiếu ghi bên dưới; “Chưa kiểm hết” nghĩa là trang này chưa đủ bằng chứng để chấm.</p>
+  </div>
+</section>
+
+<section class="cmp-sec">
+  <div class="wrap">
+    <div class="sec-title"><h2>Mỗi bản có gì</h2><p>Chỉ liệt kê những gì có trong mã.</p></div>
+    <div class="two-col">
+      <div class="col-card tran"><h3>Hệ Mặt Trời 3D</h3><p class="sub">Một file HTML: 8 hành tinh và Mặt Trăng trên quỹ đạo tròn, chỉnh tốc độ thời gian, bảng số liệu.</p><ul><li>Thời gian chỉ chạy tới, 0,01–400 ngày mỗi giây, nút “Hôm nay”.</li><li>Vành Sao Thổ có khe Cassini và Encke; vành đai tiểu hành tinh 3.200 điểm.</li><li>Bảng thông tin có so sánh kích thước bằng hình và khoảng cách tới Trái Đất “lúc này”.</li><li>Camera bay tới và bám theo hành tinh đang chọn.</li></ul></div>
+      <div class="col-card boris"><h3>Hệ Mặt Trời hôm nay</h3><p class="sub">25 thiên thể theo quỹ đạo JPL, tỉ lệ thật, 5.044 ngôi sao thật, tua thời gian, tham quan tự động.</p><ul><li><b>Vị trí thật</b> theo phần tử quỹ đạo của JPL cho ngày giờ đang xem; Trái Đất quay theo giờ sao, mặt ngày đêm khớp giờ thật.</li><li><b>Hai chế độ tỉ lệ</b>: Trực quan và Tỉ lệ thật, có thước đo km và thời gian ánh sáng.</li><li><b>Tua thời gian</b> từ −1 năm/giây tới +1 năm/giây, chọn ngày 1800–2199, 7 sự kiện như nhật thực 2026, Halley 1986.</li><li>Diêm Vương, 14 vệ tinh, sao chổi Halley hai đuôi, vành đai Kuiper, nhóm Troia của Sao Mộc.</li><li><b>5.044 ngôi sao thật</b>, 88 chòm sao, Dải Ngân Hà.</li><li>Cân nặng và tuổi của bạn trên từng thiên thể; tham quan tự động 11 điểm; phím tắt; README ghi rõ độ chính xác.</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<section class="cmp-sec">
+  <div class="wrap">
+    <div class="sec-title"><h2>Khác nhau dễ thấy</h2><p>Những điểm bạn tự nhận ra sau một phút dùng thử.</p></div>
+    <ol class="diff-list"><li><span><b>Mở đầu:</b> bản Boris có màn chào và nút “Bắt đầu khám phá”. Bản trần vào thẳng mô phỏng.</span></li><li><span><b>Số thiên thể:</b> 10 so với 25.</span></li><li><span><b>Quỹ đạo:</b> bản trần dùng quỹ đạo tròn, vị trí gần đúng. Bản Boris dùng quỹ đạo Kepler theo số liệu JPL.</span></li><li><span><b>Bầu trời:</b> sao ngẫu nhiên so với sao thật, có chòm sao và Dải Ngân Hà.</span></li><li><span><b>Thời gian:</b> bản trần chỉ chạy tới. Bản Boris tua ngược được, chọn ngày được, có danh sách sự kiện thiên văn.</span></li></ol>
+  </div>
+</section>
+
+<section class="cmp-sec">
+  <div class="wrap">
+    <div class="sec-title"><h2>Công bằng mà nói</h2><p>Chỗ bản trần làm tốt hơn, và lỗi tìm thấy ở cả hai bên.</p></div>
+    <div class="fair">
+      <div class="col-card"><h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v16M5 20h14M6 8h12M6 8l-3 6a3 3 0 0 0 6 0zM18 8l-3 6a3 3 0 0 0 6 0z"/></svg>Bản trần làm tốt hơn</h3><ul class="issue" style="margin-top:12px"><li class="v">Nhẹ hơn khoảng 9 lần: 49 KB, một file.</li><li class="v">Vào ngay; bản Boris khóa nút bắt đầu đến khi dựng xong bề mặt các hành tinh.</li><li class="v">Chạy được trên máy chỉ có WebGL 1; bản Boris dừng hẳn nếu thiếu WebGL 2.</li><li class="v">Có hướng dẫn thao tác cảm ứng trên điện thoại; bản Boris ẩn phần này ở màn hẹp.</li></ul></div>
+      <div class="col-card"><h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="7" y="8" width="10" height="12" rx="5"/><path d="M12 12v8M7 13H3M21 13h-4M7 17l-3 2M17 17l3 2M8 9L5 6M16 9l3-3M9.5 6.5a2.5 2.5 0 0 1 5 0"/></svg>Lỗi tìm thấy</h3><ul class="issue" style="margin-top:12px"><li><span class="arm tran">Trần</span>Không có thông báo nếu three.js hay WebGL không tải được: trang chỉ trắng.</li><li><span class="arm tran">Trần</span>Sao Thổ quay 10,656 giờ trong mã nhưng bảng ghi “10 giờ 33 phút”.</li><li><span class="arm boris">Boris</span>Tải nặng: dựng bề mặt tới 4096×2048 điểm ảnh, có bloom; thời gian chờ trên điện thoại yếu chưa đo.</li><li><span class="arm boris">Boris</span>Còn sót hàm dùng lúc phát triển gắn ra window.__solar (chỉ chạy khi gọi tay từ console).</li><li><span class="arm boris">Boris</span>Số vệ tinh 115 (Sao Mộc) và 293 (Sao Thổ) ghi nguồn “NASA 2026”; trang này chưa kiểm chứng được.</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<section class="cmp-sec">
+  <div class="wrap">
+    <div class="sec-title"><h2>Số đo</h2><p>Đo trên file gốc model bàn giao, không tính dữ liệu sao và bản đồ.</p></div>
+    <div class="stats"><div class="stat-card"><span class="k">Dung lượng mã (KB)</span><div class="stat-bars">
+          <div class="stat-bar t"><span class="who">Trần</span><span class="track"><i style="width:21.9%"></i></span><span class="v">50,2</span></div>
+          <div class="stat-bar b"><span class="who">Boris</span><span class="track"><i style="width:100.0%"></i></span><span class="v">229,3</span></div></div></div><div class="stat-card"><span class="k">Số dòng mã</span><div class="stat-bars">
+          <div class="stat-bar t"><span class="who">Trần</span><span class="track"><i style="width:23.8%"></i></span><span class="v">979</span></div>
+          <div class="stat-bar b"><span class="who">Boris</span><span class="track"><i style="width:100.0%"></i></span><span class="v">4.106</span></div></div></div><div class="stat-card"><span class="k">Số file mã</span><div class="stat-bars">
+          <div class="stat-bar t"><span class="who">Trần</span><span class="track"><i style="width:25.0%"></i></span><span class="v">1</span></div>
+          <div class="stat-bar b"><span class="who">Boris</span><span class="track"><i style="width:100.0%"></i></span><span class="v">4</span></div></div></div></div>
+    <div class="pager"><a href="t4-landing.html"><small>← Bài trước</small><b>T4 · Landing page quán cà phê hư cấu</b></a><a class="next" href="t10-hoat-hinh.html"><small>Bài sau →</small><b>T10 · Hoạt hình giải thích 30 giây</b></a></div>
+  </div>
+</section>
+</main>
+<footer class="foot">
+  <div class="wrap foot-grid">
+    <div>
+      <h4>Nguồn</h4>
+      <ol>
+        <li>Boris Cherny, dòng trạng thái trên X, 6/10/2026. <a href="https://x.com/bcherny/status/2107565388250874193" rel="noopener">x.com/bcherny</a></li>
+        <li>Henry Chandonnet, “The creator of Claude Code's prompting advice? Talk to your AI like a coworker”, <i>Business Insider</i>, 7/10/2026. <a href="https://www.businessinsider.com/claude-code-creator-boris-cherny-ai-prompt-advice-2026-10" rel="noopener">businessinsider.com</a></li>
+        <li>Lance Martin, “Reducing cost and improving performance with Claude Platform”, <i>Claude Blog</i>, 9/2026. <a href="https://claude.com/blog/reducing-cost-and-improving-performance-with-claude-platform" rel="noopener">claude.com/blog</a></li>
+        <li>Y Combinator Startup Podcast, Diana Hu phỏng vấn Boris Cherny, 28/7/2026. <a href="https://www.youtube.com/watch?v=qyPCVqFUyDo" rel="noopener">youtube.com</a></li>
+        <li>Thariq Shihipar, “Using Claude Code: Spending your effort”, 25/9/2026. <a href="https://claude.dev/blog/spending-your-effort/" rel="noopener">claude.dev</a></li>
+        <li>Anthropic, “Prompting Claude Fable 5” và “Best practices for Claude Code”. <a href="https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-fable-5" rel="noopener">platform.claude.com</a> · <a href="https://code.claude.com/docs/en/best-practices" rel="noopener">code.claude.com</a></li>
+      </ol>
+    </div>
+    <div>
+      <h4>Về trang này</h4>
+      <p>Sản phẩm của 12 lượt chạy được đăng nguyên trạng để ai cũng mở và tự so được. Ngoại lệ duy nhất: 3 dòng khai báo thêm vào 2 file của prompt trần (xem trang T2, T4), và hai video được nén lại cùng một thông số cho nhẹ.</p>
+      <p>Website do Claude Opus 5.5 làm trong Claude Code, theo chính mẫu prompt kiểu Boris. <a href="../index.html#trang-nay">Xem đề bài và báo cáo tự kiểm</a>.</p>
+      <p>Các tên quán, nhân vật, số điện thoại trong sản phẩm đều là hư cấu do model tạo ra.</p>
+    </div>
+  </div>
+</footer>
+<script src="../assets/js/site.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="vi" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>T10 · Hoạt hình giải thích 30 giây — prompt trần và prompt Boris</title>
+<meta name="description" content="So sánh hai sản phẩm Claude Opus 5.5 làm từ cùng một đề bài: hoạt hình giải thích 30 giây. Prompt trần một câu, prompt kiểu Boris thêm năm câu.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="T10 · Hoạt hình giải thích 30 giây — prompt trần và prompt Boris">
+<meta property="og:description" content="So sánh hai sản phẩm Claude Opus 5.5 làm từ cùng một đề bài: hoạt hình giải thích 30 giây. Prompt trần một câu, prompt kiểu Boris thêm năm câu.">
+<meta property="og:image" content="../assets/img/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#F5F1E8" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#111214" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M6 4h20a4 4 0 0 1 4 4v12a4 4 0 0 1-4 4H14l-6 5v-5H6a4 4 0 0 1-4-4V8a4 4 0 0 1 4-4z' fill='%2317171A'/%3E%3Crect x='7' y='9' width='11' height='2.6' rx='1.3' fill='%23F5F1E8'/%3E%3Crect x='7' y='14.2' width='18' height='2.6' rx='1.3' fill='%23E85A2A'/%3E%3Crect x='7' y='19.4' width='13' height='2.6' rx='1.3' fill='%23E85A2A' opacity='.6'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400..600;1,6..72,400..500&display=swap">
+<link rel="stylesheet" href="../assets/css/site.css">
+<script>try{var t=localStorage.getItem('bp-theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}</script>
+</head>
+<body>
+<a class="sr" href="#noi-dung">Bỏ qua tới nội dung</a>
+
+<header class="topbar">
+  <div class="wrap">
+    <a class="brand" href="../index.html"><svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true"><path d="M6 4h20a4 4 0 0 1 4 4v12a4 4 0 0 1-4 4H14l-6 5v-5H6a4 4 0 0 1-4-4V8a4 4 0 0 1 4-4z" fill="var(--ink)"/><rect x="7" y="9" width="11" height="2.6" rx="1.3" fill="var(--paper)"/><rect x="7" y="14.2" width="18" height="2.6" rx="1.3" fill="var(--boris)"/><rect x="7" y="19.4" width="13" height="2.6" rx="1.3" fill="var(--boris)" opacity=".6"/></svg><span>Prompt kiểu Boris</span></a>
+    <nav class="cmp-tabs" aria-label="Các bài thử"><a href="t2-game.html" title="Game trình duyệt tự nghĩ">T2</a><a href="t4-landing.html" title="Landing page quán cà phê hư cấu">T4</a><a href="t6-he-mat-troi.html" title="Hệ Mặt Trời 3D">T6</a><a href="t10-hoat-hinh.html" aria-current="page" title="Hoạt hình giải thích 30 giây">T10</a><a href="p1-dashboard-gia.html" title="Nghiên cứu web và dashboard giá cả">+1</a><a href="p2-video-motion.html" title="Video motion graphics 20 giây">+2</a></nav>
+    <button class="icon-btn" type="button" data-theme-toggle aria-label="Đổi nền sáng / tối"><svg class="theme-ico-light" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M4.6 4.6l1.4 1.4M18 18l1.4 1.4M2.5 12h2M19.5 12h2M4.6 19.4L6 18M18 6l1.4-1.4"/></svg><svg class="theme-ico-dark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg></button>
+  </div>
+</header>
+<main id="noi-dung">
+<section class="cmp-head">
+  <div class="wrap">
+    <a class="btn-sm" href="../index.html#bai-thu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Tất cả bài thử</a>
+    <p class="kicker" style="margin-top:28px">Bài thử T10 · Claude Code</p>
+    <h1 class="display">Hoạt hình giải thích 30 giây</h1>
+    <p class="lede">Bài kiểm “luật nói đúng”. Không bản nào có câu luật sai về nội dung. Khác nhau ở cách dạy: bản trần tự phát và dành 7 giây cuối để tóm tắt; bản Boris làm như một trình phát video có chương, có tiếng, có pha thắng ván.</p>
+    <div class="cmp-meta">
+      <span class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></svg>Claude Opus 5.5</span>
+      <span class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 18a9 9 0 1 1 16 0"/><path d="M12 13l4-4"/></svg>Effort High</span>
+      <span class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 9l3 3-3 3M12 15h5"/></svg>Claude Code</span>
+      <span class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h3l3-7 4 14 3-7h3"/></svg>1 lượt mỗi prompt</span>
+      <span class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>Không chấm mù, nhãn ghi rõ</span>
+    </div>
+  </div>
+</section>
+
+<section class="cmp-sec">
+  <div class="wrap">
+    <div class="sec-title"><h2>Hai prompt</h2><p>Cùng đề bài. Prompt Boris thêm 5 câu cố định, giống nhau ở mọi bài.</p></div>
+    <div class="cmp-prompts">
+      <div class="bubble tran">
+        <div class="bubble-meta"><span class="arm tran">Prompt trần</span><span class="wc">35 từ</span></div>
+        <p id="pt-t10">Làm cho tôi <span class="fill">một hoạt hình 30 giây bằng HTML, CSS và JavaScript giải thích cách tính điểm trong pickleball cho người mới, có nút phát lại, dựa trên bản tóm tắt luật đính kèm</span>.</p>
+      </div>
+      <div class="bubble boris">
+        <div class="bubble-meta"><span class="arm boris">Prompt Boris</span><span class="wc">123 từ</span></div>
+        <p id="pb-t10">Tôi muốn bạn làm <span class="fill">một hoạt hình 30 giây bằng HTML, CSS và JavaScript giải thích cách tính điểm trong pickleball cho người mới, có nút phát lại, dựa trên bản tóm tắt luật đính kèm</span>. <span class="add">Làm cho đẹp và dễ dùng, tập trung vào <span class="fill">xem một lần là hiểu, và luật nói đúng</span>.</span> <span class="add">Làm thật tốt vào, dùng nhiều token và lặp lại cho đến khi bạn tự hào về nó.</span> <span class="add">Thấy gì làm nó hay hơn thì cứ thêm, bạn tự quyết.</span> <span class="add">Nhắm tới những thứ hay nhất cùng loại mà bạn từng thấy, nhưng tốt hơn.</span> <span class="add">Trước khi nói xong, tự thử như một người dùng thật, rồi cho tôi biết bạn đã kiểm gì và chưa kiểm được gì.</span></p>
+      </div>
+    </div>
+    <div class="cmp-prompts-foot">
+      <span class="add-legend"><i></i>Phần prompt Boris thêm vào</span>
+      <button class="btn-sm" type="button" data-copy-from="pt-t10"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a1 1 0 0 1 1-1h10"/></svg><span data-label>Chép prompt trần</span></button>
+      <button class="btn-sm" type="button" data-copy-from="pb-t10"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a1 1 0 0 1 1-1h10"/></svg><span data-label>Chép prompt Boris</span></button>
+    </div>
+  </div>
+</section>
+
+<section class="cmp-sec" id="xem">
+  <div class="wrap">
+    <div class="sec-title"><h2>Dùng thử hai bản</h2><p>Trái là prompt trần, phải là prompt Boris. Bấm vào ảnh để chạy.</p></div>
+    
+  <div class="viewer-tools">
+    <div class="seg" role="group" aria-label="Cách xem">
+      <button type="button" data-mode-btn="both" aria-pressed="true">Cạnh nhau</button>
+      <button type="button" data-mode-btn="tran" aria-pressed="false"><span class="dot" style="background:var(--tran)"></span>Bản trần</button>
+      <button type="button" data-mode-btn="boris" aria-pressed="false"><span class="dot" style="background:var(--boris)"></span>Bản Boris</button>
+    </div>
+    <div class="seg" role="group" aria-label="Khung màn hình">
+      <button type="button" data-device-btn="desktop" aria-pressed="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" width="15" height="15"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg>Máy tính</button>
+      <button type="button" data-device-btn="phone" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" width="15" height="15"><rect x="7" y="3" width="10" height="18" rx="2"/><path d="M11 18h2"/></svg>Điện thoại</button>
+    </div>
+    <span class="spacer"></span>
+    <button class="btn-sm" type="button" data-run-both><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg>Chạy cả hai</button>
+  </div>
+  <div class="stage" data-mode="both">
+    <div class="pane tran" data-src="../san-pham/t10-hoat-hinh/tran/index.html" data-title="Điểm Pickleball 30 giây — Prompt trần" data-poster-desktop="../assets/img/t10-tran-d.webp" data-poster-phone="../assets/img/t10-tran-m.webp">
+      <div class="pane-bar">
+        <span class="arm tran solid">Prompt trần</span>
+        <span class="pname">Điểm Pickleball 30 giây</span>
+        <span class="acts">
+          <button class="btn-sm" type="button" data-reload title="Tải lại"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 11a8 8 0 1 0-2.3 5.7M20 4v7h-7"/></svg><span class="sr">Tải lại</span></button>
+          <a class="btn-sm" href="../san-pham/t10-hoat-hinh/tran/index.html" target="_blank" rel="noopener" title="Mở tab mới"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M19 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h5"/></svg><span class="lbl">Mở tab mới</span></a>
+        </span>
+      </div>
+      <div class="screen" data-device="desktop"></div>
+      
+    </div>
+    <div class="pane boris" data-src="../san-pham/t10-hoat-hinh/boris/index.html" data-title="Pickleball: tính điểm thế nào? — Prompt Boris" data-poster-desktop="../assets/img/t10-boris-d.webp" data-poster-phone="../assets/img/t10-boris-m.webp">
+      <div class="pane-bar">
+        <span class="arm boris solid">Prompt Boris</span>
+        <span class="pname">Pickleball: tính điểm thế nào?</span>
+        <span class="acts">
+          <button class="btn-sm" type="button" data-reload title="Tải lại"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 11a8 8 0 1 0-2.3 5.7M20 4v7h-7"/></svg><span class="sr">Tải lại</span></button>
+          <a class="btn-sm" href="../san-pham/t10-hoat-hinh/boris/index.html" target="_blank" rel="noopener" title="Mở tab mới"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M19 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h5"/></svg><span class="lbl">Mở tab mới</span></a>
+        </span>
+      </div>
+      <div class="screen" data-device="desktop"></div>
+      
+    </div>
+  </div>
+  <div class="callout"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 7.6v.4"/></svg><p>Sản phẩm chạy thật trong khung, thu nhỏ theo bề rộng màn hình. Muốn dùng thoải mái, bấm “Mở tab mới”. Ảnh chờ là ảnh chụp lúc mới mở trang.</p></div>
+
+  </div>
+</section>
+
+<section class="cmp-sec">
+  <div class="wrap">
+    <div class="sec-title"><h2>Có làm đúng đề không</h2><p>Yêu cầu trong đề đạt trọn: bản trần 4/4, bản Boris 4/4. Phép kiểm của kế hoạch: bản trần 2/2, bản Boris 2/2.</p></div>
+    <table class="req">
+      <thead><tr><th>Yêu cầu</th><th><span class="arm tran">Prompt trần</span></th><th><span class="arm boris">Prompt Boris</span></th></tr></thead>
+      <tbody><tr class="grp"><th colspan="3">Yêu cầu trong đề bài<span>chung cho hai prompt</span></th></tr>
+      <tr>
+        <td>Dài 30 giây</td>
+        <td data-arm="Prompt trần"><span class="verdict ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Đạt</span><small>Đúng 30,0 giây, tự phát khi mở.</small></td>
+        <td data-arm="Prompt Boris"><span class="verdict ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Đạt</span><small>30,5 giây, trong khoảng 25–35 giây kế hoạch chấp nhận; đồng hồ vẫn ghi 0:30; phải bấm mới chạy.</small></td>
+      </tr>
+      <tr>
+        <td>Bằng HTML, CSS và JavaScript</td>
+        <td data-arm="Prompt trần"><span class="verdict ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Đạt</span><small>3 file riêng.</small></td>
+        <td data-arm="Prompt Boris"><span class="verdict ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Đạt</span><small>1 file.</small></td>
+      </tr>
+      <tr>
+        <td>Giải thích cho người mới</td>
+        <td data-arm="Prompt trần"><span class="verdict ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Đạt</span><small>11 đoạn phụ đề, tô sáng từng số trên bảng điểm.</small></td>
+        <td data-arm="Prompt Boris"><span class="verdict ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Đạt</span><small>9 chương, phụ đề, dòng “Người giao đọc to: …”, mũi tên đường giao.</small></td>
+      </tr>
+      <tr>
+        <td>Có nút phát lại</td>
+        <td data-arm="Prompt trần"><span class="verdict ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Đạt</span><small>2 nút phát lại và phím R.</small></td>
+        <td data-arm="Prompt Boris"><span class="verdict ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Đạt</span><small>“Xem lại”, “Xem chậm 0,75×”, phím R.</small></td>
+      </tr><tr class="grp"><th colspan="3">Phép kiểm “Đúng” ghi sẵn trong kế hoạch thử nghiệm<span>đăng ký trước khi chạy</span></th></tr>
+      <tr>
+        <td>Không câu nào sai luật</td>
+        <td data-arm="Prompt trần"><span class="verdict ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Đạt</span><small>Không câu nào sai. Chữ “phải hơn 2 điểm” hơi mơ hồ, nhưng ví dụ 11–9 thắng, 11–10 chơi tiếp ngay bên dưới nói rõ. Trên hình, người giao đứng trong vạch cuối.</small></td>
+        <td data-arm="Prompt Boris"><span class="verdict ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Đạt</span><small>Không câu nào sai; viết rõ “hơn ít nhất 2”; người giao đứng sau vạch cuối.</small></td>
+      </tr>
+      <tr>
+        <td>Chạy trên điện thoại</td>
+        <td data-arm="Prompt trần"><span class="verdict ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Đạt</span><small>Chạy ở 390 px; nhãn trên sân rất nhỏ.</small></td>
+        <td data-arm="Prompt Boris"><span class="verdict ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Đạt</span><small>Chạy ở 390 px, có bố cục dọc riêng.</small></td>
+      </tr>
+      </tbody>
+    </table>
+    <p class="small muted" style="margin-top:12px">Căn cứ: đọc mã nguồn, chạy thử trong trình duyệt. “Một phần” nghĩa là có làm nhưng còn chỗ thiếu ghi bên dưới; “Chưa kiểm hết” nghĩa là trang này chưa đủ bằng chứng để chấm.</p>
+  </div>
+</section>
+
+<section class="cmp-sec">
+  <div class="wrap">
+    <div class="sec-title"><h2>Mỗi bản có gì</h2><p>Chỉ liệt kê những gì có trong mã.</p></div>
+    <div class="two-col">
+      <div class="col-card tran"><h3>Điểm Pickleball 30 giây</h3><p class="sub">Tự phát 30 giây: ba pha bóng, bảng điểm 3 số, màn tóm tắt, nút phát lại.</p><ul><li>Nói bằng chữ “giao chéo sân” và luật 2 lần nảy.</li><li>Ví dụ 11–9 thắng, 11–10 chơi tiếp đặt cạnh nhau.</li><li>Thanh tua kéo được, phím Space và R.</li></ul></div>
+      <div class="col-card boris"><h3>Pickleball: tính điểm thế nào?</h3><p class="sub">Trình phát 30,5 giây: bốn pha bóng, tua tới điểm thắng ván, chia chương, chỉnh tốc độ, có âm thanh.</p><ul><li><b>Âm thanh</b> tổng hợp bằng WebAudio, nút tắt tiếng nhớ lựa chọn, không phát tiếng khi tua.</li><li><b>Chỉnh tốc độ</b> 1×, 0,75×, 0,5×; thanh tua có vạch chương, phím ←/→ chuyển chương.</li><li>Mũi tên đường giao, tô ô đích, vòng sáng quanh người giao, nhãn “Ô phải của…”.</li><li>Pha “tua nhanh” tới 10-8 rồi thắng ván 11-8, có pháo giấy.</li><li>Mẹo chẵn/lẻ, ghi chú về đánh đơn, ván 15 hay 21 điểm, cách tính điểm rally.</li><li>Tự dừng khi chuyển sang tab khác.</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<section class="cmp-sec">
+  <div class="wrap">
+    <div class="sec-title"><h2>Khác nhau dễ thấy</h2><p>Những điểm bạn tự nhận ra sau một phút dùng thử.</p></div>
+    <ol class="diff-list"><li><span><b>Bắt đầu:</b> bản trần tự phát. Bản Boris là trình phát, phải bấm “Bấm để xem”.</span></li><li><span><b>Phần thắng ván:</b> bản trần nói trên màn tóm tắt tĩnh. Bản Boris có pha thắng ván chạy thật.</span></li><li><span><b>Tóm tắt:</b> bản trần dành 7 giây cuối (khoảng 23% thời lượng). Bản Boris dành 1,5 giây rồi dừng ở bảng 5 điều.</span></li><li><span><b>Chỉ dẫn vị trí giao:</b> bản Boris vẽ mũi tên, tô ô đích. Bản trần có nhãn “Người giao N” đi theo cầu thủ.</span></li><li><span><b>Điều khiển:</b> bản Boris thêm tốc độ, âm thanh, chương.</span></li></ol>
+  </div>
+</section>
+
+<section class="cmp-sec">
+  <div class="wrap">
+    <div class="sec-title"><h2>Công bằng mà nói</h2><p>Chỗ bản trần làm tốt hơn, và lỗi tìm thấy ở cả hai bên.</p></div>
+    <div class="fair">
+      <div class="col-card"><h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v16M5 20h14M6 8h12M6 8l-3 6a3 3 0 0 0 6 0zM18 8l-3 6a3 3 0 0 0 6 0z"/></svg>Bản trần làm tốt hơn</h3><ul class="issue" style="margin-top:12px"><li class="v">Đúng 30,0 giây và tự phát, không cần bấm gì.</li><li class="v">Nói rõ bằng chữ “giao chéo sân” và luật 2 lần nảy; bản Boris không có hai câu này.</li><li class="v">Gọn hơn 2,2 lần, tách 3 file dễ đọc.</li></ul></div>
+      <div class="col-card"><h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="7" y="8" width="10" height="12" rx="5"/><path d="M12 12v8M7 13H3M21 13h-4M7 17l-3 2M17 17l3 2M8 9L5 6M16 9l3-3M9.5 6.5a2.5 2.5 0 0 1 5 0"/></svg>Lỗi tìm thấy</h3><ul class="issue" style="margin-top:12px"><li><span class="arm tran">Trần</span>Chữ “phải hơn 2 điểm” hơi mơ hồ; người giao trên hình đứng trong vạch cuối, trong khi luật đòi đứng sau vạch.</li><li><span class="arm tran">Trần</span>Biểu tượng 🏓 là vợt bóng bàn, không phải pickleball. Nhãn trên sân rất nhỏ khi xem trên điện thoại.</li><li><span class="arm boris">Boris</span>Dài 30,5 giây nhưng đồng hồ ghi 0:30.</li><li><span class="arm boris">Boris</span>Bấm “Phát lại” khi đang chạy mở thêm một vòng vẽ song song (tốn xử lý, hình không sai).</li><li><span class="arm boris">Boris</span>Bảng điểm bị ẩn khỏi trình đọc màn hình; phím K hoạt động nhưng không ghi trong hướng dẫn.</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<section class="cmp-sec">
+  <div class="wrap">
+    <div class="sec-title"><h2>Số đo</h2><p>Đo trên file gốc model bàn giao.</p></div>
+    <div class="stats"><div class="stat-card"><span class="k">Dung lượng mã (KB)</span><div class="stat-bars">
+          <div class="stat-bar t"><span class="who">Trần</span><span class="track"><i style="width:45.9%"></i></span><span class="v">26,4</span></div>
+          <div class="stat-bar b"><span class="who">Boris</span><span class="track"><i style="width:100.0%"></i></span><span class="v">57,5</span></div></div></div><div class="stat-card"><span class="k">Số dòng mã</span><div class="stat-bars">
+          <div class="stat-bar t"><span class="who">Trần</span><span class="track"><i style="width:76.5%"></i></span><span class="v">746</span></div>
+          <div class="stat-bar b"><span class="who">Boris</span><span class="track"><i style="width:100.0%"></i></span><span class="v">975</span></div></div></div><div class="stat-card"><span class="k">Số file mã</span><div class="stat-bars">
+          <div class="stat-bar t"><span class="who">Trần</span><span class="track"><i style="width:100.0%"></i></span><span class="v">3</span></div>
+          <div class="stat-bar b"><span class="who">Boris</span><span class="track"><i style="width:33.3%"></i></span><span class="v">1</span></div></div></div></div>
+    <div class="pager"><a href="t6-he-mat-troi.html"><small>← Bài trước</small><b>T6 · Hệ Mặt Trời 3D</b></a><a class="next" href="p1-dashboard-gia.html"><small>Bài sau →</small><b>+1 · Nghiên cứu web và dashboard giá cả</b></a></div>
+  </div>
+</section>
+</main>
+<footer class="foot">
+  <div class="wrap foot-grid">
+    <div>
+      <h4>Nguồn</h4>
+      <ol>
+        <li>Boris Cherny, dòng trạng thái trên X, 6/10/2026. <a href="https://x.com/bcherny/status/2107565388250874193" rel="noopener">x.com/bcherny</a></li>
+        <li>Henry Chandonnet, “The creator of Claude Code's prompting advice? Talk to your AI like a coworker”, <i>Business Insider</i>, 7/10/2026. <a href="https://www.businessinsider.com/claude-code-creator-boris-cherny-ai-prompt-advice-2026-10" rel="noopener">businessinsider.com</a></li>
+        <li>Lance Martin, “Reducing cost and improving performance with Claude Platform”, <i>Claude Blog</i>, 9/2026. <a href="https://claude.com/blog/reducing-cost-and-improving-performance-with-claude-platform" rel="noopener">claude.com/blog</a></li>
+        <li>Y Combinator Startup Podcast, Diana Hu phỏng vấn Boris Cherny, 28/7/2026. <a href="https://www.youtube.com/watch?v=qyPCVqFUyDo" rel="noopener">youtube.com</a></li>
+        <li>Thariq Shihipar, “Using Claude Code: Spending your effort”, 25/9/2026. <a href="https://claude.dev/blog/spending-your-effort/" rel="noopener">claude.dev</a></li>
+        <li>Anthropic, “Prompting Claude Fable 5” và “Best practices for Claude Code”. <a href="https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-fable-5" rel="noopener">platform.claude.com</a> · <a href="https://code.claude.com/docs/en/best-practices" rel="noopener">code.claude.com</a></li>
+      </ol>
+    </div>
+    <div>
+      <h4>Về trang này</h4>
+      <p>Sản phẩm của 12 lượt chạy được đăng nguyên trạng để ai cũng mở và tự so được. Ngoại lệ duy nhất: 3 dòng khai báo thêm vào 2 file của prompt trần (xem trang T2, T4), và hai video được nén lại cùng một thông số cho nhẹ.</p>
+      <p>Website do Claude Opus 5.5 làm trong Claude Code, theo chính mẫu prompt kiểu Boris. <a href="../index.html#trang-nay">Xem đề bài và báo cáo tự kiểm</a>.</p>
+      <p>Các tên quán, nhân vật, số điện thoại trong sản phẩm đều là hư cấu do model tạo ra.</p>
+    </div>
+  </div>
+</footer>
+<script src="../assets/js/site.js" defer></script>
+</body>
+</html>
